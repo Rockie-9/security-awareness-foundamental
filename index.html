@@ -1,5 +1,1064 @@
 <!DOCTYPE html>
 <html lang="en">
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Securing Our Future: Digital Self-Defense</title>
+
+  <!-- DIFF: Typography -> Roboto family -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Reveal.js -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reset.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/white.min.css" id="theme">
+
+  <style>
+    /* =========================================================
+      DIFF-STYLE CHANGELOG (high-level)
+      - RWD hardening for Reveal stage + responsive typography
+      - Add "Preview / Overview" button (works reliably)
+      - Glassmorphism polish (cards, chrome, subtle blurs)
+      - AIP labels revised + reduced contrast palette
+      - Profile photo integrated (assets/rockie.jpg)
+    ========================================================== */
+
+    :root {
+      /* --- Core palette (slightly softened for glass aesthetic) --- */
+      --corp-blue: #0B2A4A;
+      --corp-blue-2: #123A62;
+      --ink: #0f172a;
+      --text-main: #0b1220;
+      --text-muted: rgba(15, 23, 42, 0.70);
+
+      /* Accents (used sparingly) */
+      --accent-cyan: #00f3ff;
+      --accent-purple: #bc13fe;
+      --accent-pink: #ff0099;
+      --accent-amber: #fbbf24;
+      --accent-green: #00ff9d;
+
+      /* Surfaces */
+      --bg: #ffffff;
+      --grid-dot: rgba(148, 163, 184, 0.18);
+      --border: rgba(15, 23, 42, 0.12);
+
+      /* Glass tokens */
+      --glass: rgba(255, 255, 255, 0.62);
+      --glass-strong: rgba(255, 255, 255, 0.76);
+      --blur: 14px;
+      --shadow: 0 10px 30px rgba(2, 6, 23, 0.08);
+
+      /* Layout */
+      --gap: 24px;
+      --radius: 16px;
+
+      /* DIFF: AIP palette (reduced contrast, calmer tones) */
+      --aip-nr-bg: rgba(15, 23, 42, 0.06);
+      --aip-nr-fg: rgba(15, 23, 42, 0.78);
+
+      --aip-prop-bg: rgba(59, 130, 246, 0.10);
+      --aip-prop-fg: rgba(29, 78, 216, 0.78);
+
+      --aip-c-bg: rgba(245, 158, 11, 0.12);
+      --aip-c-fg: rgba(146, 64, 14, 0.78);
+
+      --aip-b-bg: rgba(249, 115, 22, 0.12);
+      --aip-b-fg: rgba(154, 52, 18, 0.80);
+
+      --aip-a-bg: rgba(239, 68, 68, 0.10);
+      --aip-a-fg: rgba(127, 29, 29, 0.82);
+    }
+
+    /* ---------- Background / canvas ---------- */
+    body {
+      background-color: var(--bg);
+      background-image: radial-gradient(var(--grid-dot) 1px, transparent 1px);
+      background-size: 22px 22px;
+      margin: 0;
+    }
+
+    /* =========================================================
+      DIFF: RWD HARDENING FOR REVEAL
+      Fixes: narrow stage floating, odd centering on ultrawide,
+      mobile scaling, consistent padding.
+    ========================================================== */
+    html, body { height: 100%; width: 100%; }
+
+    .reveal {
+      position: fixed;
+      inset: 0;
+      font-family: 'Roboto', system-ui, -apple-system, Segoe UI, Helvetica, Arial, sans-serif !important;
+      color: var(--text-main);
+      font-size: clamp(16px, 1.5vw, 24px);
+    }
+
+    .reveal .slides { height: 100% !important; }
+    .reveal .slides section {
+      padding: clamp(14px, 2.2vw, 28px);
+      height: 100%;
+      text-align: left;
+      box-sizing: border-box;
+    }
+
+    .reveal h1, .reveal h2, .reveal h3, .reveal h4 {
+      color: var(--corp-blue);
+      font-family: 'Roboto', system-ui, -apple-system, Segoe UI, Helvetica, Arial, sans-serif;
+      font-weight: 800;
+      text-transform: none;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5em;
+    }
+
+    .reveal h1 { font-size: clamp(40px, 4.2vw, 78px); line-height: 1.05; }
+    .reveal h2 { font-size: clamp(28px, 2.6vw, 46px); line-height: 1.15; }
+    .reveal h3 { font-size: clamp(20px, 2.0vw, 34px); line-height: 1.25; }
+    .reveal p  { margin-bottom: 1em; line-height: 1.6; color: var(--text-muted); }
+    .reveal strong { font-weight: 700; color: rgba(2, 6, 23, 0.92); }
+    .reveal small { font-size: 0.72em; color: rgba(15, 23, 42, 0.65); }
+
+    /* DIFF: underline accent for h2 (more subtle, glass-friendly) */
+    .reveal h2 {
+      position: relative;
+      display: inline-block;
+    }
+    .reveal h2::after {
+      content: '';
+      display: block;
+      width: 64px;
+      height: 5px;
+      margin-top: 10px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(0,243,255,0.95), rgba(188,19,254,0.85));
+      opacity: 0.75;
+    }
+
+    /* ---------- Logo chrome (glass) ---------- */
+    #company-logo {
+      position: absolute;
+      top: clamp(10px, 2.0vh, 22px);
+      left: clamp(10px, 2.0vw, 22px);
+      z-index: 1000;
+      width: clamp(110px, 14vw, 170px);
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: var(--glass-strong);
+      border: 1px solid rgba(15, 23, 42, 0.10);
+      backdrop-filter: blur(var(--blur));
+      -webkit-backdrop-filter: blur(var(--blur));
+      box-shadow: var(--shadow);
+    }
+    #company-logo img { width: 100%; display: block; border-radius: 10px; }
+
+    /* ---------- Layout utilities ---------- */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); align-items: center; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gap); }
+    .grid-auto { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+    .flex-center { display: flex; justify-content: center; align-items: center; flex-direction: column; text-align: center; }
+    .flex-row { display: flex; gap: var(--gap); align-items: flex-start; }
+    .measure { max-width: 940px; }
+
+    @media (max-width: 1024px) {
+      .grid-2 { grid-template-columns: 1fr !important; }
+      .grid-3 { grid-template-columns: 1fr !important; }
+      .traffic-grid { grid-template-columns: 1fr !important; }
+      .flex-row { flex-direction: column; }
+    }
+    @media (max-width: 480px) {
+      #company-logo { width: 120px; }
+    }
+
+    /* =========================================================
+      DIFF: Glassmorphism Components
+    ========================================================== */
+    .card {
+      background: var(--glass);
+      border: 1px solid rgba(15, 23, 42, 0.10);
+      border-radius: var(--radius);
+      padding: 24px;
+      backdrop-filter: blur(var(--blur));
+      -webkit-backdrop-filter: blur(var(--blur));
+      box-shadow: 0 6px 22px rgba(2, 6, 23, 0.08);
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 36px rgba(2, 6, 23, 0.10);
+    }
+
+    .card.highlight {
+      border-left: 6px solid rgba(0, 243, 255, 0.60);
+    }
+    .card.danger {
+      border-left: 6px solid rgba(239, 68, 68, 0.55);
+      background: rgba(255, 255, 255, 0.72);
+    }
+    .card.success {
+      border-left: 6px solid rgba(16, 185, 129, 0.55);
+      background: rgba(255, 255, 255, 0.72);
+    }
+
+    /* Badges */
+    .badge {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.62em;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border: 1px solid rgba(15, 23, 42, 0.12);
+      background: rgba(255, 255, 255, 0.72);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .badge.blue  { color: rgba(11, 42, 74, 0.88); }
+    .badge.green { color: rgba(6, 95, 70, 0.85); }
+    .badge.red   { color: rgba(153, 27, 27, 0.85); }
+
+    /* Icon circle (glass) */
+    .icon-circle {
+      width: 84px; height: 84px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.62);
+      border: 1px solid rgba(15, 23, 42, 0.10);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      color: var(--corp-blue);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2em;
+      box-shadow: var(--shadow);
+      margin: 0 auto 16px auto;
+    }
+    .icon-circle.red { color: rgba(153, 27, 27, 0.85); }
+    .icon-circle.green { color: rgba(6, 95, 70, 0.85); }
+
+    /* Timeline */
+    .timeline {
+      display: flex; justify-content: space-between;
+      gap: 10px;
+      border-bottom: 1px solid rgba(15, 23, 42, 0.10);
+      margin-bottom: 34px;
+      padding-bottom: 12px;
+    }
+    .timeline span {
+      font-size: 0.62em;
+      color: rgba(15, 23, 42, 0.35);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      white-space: nowrap;
+    }
+    .timeline span.active {
+      color: rgba(11, 42, 74, 0.92);
+      border-bottom: 3px solid rgba(0,243,255,0.55);
+      padding-bottom: 10px;
+    }
+
+    /* DIFF: Profile container + photo */
+    .profile-container {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+      background: var(--glass);
+      padding: 26px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(15, 23, 42, 0.10);
+      backdrop-filter: blur(var(--blur));
+      -webkit-backdrop-filter: blur(var(--blur));
+      box-shadow: var(--shadow);
+    }
+    @media (max-width: 768px) {
+      .profile-container { flex-direction: column; align-items: flex-start; }
+    }
+
+    .profile-photo {
+      width: 148px;
+      height: 148px;
+      border-radius: 18px;
+      object-fit: cover;
+      border: 1px solid rgba(15, 23, 42, 0.12);
+      box-shadow: 0 14px 30px rgba(2, 6, 23, 0.10);
+      background: rgba(255,255,255,0.6);
+    }
+
+    /* Traffic grid */
+    .traffic-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; }
+    .traffic-item {
+      text-align: center;
+      padding: 26px 18px;
+      border: 1px solid rgba(15, 23, 42, 0.10);
+      border-radius: var(--radius);
+      background: var(--glass);
+      backdrop-filter: blur(var(--blur));
+      -webkit-backdrop-filter: blur(var(--blur));
+      box-shadow: 0 10px 24px rgba(2, 6, 23, 0.08);
+    }
+    .traffic-item.red { border-top: 7px solid rgba(239, 68, 68, 0.55); }
+    .traffic-item.yellow { border-top: 7px solid rgba(245, 158, 11, 0.55); }
+    .traffic-item.green { border-top: 7px solid rgba(16, 185, 129, 0.55); }
+
+    /* License card */
+    .license-card {
+      background: rgba(255,255,255,0.68);
+      border: 1px solid rgba(15, 23, 42, 0.10);
+      border-radius: 18px;
+      padding: 40px;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 18px 40px rgba(2, 6, 23, 0.10);
+      max-width: 620px;
+      margin: 0 auto;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      overflow: hidden;
+    }
+    .license-card::before {
+      content: '';
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 10px;
+      background: linear-gradient(90deg, rgba(0,243,255,0.70), rgba(188,19,254,0.55));
+      opacity: 0.85;
+    }
+
+    /* DIFF: AIP chips (reduced contrast) */
+    .aip-stack { display: flex; flex-direction: column; gap: 10px; }
+    .aip-chip {
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(15, 23, 42, 0.10);
+      font-size: 0.78em;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .aip-nr   { background: var(--aip-nr-bg);   color: var(--aip-nr-fg); }
+    .aip-prop { background: var(--aip-prop-bg); color: var(--aip-prop-fg); }
+    .aip-c    { background: var(--aip-c-bg);    color: var(--aip-c-fg); }
+    .aip-b    { background: var(--aip-b-bg);    color: var(--aip-b-fg); }
+    .aip-a    { background: var(--aip-a-bg);    color: var(--aip-a-fg); }
+
+    /* DIFF: Preview button (fixed, reliable) */
+    .preview-btn {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 2000;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.76);
+      border: 1px solid rgba(15, 23, 42, 0.12);
+      box-shadow: 0 14px 34px rgba(2, 6, 23, 0.12);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      font-weight: 800;
+      color: rgba(11, 42, 74, 0.92);
+      cursor: pointer;
+      user-select: none;
+    }
+    .preview-btn .dot {
+      width: 10px; height: 10px; border-radius: 999px;
+      background: linear-gradient(90deg, rgba(0,243,255,0.85), rgba(188,19,254,0.70));
+      box-shadow: 0 0 0 4px rgba(0,243,255,0.10);
+    }
+    .preview-hint {
+      position: fixed;
+      right: 18px;
+      bottom: 62px;
+      z-index: 2000;
+      font-size: 12px;
+      color: rgba(15, 23, 42, 0.55);
+      background: rgba(255,255,255,0.72);
+      border: 1px solid rgba(15, 23, 42, 0.10);
+      border-radius: 12px;
+      padding: 8px 10px;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 10px 22px rgba(2, 6, 23, 0.08);
+      max-width: 260px;
+    }
+
+    /* Animations */
+    @keyframes pulse-soft {
+      0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.25); }
+      70% { box-shadow: 0 0 0 12px rgba(239, 68, 68, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+    }
+    .pulse-warning { animation: pulse-soft 2.2s infinite; }
+
+    aside.notes { font-size: 16px; line-height: 1.5; font-family: 'Roboto', sans-serif; }
+  </style>
+</head>
+
+<body>
+  <div class="reveal">
+
+    <!-- LOGO PLACEHOLDER -->
+    <div id="company-logo">
+      <img src="https://placehold.co/160x50/0B2A4A/ffffff?text=LOGO" alt="Company Logo">
+    </div>
+
+    <!-- DIFF: Working Preview/Overview control -->
+    <div class="preview-hint">
+      Tip: Click “Preview” for slide overview (fast audit).<br>
+      Keyboard: <strong>Esc</strong> toggles overview too.
+    </div>
+    <div class="preview-btn" id="previewBtn" title="Toggle Overview / Preview">
+      <span class="dot"></span> Preview
+    </div>
+
+    <div class="slides">
+
+      <!-- SLIDE 1: HOOK -->
+      <section class="flex-center">
+        <div class="icon-circle" style="width: 120px; height: 120px; font-size: 3em;">
+          <i class="fas fa-hand-paper"></i>
+        </div>
+        <h2 style="border:none; margin-bottom: 10px;">Quick Question</h2>
+
+        <div class="fragment fade-up measure">
+          <p style="font-size: clamp(18px, 1.7vw, 28px); color: rgba(2,6,23,0.85);">
+            "Raise your hand if you checked your <strong>personal phone</strong><br>
+            this morning <em>before</em> walking through our gates."
+          </p>
+        </div>
+
+        <div class="fragment fade-up badge" style="margin-top: 28px;">
+          Thinking Activity
+        </div>
+
+        <aside class="notes">
+          (00:00–00:20) Raise your hand first. Ask the question. Pause for 3 seconds.
+          (00:20–00:35) “Good. You passed the first test… or did you?”
+        </aside>
+      </section>
+
+      <!-- SLIDE 2: TITLE -->
+      <section>
+        <div class="grid-2">
+          <div>
+            <div class="badge blue">Newcomer Training 2025</div>
+            <h1 style="margin-top: 14px;">Securing<br>Our Future</h1>
+            <h3 style="color: var(--text-muted); font-weight: 300; margin-top: 14px;">Digital Self-Defense for New Partners</h3>
+
+            <div class="card" style="margin-top: 34px;">
+              <strong>Proprietary Information Protection (PIP)</strong><br>
+              <span style="color: var(--text-muted); font-size: 0.9em;">Global Security Management</span>
+            </div>
+          </div>
+
+          <div style="display:flex; justify-content:center; align-items:center;">
+            <div class="card" style="width: min(520px, 100%); text-align:center;">
+              <div style="font-size: 5.2em; opacity: 0.14; color: var(--corp-blue);">
+                <i class="fas fa-shield-halved"></i>
+              </div>
+              <div class="badge blue" style="margin-top: 10px;">AURORA GLASS™ // Design OS</div>
+              <p style="margin: 10px 0 0;">High-signal, low-noise security onboarding.</p>
+            </div>
+          </div>
+        </div>
+
+        <aside class="notes">
+          (00:35–01:00) Set the tone: “Today is not about fear. It’s about muscle memory.”
+        </aside>
+      </section>
+
+      <!-- SLIDE 3: WHO WE ARE -->
+      <section>
+        <h2>Who We Are</h2>
+
+        <div class="profile-container">
+          <!-- DIFF: Replace icon block with your actual photo -->
+          <img class="profile-photo" src="assets/rockie.jpg" alt="Rockie photo">
+
+          <div style="flex: 1;">
+            <h3 style="margin: 0; color: var(--corp-blue);">Rockie</h3>
+            <p style="margin: 6px 0 14px 0;">PIP @ Global Security Management</p>
+            <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+              <span class="badge blue">13+ Years Exp</span>
+              <span class="badge blue">3+ Years TSMC</span>
+              <span class="badge blue">EU/Overseas Onboarding</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-3" style="margin-top: 26px;">
+          <div class="card" style="text-align: center;">
+            <div style="opacity: 0.65; font-size: 2em; margin-bottom: 10px;"><i class="fas fa-server"></i></div>
+            <h4 style="font-size: 0.95em; margin: 0;">IT Security</h4>
+            <small>Outside-In</small>
+          </div>
+          <div class="card" style="text-align: center;">
+            <div style="opacity: 0.65; font-size: 2em; margin-bottom: 10px;"><i class="fas fa-building-shield"></i></div>
+            <h4 style="font-size: 0.95em; margin: 0;">Physical</h4>
+            <small>People & Site</small>
+          </div>
+          <div class="card highlight" style="text-align: center;">
+            <div style="font-size: 2em; margin-bottom: 10px; color: rgba(11,42,74,0.9);"><i class="fas fa-file-shield"></i></div>
+            <h4 style="font-size: 0.95em; margin: 0;">PIP (Me)</h4>
+            <small>Inside-Out</small>
+          </div>
+        </div>
+
+        <div class="fragment card success" style="margin-top: 18px; padding: 14px;">
+          <p style="margin:0; font-size: 0.95em;"><strong><i class="fas fa-check-circle"></i> Culture:</strong> "We are the Immune System, not the Police."</p>
+        </div>
+
+        <aside class="notes">
+          (01:00–01:40) Quick positioning: you help them succeed; you don’t “hunt mistakes.”
+        </aside>
+      </section>
+
+      <!-- SLIDE 4: LOGIC -->
+      <section class="flex-center">
+        <div class="measure">
+          <h2>The Business Logic</h2>
+          <p>Why is PIP strict? It’s simple math.</p>
+
+          <div style="display:flex; flex-wrap:wrap; justify-content:center; gap: 12px; margin-top: 26px;">
+            <div class="card">R&amp;D + IP</div>
+            <div class="card">Leadership</div>
+            <div class="card highlight" style="border-left-color: rgba(16,185,129,0.55);">
+              <i class="fas fa-wallet"></i> YOUR BONUS
+            </div>
+          </div>
+
+          <div class="fragment card danger" style="margin-top: 24px;">
+            <em>"If IP leaks, prices drop, revenue drops, and bonuses vanish."</em>
+          </div>
+        </div>
+
+        <aside class="notes">
+          (01:40–02:20) Make it personal but factual: “Security is business continuity.”
+        </aside>
+      </section>
+
+      <!-- SLIDE 5: GENERAL PRINCIPLE -->
+      <section>
+        <h2>General Principle</h2>
+        <div class="flex-center" style="margin-bottom: 22px;">
+          <h3 style="font-size: clamp(28px, 2.3vw, 40px); color: var(--corp-blue); margin: 0;">"NEED TO KNOW"</h3>
+          <small>The Fundamental Filter</small>
+        </div>
+
+        <div class="grid-auto">
+          <div class="card fragment" style="text-align:center;">
+            <div style="font-size: 2em; opacity: 0.7; margin-bottom: 10px;"><i class="fas fa-eye"></i></div>
+            <h4>SEE</h4>
+            <small>Access only what’s necessary</small>
+          </div>
+          <div class="card fragment" style="text-align:center;">
+            <div style="font-size: 2em; opacity: 0.7; margin-bottom: 10px;"><i class="fas fa-ear-listen"></i></div>
+            <h4>HEAR</h4>
+            <small>No eavesdropping</small>
+          </div>
+          <div class="card fragment" style="text-align:center;">
+            <div style="font-size: 2em; opacity: 0.7; margin-bottom: 10px;"><i class="fas fa-comment"></i></div>
+            <h4>SPEAK</h4>
+            <small>Discuss only with your team</small>
+          </div>
+          <div class="card fragment" style="text-align:center;">
+            <div style="font-size: 2em; opacity: 0.7; margin-bottom: 10px;"><i class="fas fa-share-nodes"></i></div>
+            <h4>SHARE</h4>
+            <small>No unauthorized transfers</small>
+          </div>
+        </div>
+
+        <aside class="notes">
+          (02:20–03:10) “This rule scales. If you remember only one thing, remember this.”
+        </aside>
+      </section>
+
+      <!-- SLIDE 6: TRAP 1 (GATE) -->
+      <section>
+        <div class="timeline">
+          <span class="active">Gate Check</span><span>Tailgate</span><span>Clean Start</span><span>Phishing</span><span>AI</span><span>Off-Site</span>
+        </div>
+        <h3>Trap #1: The Gate Check</h3>
+
+        <div class="grid-2" style="align-items: start;">
+          <div>
+            <div class="card danger">
+              <h4 style="margin:0;"><i class="fas fa-ban"></i> PROHIBITED DEVICES</h4>
+              <div class="grid-3" style="gap: 10px; margin-top: 12px;">
+                <div style="font-size: 0.75em; text-align: center;"><i class="fas fa-mobile-alt"></i><br>Phones</div>
+                <div style="font-size: 0.75em; text-align: center;"><i class="fas fa-laptop"></i><br>Laptops</div>
+                <div style="font-size: 0.75em; text-align: center;"><i class="fas fa-camera"></i><br>Cameras</div>
+                <div style="font-size: 0.75em; text-align: center;"><i class="fas fa-clock"></i><br><strong>Smart Watch</strong></div>
+                <div style="font-size: 0.75em; text-align: center;"><i class="fas fa-tag"></i><br><strong>AirTags</strong></div>
+                <div style="font-size: 0.75em; text-align: center;"><i class="fas fa-hdd"></i><br>USB/Drones</div>
+              </div>
+            </div>
+
+            <div class="fragment card success" style="margin-top: 14px;">
+              <h4 style="font-size: 1em; margin:0;"><i class="fas fa-shield-alt"></i> Privacy Guarantee</h4>
+              <small>Lockers are secure. Zero company access. Backed by Works Council (where applicable).</small>
+            </div>
+          </div>
+
+          <div>
+            <div class="card" style="border-left: 6px solid rgba(245,158,11,0.45); background: rgba(255,255,255,0.72);">
+              <p style="margin:0; font-size: 0.95em; color: rgba(120, 53, 15, 0.88); font-style: italic;">
+                "This might be the world's safest place to work. Nothing gets stolen, and if it does, the thief is caught immediately."
+              </p>
+              <div style="margin-top: 10px;">
+                <strong style="font-size: 0.85em; color: rgba(120,53,15,0.82);">- Dean, Stanford Sustainability School</strong>
+              </div>
+            </div>
+
+            <div class="fragment" style="margin-top: 16px;">
+              <h4 style="font-size: 1em;">Access Process</h4>
+              <ol style="font-size: 0.9em; margin-left: 18px; color: var(--text-muted);">
+                <li>Check Approved List</li>
+                <li>Strict Internal Review</li>
+                <li>Stakeholder Approval</li>
+              </ol>
+              <div class="badge red" style="margin-top: 8px;">No Greenlight = No Entry</div>
+            </div>
+          </div>
+        </div>
+
+        <aside class="notes">
+          (03:10–04:10) Emphasize fairness: “The rule applies to everyone, including leadership.”
+        </aside>
+      </section>
+
+      <!-- SLIDE 7: TRAP 2 (TAILGATING) -->
+      <section>
+        <div class="timeline">
+          <span>Gate Check</span><span class="active">Tailgate</span><span>Clean Start</span><span>Phishing</span><span>AI</span><span>Off-Site</span>
+        </div>
+        <h3>Trap #2: The Friendly Stranger</h3>
+
+        <div class="grid-2">
+          <div>
+            <p><strong>Scenario:</strong> Someone smiles and waits for you to hold the door.</p>
+            <div class="card" style="text-align: center; padding: 34px;">
+              <div style="font-size: 4em; opacity: 0.65; margin-bottom: 14px;"><i class="fas fa-id-card-clip"></i></div>
+              <h4>One Badge, One Person</h4>
+            </div>
+          </div>
+
+          <div>
+            <div class="card highlight">
+              <div class="badge blue">🇩🇪 Professional Script</div>
+              <p style="font-size: clamp(18px, 1.8vw, 28px); font-style: italic; color: rgba(11,42,74,0.92); line-height: 1.35; margin-top: 12px;">
+                "Entschuldigung, Vorschrift ist Vorschrift. Ich warte kurz, bis Sie gescannt haben."
+              </p>
+              <hr style="border: none; border-top: 1px solid rgba(15,23,42,0.10); margin: 14px 0;">
+              <small>(Sorry, rules are rules. I'll wait until you scan.)</small>
+            </div>
+          </div>
+        </div>
+
+        <aside class="notes">
+          (04:10–05:10) Overseas colleagues appreciate “polite firmness” scripts—keep it simple.
+        </aside>
+      </section>
+
+      <!-- SLIDE 8: TRAP 3 (AIP) -->
+      <section>
+        <div class="timeline">
+          <span>Gate Check</span><span>Tailgate</span><span class="active">Data</span><span>Phishing</span><span>AI</span><span>Off-Site</span>
+        </div>
+        <h3>Trap #3: The Unlabeled File</h3>
+        <p>Data classification (AIP) is mandatory.</p>
+
+        <div class="grid-2">
+          <!-- DIFF: AIP labels updated + reduced contrast -->
+          <div class="aip-stack">
+            <div class="aip-chip aip-nr">No Restrictions</div>
+            <div class="aip-chip aip-prop">TSMC Properties</div>
+            <div class="aip-chip aip-c">Security C</div>
+            <div class="aip-chip aip-b">Security B</div>
+            <div class="aip-chip aip-a">Security A/AA</div>
+          </div>
+
+          <div style="display:flex; flex-direction: column; gap: 12px;">
+            <div class="fragment card">
+              <h4 style="font-size: 1em; margin:0;"><i class="fas fa-envelope"></i> Email Guard</h4>
+              <small>System blocks sending high-classification data to external recipients.</small>
+            </div>
+            <div class="fragment card">
+              <h4 style="font-size: 1em; margin:0;"><i class="fas fa-print"></i> Printing Trace</h4>
+              <small>Mandatory watermarks &amp; traceability.<br><em>"If found outside, we can identify the print source."</em></small>
+            </div>
+          </div>
+        </div>
+
+        <aside class="notes">
+          (05:10–06:20) Legal-friendly framing: focus on “duty of care” and traceability, not surveillance.
+        </aside>
+      </section>
+
+      <!-- SLIDE 9: TRAP 4 (CONTAMINATION) -->
+      <section>
+        <div class="timeline">
+          <span>Gate Check</span><span>Tailgate</span><span class="active">Clean Start</span><span>Phishing</span><span>AI</span><span>Off-Site</span>
+        </div>
+        <div class="flex-center" style="height: 100%;">
+          <div class="icon-circle red" style="width: 120px; height: 120px; font-size: 4em;">
+            <i class="fas fa-biohazard"></i>
+          </div>
+          <h2 style="border: none; color: rgba(153,27,27,0.90);">DATA CONTAMINATION</h2>
+
+          <p class="measure" style="font-size: clamp(18px, 1.6vw, 26px); color: rgba(2,6,23,0.80);">
+            The Risk: Bringing IP, code, patents, or templates from your <strong>Former Employer</strong>.
+          </p>
+
+          <div class="fragment card danger pulse-warning measure" style="margin-top: 16px;">
+            <strong><i class="fas fa-exclamation-triangle"></i> DANGER</strong>
+            <p style="margin: 10px 0;">Using unowned IP exposes the company to lawsuits and reputational loss.</p>
+            <strong style="color: rgba(153,27,27,0.90);">Rule: Bring your experience, NEVER their data.</strong>
+          </div>
+        </div>
+
+        <aside class="notes">
+          (06:20–07:20) Keep it respectful: “We protect you from accidental violations.”
+        </aside>
+      </section>
+
+      <!-- SLIDE 10: TRAP 5 (PHISHING) -->
+      <section>
+        <div class="timeline">
+          <span>Gate Check</span><span>Tailgate</span><span>Clean Start</span><span class="active">Phishing</span><span>AI</span><span>Off-Site</span>
+        </div>
+        <h3>Trap #4: The Fake Welcome</h3>
+
+        <div class="grid-2">
+          <div class="card" style="font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; border-left: 6px solid rgba(239,68,68,0.50);">
+            <div style="color: rgba(153,27,27,0.88); font-weight: 800;">From: HR-Admin &lt;hr-support@gmaiI.com&gt;</div>
+            <div style="margin-bottom: 12px;">Subject: Action Required: Payroll Update</div>
+            <div style="font-size: 0.9em;">Dear Partner, please click here to update bank info...</div>
+          </div>
+
+          <div class="flex-center">
+            <h4 style="font-size: clamp(26px, 2.2vw, 42px); margin-bottom: 8px; color: rgba(153,27,27,0.88);">STOP. CHECK. CALL.</h4>
+            <p>New hires are a top target.</p>
+          </div>
+        </div>
+
+        <div class="fragment card" style="display:flex; gap: 16px; align-items:center; margin-top: 14px;">
+          <div style="font-size: 3em; opacity: 0.75; color: rgba(153,27,27,0.80);"><i class="fas fa-qrcode"></i></div>
+          <div>
+            <strong>Watch out for "Quishing"</strong><br>
+            <small>Fake QR stickers. Use official channels only.</small>
+          </div>
+        </div>
+
+        <aside class="notes">
+          (07:20–08:30) Overseas feedback: keep examples culturally neutral and universal (QR scams exist everywhere).
+        </aside>
+      </section>
+
+      <!-- SLIDE 11: TRAP 6 (AI) -->
+      <section>
+        <div class="timeline">
+          <span>Gate Check</span><span>Tailgate</span><span>Clean Start</span><span>Phishing</span><span class="active">AI</span><span>Off-Site</span>
+        </div>
+        <h3>Trap #5: The AI Trap</h3>
+        <p>"Your Input = Their Training Data"</p>
+
+        <div class="grid-2">
+          <div class="card danger text-center fragment">
+            <div class="icon-circle red"><i class="fas fa-ban"></i></div>
+            <h4 style="color: rgba(153,27,27,0.88);">PROHIBITED</h4>
+            <ul style="text-align: left; font-size: 0.9em; list-style: none; padding: 0; margin: 0;">
+              <li><i class="fas fa-times"></i> Public ChatGPT / DeepL (for sensitive content)</li>
+              <li><i class="fas fa-times"></i> <strong>Shadow IT:</strong> Notion, Figma, Trello (unless reviewed)</li>
+            </ul>
+          </div>
+
+          <div class="card success text-center fragment">
+            <div class="icon-circle green"><i class="fas fa-check"></i></div>
+            <h4 style="color: rgba(6,95,70,0.88);">APPROVED</h4>
+            <ul style="text-align: left; font-size: 0.9em; list-style: none; padding: 0; margin: 0;">
+              <li><i class="fas fa-check"></i> <strong>tGenie</strong> (Internal LLM)</li>
+              <li><i class="fas fa-check"></i> Approved Software List</li>
+            </ul>
+          </div>
+        </div>
+
+        <aside class="notes">
+          (08:30–09:40) Trainer note: avoid tool-bashing; focus on “right tool for right data class.”
+        </aside>
+      </section>
+
+      <!-- SLIDE 12: OFF SITE -->
+      <section>
+        <div class="timeline">
+          <span>Gate Check</span><span>Tailgate</span><span>Clean Start</span><span>Phishing</span><span>AI</span><span class="active">Off-Site</span>
+        </div>
+        <h3>Trap #6 &amp; #7: Off-Site</h3>
+
+        <div class="grid-2">
+          <div>
+            <ul style="font-size: 0.98em; line-height: 2;">
+              <li><strong>Trap #6 (Public Talk):</strong> No client names in public transport or restaurants.</li>
+              <li><strong>Trap #7 (Taking Data Home):</strong> <span class="badge red">Just Don’t.</span></li>
+            </ul>
+          </div>
+
+          <div class="card highlight text-center">
+            <div style="font-size: 3em; opacity: 0.70; margin-bottom: 12px;"><i class="fas fa-mug-hot"></i></div>
+            <h4>Work-Life Balance</h4>
+            <p style="font-size: 0.95em;">Data stays on-site. Disconnect to recharge.</p>
+            <div class="badge blue">Respect your Feierabend</div>
+          </div>
+        </div>
+
+        <aside class="notes">
+          (09:40–10:40) Overseas colleagues: “Feierabend” lands well in DE; keep optional elsewhere.
+        </aside>
+      </section>
+
+      <!-- SLIDE 13: DETERRENCE -->
+      <section>
+        <h2 style="border-bottom-color: rgba(2,6,23,0.9); color: rgba(153,27,27,0.90);">Reality Check</h2>
+        <p>The impact is greater than you expect.</p>
+
+        <div class="fragment card danger" style="margin-bottom: 14px;">
+          <div class="flex-row">
+            <div style="font-size: 1.6em; opacity: 0.75; color: rgba(153,27,27,0.85);"><i class="fas fa-file-contract"></i></div>
+            <div>
+              <strong>Case Study A:</strong> Engineer took a photo of an error code to work from home.<br>
+              <span class="badge red" style="margin-top: 8px; display:inline-block;">RESULT: Immediate Dismissal + Legal Action</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="fragment card danger">
+          <div class="flex-row">
+            <div style="font-size: 1.6em; opacity: 0.75; color: rgba(153,27,27,0.85);"><i class="fas fa-code-branch"></i></div>
+            <div>
+              <strong>Case Study B:</strong> Employee uploaded code to GitHub for "backup".<br>
+              <span class="badge red" style="margin-top: 8px; display:inline-block;">RESULT: Bonus Forfeited + Formal Warning</span>
+            </div>
+          </div>
+        </div>
+
+        <aside class="notes">
+          (10:40–11:40) Corp Legal voice: stick to outcomes; avoid exaggerated numbers; keep factual tone.
+        </aside>
+      </section>
+
+      <!-- SLIDE 14: TRAFFIC LIGHT RECAP -->
+      <section>
+        <h2>Traffic Light System</h2>
+        <div class="traffic-grid" style="margin-top: 22px;">
+          <div class="traffic-item red">
+            <div style="font-size: 2em; opacity: 0.75; margin-bottom: 10px; color: rgba(153,27,27,0.85);"><i class="fas fa-times-circle"></i></div>
+            <h4 style="color: rgba(153,27,27,0.88);">PROHIBITED</h4>
+            <small>USBs, Cameras, Recorders, Transmission Devices</small>
+          </div>
+          <div class="traffic-item yellow">
+            <div style="font-size: 2em; opacity: 0.75; margin-bottom: 10px; color: rgba(146,64,14,0.82);"><i class="fas fa-exclamation-triangle"></i></div>
+            <h4 style="color: rgba(146,64,14,0.86);">REGISTER</h4>
+            <small>Personal Laptops, Tablets (IT Scan Required)</small>
+          </div>
+          <div class="traffic-item green">
+            <div style="font-size: 2em; opacity: 0.75; margin-bottom: 10px; color: rgba(6,95,70,0.82);"><i class="fas fa-check-circle"></i></div>
+            <h4 style="color: rgba(6,95,70,0.88);">ALLOWED</h4>
+            <small>Water bottles, non-digital items</small>
+          </div>
+        </div>
+
+        <aside class="notes">
+          (11:40–12:30) Corp trainer note: “Traffic light is your memory shortcut.”
+        </aside>
+      </section>
+
+      <!-- SLIDE 15: RESOURCES -->
+      <section>
+        <h2>Resources &amp; Culture</h2>
+        <div class="grid-2" style="align-items: start;">
+          <div>
+            <h4 style="font-size: 1em;">Digital Toolbox</h4>
+            <div class="card" style="padding: 16px;">
+              <ul style="margin: 0; padding-left: 18px; font-size: 0.92em;">
+                <li><code>go/security</code> (Portal)</li>
+                <li>Policy Finder</li>
+                <li>Approved Device List</li>
+              </ul>
+            </div>
+
+            <h4 style="font-size: 1em; margin-top: 14px;">Human Network</h4>
+            <div class="card" style="padding: 16px;">
+              <ul style="margin: 0; padding-left: 18px; font-size: 0.92em;">
+                <li><strong>PIP Guardians</strong> (Dept. Seniors)</li>
+                <li><strong>DPO</strong> (Privacy)</li>
+              </ul>
+            </div>
+          </div>
+
+          <div>
+            <div class="fragment license-card">
+              <div class="badge red" style="position: absolute; top: 16px; right: 16px;">VALID: 3 MONTHS</div>
+              <div style="font-size: 4em; opacity: 0.68; color: rgba(11,42,74,0.90); margin-bottom: 10px;">
+                <i class="fas fa-id-badge"></i>
+              </div>
+              <h3 style="color: var(--corp-blue); margin: 0;">LICENSE TO ASK</h3>
+              <p style="font-style: italic; margin-top: 8px;">"There are no stupid questions."</p>
+            </div>
+          </div>
+        </div>
+
+        <aside class="notes">
+          (12:30–13:30) Overseas feedback: explicitly invite questions; it reduces “silent mistakes.”
+        </aside>
+      </section>
+
+      <!-- SLIDE 16: SOP -->
+      <section>
+        <h2>Incident Reporting</h2>
+        <div class="badge blue" style="font-size: 0.9em; padding: 10px 16px;">
+          Golden Rule: Reporting = Amnesty. Hiding = Trouble.
+        </div>
+
+        <div class="grid-3" style="text-align: center; margin-top: 18px;">
+          <div class="card">
+            <div style="font-size: 3em; font-weight: 800; color: rgba(148,163,184,0.55);">1</div>
+            <h4>Disconnect</h4>
+            <small>Unplug / Wi-Fi Off</small>
+          </div>
+          <div class="card">
+            <div style="font-size: 3em; font-weight: 800; color: rgba(148,163,184,0.55);">2</div>
+            <h4>Report</h4>
+            <small>Ext. 1234 / Button</small>
+          </div>
+          <div class="card">
+            <div style="font-size: 3em; font-weight: 800; color: rgba(148,163,184,0.55);">3</div>
+            <h4>Wait</h4>
+            <small>For IT Support</small>
+          </div>
+        </div>
+
+        <aside class="notes">
+          (13:30–14:30) Corp security: praise early reporting; it’s the behavior you want to reinforce.
+        </aside>
+      </section>
+
+      <!-- SLIDE 17: VERDICT (CLOSING) -->
+      <section class="flex-center">
+        <div class="measure">
+          <h2>The Verdict</h2>
+
+          <div class="card" style="padding: 26px;">
+            <div class="grid-2" style="gap: 18px;">
+              <div style="text-align: left; border-right: 1px solid rgba(15,23,42,0.10); padding-right: 18px;">
+                <div style="font-size: 3em; opacity: 0.72; margin-bottom: 10px;"><i class="fas fa-question-circle"></i></div>
+                <p style="font-style: italic; font-size: 1.05em; color: rgba(2,6,23,0.82);">
+                  "Did you check your phone<br><strong>BEFORE</strong> the gate?"
+                </p>
+                <div style="margin-top: 10px;">
+                  <span class="badge green">GREEN ZONE (Life)</span>
+                  <span style="margin:0 8px; color: rgba(15,23,42,0.45); font-weight:800;">vs</span>
+                  <span class="badge red">RED ZONE (IP)</span>
+                </div>
+                <small style="display: block; margin-top: 8px;">Know the boundary.</small>
+              </div>
+
+              <div class="flex-center">
+                <h4 style="margin-bottom: 10px;">MISSION #1</h4>
+                <div style="font-size: 6em; opacity: 0.6;"><i class="fas fa-qrcode"></i></div>
+                <p style="margin: 10px 0 0;"><strong>Action: Scan &amp; Save</strong></p>
+                <div class="badge blue" style="font-size: 0.95em;">"PIP SOS"</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top: 18px; display:flex; align-items:center; gap: 12px;">
+            <img src="assets/rockie.jpg" alt="Rockie" style="width:52px;height:52px;border-radius:14px;object-fit:cover;border:1px solid rgba(15,23,42,0.10);box-shadow:0 10px 20px rgba(2,6,23,0.10);">
+            <div style="text-align:left;">
+              <strong>Your Partner: Rockie</strong><br>
+              <small>Welcome to the team.</small>
+            </div>
+          </div>
+        </div>
+
+        <aside class="notes">
+          (14:30–15:30) Close with confidence: “You now know what ‘good’ looks like.”
+        </aside>
+      </section>
+
+      <!-- SLIDE 18: APPENDIX -->
+      <section>
+        <h2>Appendix: Legal Defense</h2>
+        <div class="card success" style="margin-bottom: 14px;">
+          <strong>Universal Defense: Duty of Care</strong>
+          <p style="margin: 8px 0 0;">"We monitor and control to prevent negligence and protect stakeholders."</p>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <strong>GDPR Recital 49</strong>
+            <p>Ensuring network / information security can be a "legitimate interest".</p>
+          </div>
+          <div class="card">
+            <strong>Forensics ≠ Surveillance</strong>
+            <p>Logs are for <strong>traceability</strong> (incidents), not “watching people.”</p>
+          </div>
+        </div>
+
+        <aside class="notes">
+          (Optional) Only cover if asked; keep it short to avoid losing the room.
+        </aside>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/notes/notes.min.js"></script>
+
+  <script>
+    /* =========================================================
+      DIFF: Reveal RWD config tuned for 2025 devices
+      - Better scaling on 16:10 laptops and ultrawide monitors
+      - Less empty margin
+    ========================================================== */
+    Reveal.initialize({
+      hash: true,
+      controls: true,
+      progress: true,
+      slideNumber: 'c/t',
+      transition: 'slide',
+      center: true,
+
+      width: 1366,
+      height: 768,
+      margin: 0.04,
+      minScale: 0.18,
+      maxScale: 2.0,
+
+      plugins: [ RevealNotes ]
+    });
+
+    /* DIFF: Preview button (uses Reveal overview) */
+    const previewBtn = document.getElementById('previewBtn');
+    previewBtn.addEventListener('click', () => {
+      Reveal.toggleOverview();
+    });
+
+    /* Optional: also allow "P" key for preview */
+    document.addEventListener('keydown', (e) => {
+      if (e.key.toLowerCase() === 'p') Reveal.toggleOverview();
+    });
+  </script>
+</body>
+</html>
 <head>
   <meta charset="utf-8" />
   <title>Security Awareness Fundamental</title>

@@ -2,15 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Securing Our Future: Digital Self-Defense</title>
 
-  <!-- Typography: Roboto family -->
+  <!-- Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;800&display=swap" rel="stylesheet">
 
   <!-- Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -18,47 +16,24 @@
   <!-- Reveal.js -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reset.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/white.min.css" id="theme">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/white.min.css">
 
   <style>
-    /* =========================================================
-      AURORA GLASS™ // Design OS (IP label)
-      - Single-file, no duplicate head/body
-      - Glassmorphism system + RWD hardening
-      - Preview/Overview button for rapid audit
-      - Roboto typography
-      - AIP labels updated with reduced contrast
-    ========================================================== */
+    :root{
+      --corp-blue:#0B2A4A;
+      --text-main:#0b1220;
+      --text-muted:rgba(15,23,42,.70);
 
-    :root {
-      /* Core palette (softened for glass aesthetic) */
-      --corp-blue: #0B2A4A;
-      --corp-blue-2: #123A62;
+      --bg:#ffffff;
+      --grid-dot:rgba(148,163,184,.16);
 
-      --ink: #0f172a;
-      --text-main: rgba(2, 6, 23, 0.92);
-      --text-muted: rgba(15, 23, 42, 0.70);
+      --glass:rgba(255,255,255,.66);
+      --blur:14px;
+      --shadow:0 10px 30px rgba(2,6,23,.08);
 
-      /* Accent (subtle gradient usage) */
-      --accent-cyan: rgba(0,243,255,0.85);
-      --accent-purple: rgba(188,19,254,0.70);
+      --gap:22px;
+      --radius:16px;
 
-      /* Surfaces */
-      --bg: #ffffff;
-      --grid-dot: rgba(148, 163, 184, 0.18);
-      --border: rgba(15, 23, 42, 0.12);
-
-      /* Glass tokens */
-      --glass: rgba(255, 255, 255, 0.62);
-      --glass-strong: rgba(255, 255, 255, 0.76);
-      --blur: 14px;
-      --shadow: 0 10px 30px rgba(2, 6, 23, 0.08);
-
-      /* Layout */
-      --gap: 24px;
-      --radius: 16px;
-
-      /* AIP palette (reduced contrast, calmer tones) */
       --aip-nr-bg: rgba(15, 23, 42, 0.06);
       --aip-nr-fg: rgba(15, 23, 42, 0.78);
 
@@ -75,649 +50,501 @@
       --aip-a-fg: rgba(127, 29, 29, 0.82);
     }
 
-    /* Background canvas */
-    body {
-      background-color: var(--bg);
+    html,body{height:100%;width:100%;margin:0;}
+    body{
+      background:var(--bg);
       background-image: radial-gradient(var(--grid-dot) 1px, transparent 1px);
       background-size: 22px 22px;
-      margin: 0;
-      overflow: hidden; /* important for mobile */
     }
 
-    /* =========================================================
-      RWD HARDENING FOR REVEAL
-    ========================================================== */
-    html, body { height: 100%; width: 100%; }
+    /* Reveal base */
+    .reveal{
+      position:fixed; inset:0;
+      font-family:'Roboto',system-ui,-apple-system,'Segoe UI',sans-serif !important;
+      color:var(--text-main);
+      font-size:clamp(16px,1.6vw,24px);
+    }
+    .reveal .slides{height:100% !important;}
+    .reveal .slides section{
+      padding:clamp(14px,2.2vw,28px);
+      box-sizing:border-box;
+      height:100%;
+      min-height:100vh;
+      text-align:left;
 
-    .reveal {
-      position: fixed;
-      inset: 0;
-      font-family: 'Roboto', system-ui, -apple-system, Segoe UI, Helvetica, Arial, sans-serif !important;
-      color: var(--text-main);
-      font-size: clamp(16px, 1.5vw, 24px);
+      /* Key for iPhone friendliness: avoid “center squeeze” */
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-start;
     }
 
-    /* Ensure stage is full viewport and stable */
-    .reveal .slides { height: 100% !important; }
-    .reveal .slides section {
-      padding: clamp(14px, 2.2vw, 28px);
-      height: 100%;
-      text-align: left;
-      box-sizing: border-box;
+    .reveal h1,.reveal h2,.reveal h3,.reveal h4{
+      color:var(--corp-blue);
+      font-weight:800;
+      letter-spacing:-.02em;
+      margin:0 0 .5em 0;
+      text-transform:none;
+    }
+    .reveal h1{font-size:clamp(38px,4.0vw,76px);line-height:1.05;}
+    .reveal h2{font-size:clamp(26px,2.6vw,46px);line-height:1.15;display:inline-block;position:relative;}
+    .reveal h3{font-size:clamp(20px,2.1vw,34px);line-height:1.25;}
+    .reveal p{margin:0 0 1em 0;line-height:1.6;color:var(--text-muted);}
+    .reveal small{font-size:.72em;color:rgba(15,23,42,.65);}
+
+    /* h2 underline accent */
+    .reveal h2::after{
+      content:'';
+      display:block;
+      width:64px;height:5px;margin-top:10px;border-radius:999px;
+      background: linear-gradient(90deg, rgba(0,243,255,.70), rgba(188,19,254,.45));
+      opacity:.65;
     }
 
-    .reveal h1, .reveal h2, .reveal h3, .reveal h4 {
-      color: var(--corp-blue);
-      font-family: 'Roboto', system-ui, -apple-system, Segoe UI, Helvetica, Arial, sans-serif;
-      font-weight: 900;
-      text-transform: none;
-      letter-spacing: -0.02em;
-      margin-bottom: 0.5em;
+    /* Logo: transparent image (no tile, no container) */
+    #brandLogo{
+      position:fixed;
+      top:clamp(14px,2.2vh,22px);
+      left:clamp(14px,2.2vw,22px);
+      z-index:3000;
+      width:clamp(180px,22vw,260px); /* Slide 1 default bigger */
+      height:auto;
+      filter: drop-shadow(0 12px 18px rgba(2,6,23,.12));
+      transition: width 220ms ease, opacity 220ms ease, transform 220ms ease;
+      user-select:none; -webkit-user-drag:none;
     }
-    .reveal h1 { font-size: clamp(40px, 4.2vw, 78px); line-height: 1.05; }
-    .reveal h2 { font-size: clamp(28px, 2.6vw, 46px); line-height: 1.15; }
-    .reveal h3 { font-size: clamp(20px, 2.0vw, 34px); line-height: 1.25; }
-    .reveal p  { margin-bottom: 1em; line-height: 1.6; color: var(--text-muted); }
-    .reveal strong { font-weight: 800; color: rgba(2, 6, 23, 0.92); }
-    .reveal small { font-size: 0.72em; color: rgba(15, 23, 42, 0.65); }
-
-    /* H2 underline accent (subtle) */
-    .reveal h2 { position: relative; display: inline-block; }
-    .reveal h2::after {
-      content: '';
-      display: block;
-      width: 64px;
-      height: 5px;
-      margin-top: 10px;
-      border-radius: 999px;
-      background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
-      opacity: 0.75;
+    #brandLogo.logo-small{
+      width:clamp(120px,16vw,170px); /* Slide 2+ smaller */
+      opacity:.95;
+      transform:translateY(1px);
     }
 
-    /* Logo chrome (glass) */
-    #company-logo {
-      position: absolute;
-      top: clamp(10px, 2.0vh, 22px);
-      left: clamp(10px, 2.0vw, 22px);
-      z-index: 1000;
-      width: clamp(110px, 14vw, 170px);
-      padding: 10px 12px;
-      border-radius: 14px;
-      background: var(--glass-strong);
-      border: 1px solid rgba(15, 23, 42, 0.10);
+    /* Preview button: left-bottom (no tip bubble) */
+    .preview-btn{
+      position:fixed;
+      left:18px; bottom:18px;
+      z-index:4000;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 14px;
+      border-radius:999px;
+      background:rgba(255,255,255,.82);
+      border:1px solid rgba(15,23,42,.12);
+      box-shadow:0 14px 34px rgba(2,6,23,.12);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      font-weight:800;
+      color:rgba(11,42,74,.92);
+      cursor:pointer;
+      user-select:none;
+    }
+    .preview-btn .dot{
+      width:10px;height:10px;border-radius:999px;
+      background: linear-gradient(90deg, rgba(0,243,255,.70), rgba(188,19,254,.45));
+      box-shadow:0 0 0 4px rgba(0,243,255,.08);
+    }
+
+    /* Layout helpers */
+    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap);align-items:center;}
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap);}
+    .grid-auto{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;}
+    .flex-center{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;}
+    .flex-row{display:flex;gap:var(--gap);align-items:flex-start;}
+    .measure{max-width:940px;}
+
+    @media (max-width:1024px){
+      .grid-2{grid-template-columns:1fr !important;}
+      .grid-3{grid-template-columns:1fr !important;}
+      .flex-row{flex-direction:column;}
+    }
+
+    /* Components */
+    .card{
+      background:var(--glass);
+      border:1px solid rgba(15,23,42,.10);
+      border-radius:var(--radius);
+      padding:24px;
       backdrop-filter: blur(var(--blur));
       -webkit-backdrop-filter: blur(var(--blur));
-      box-shadow: var(--shadow);
+      box-shadow:0 6px 22px rgba(2,6,23,.08);
     }
-    #company-logo img { width: 100%; display: block; border-radius: 10px; }
+    .card.highlight{border-left:6px solid rgba(0,243,255,.42);}
+    .card.danger{border-left:6px solid rgba(239,68,68,.46);background:rgba(255,255,255,.80);}
+    .card.success{border-left:6px solid rgba(16,185,129,.46);background:rgba(255,255,255,.80);}
 
-    /* Layout utilities */
-    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); align-items: center; }
-    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gap); }
-    .grid-auto { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
-    .flex-center { display: flex; justify-content: center; align-items: center; flex-direction: column; text-align: center; }
-    .flex-row { display: flex; gap: var(--gap); align-items: flex-start; }
-    .measure { max-width: 940px; }
-
-    /* Collapse grids on smaller screens */
-    @media (max-width: 1024px) {
-      .grid-2 { grid-template-columns: 1fr !important; }
-      .grid-3 { grid-template-columns: 1fr !important; }
-      .traffic-grid { grid-template-columns: 1fr !important; }
-      .flex-row { flex-direction: column; }
-    }
-
-    /* Small screens: reduce padding density */
-    @media (max-width: 480px) {
-      #company-logo { width: 120px; }
-      .card { padding: 16px; }
-      .icon-circle { width: 64px; height: 64px; font-size: 1.6em; }
-    }
-
-    /* Glass components */
-    .card {
-      background: var(--glass);
-      border: 1px solid rgba(15, 23, 42, 0.10);
-      border-radius: var(--radius);
-      padding: 24px;
-      backdrop-filter: blur(var(--blur));
-      -webkit-backdrop-filter: blur(var(--blur));
-      box-shadow: 0 6px 22px rgba(2, 6, 23, 0.08);
-      transition: transform 0.18s ease, box-shadow 0.18s ease;
-    }
-    .card:hover { transform: translateY(-2px); box-shadow: 0 14px 36px rgba(2, 6, 23, 0.10); }
-    .card.highlight { border-left: 6px solid rgba(0, 243, 255, 0.55); }
-    .card.danger { border-left: 6px solid rgba(239, 68, 68, 0.55); background: rgba(255, 255, 255, 0.72); }
-    .card.success { border-left: 6px solid rgba(16, 185, 129, 0.55); background: rgba(255, 255, 255, 0.72); }
-
-    .badge {
-      display: inline-block;
-      padding: 6px 12px;
-      border-radius: 999px;
-      font-size: 0.62em;
-      font-weight: 900;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      border: 1px solid rgba(15, 23, 42, 0.12);
-      background: rgba(255, 255, 255, 0.72);
+    .badge{
+      display:inline-block;
+      padding:6px 12px;
+      border-radius:999px;
+      font-size:.62em;
+      font-weight:800;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      border:1px solid rgba(15,23,42,.12);
+      background:rgba(255,255,255,.82);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
     }
-    .badge.blue  { color: rgba(11, 42, 74, 0.88); }
-    .badge.green { color: rgba(6, 95, 70, 0.85); }
-    .badge.red   { color: rgba(153, 27, 27, 0.85); }
+    .badge.blue{color:rgba(11,42,74,.88);}
+    .badge.red{color:rgba(153,27,27,.85);}
+    .badge.green{color:rgba(6,95,70,.85);}
 
-    .icon-circle {
-      width: 84px; height: 84px;
-      border-radius: 22px;
-      background: rgba(255,255,255,0.62);
-      border: 1px solid rgba(15, 23, 42, 0.10);
+    .icon-circle{
+      width:84px;height:84px;
+      border-radius:22px;
+      background:rgba(255,255,255,.62);
+      border:1px solid rgba(15,23,42,.10);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
-      color: var(--corp-blue);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 2em;
-      box-shadow: var(--shadow);
-      margin: 0 auto 16px auto;
+      color:var(--corp-blue);
+      display:flex;align-items:center;justify-content:center;
+      font-size:2em;
+      box-shadow:var(--shadow);
+      margin:0 auto 16px auto;
     }
-    .icon-circle.red { color: rgba(153, 27, 27, 0.85); }
-    .icon-circle.green { color: rgba(6, 95, 70, 0.85); }
+    .icon-circle.red{color:rgba(153,27,27,.85);}
+    .icon-circle.green{color:rgba(6,95,70,.85);}
 
-    .timeline {
-      display: flex; justify-content: space-between;
-      gap: 10px;
-      border-bottom: 1px solid rgba(15, 23, 42, 0.10);
-      margin-bottom: 34px;
-      padding-bottom: 12px;
+    .timeline{
+      display:flex;justify-content:space-between;gap:10px;
+      border-bottom:1px solid rgba(15,23,42,.10);
+      margin:0 0 24px 0;padding:0 0 12px 0;
+      overflow-x:auto;
     }
-    .timeline span {
-      font-size: 0.62em;
-      color: rgba(15, 23, 42, 0.35);
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      white-space: nowrap;
+    .timeline span{
+      font-size:.62em;
+      color:rgba(15,23,42,.35);
+      font-weight:800;
+      text-transform:uppercase;
+      letter-spacing:1px;
+      white-space:nowrap;
     }
-    .timeline span.active {
-      color: rgba(11, 42, 74, 0.92);
-      border-bottom: 3px solid rgba(0,243,255,0.55);
-      padding-bottom: 10px;
+    .timeline span.active{
+      color:rgba(11,42,74,.92);
+      border-bottom:3px solid rgba(0,243,255,.42);
+      padding-bottom:10px;
     }
 
     /* Profile */
-    .profile-container {
-      display: flex; align-items: center; gap: 26px;
-      background: var(--glass);
-      padding: 26px;
-      border-radius: var(--radius);
-      border: 1px solid rgba(15, 23, 42, 0.10);
+    .profile-container{
+      display:flex;align-items:center;gap:26px;
+      background:var(--glass);
+      padding:26px;
+      border-radius:var(--radius);
+      border:1px solid rgba(15,23,42,.10);
       backdrop-filter: blur(var(--blur));
       -webkit-backdrop-filter: blur(var(--blur));
-      box-shadow: var(--shadow);
+      box-shadow:var(--shadow);
     }
-    @media (max-width: 768px) { .profile-container { flex-direction: column; align-items: flex-start; } }
-
-    .profile-photo {
-      width: 148px; height: 148px;
-      border-radius: 18px;
-      object-fit: cover;
-      border: 1px solid rgba(15, 23, 42, 0.12);
-      box-shadow: 0 14px 30px rgba(2, 6, 23, 0.10);
-      background: rgba(255,255,255,0.6);
-      display: block;
+    @media (max-width:768px){
+      .profile-container{flex-direction:column;align-items:flex-start;}
     }
-
-    /* Traffic */
-    .traffic-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; }
-    .traffic-item {
-      text-align: center;
-      padding: 26px 18px;
-      border: 1px solid rgba(15, 23, 42, 0.10);
-      border-radius: var(--radius);
-      background: var(--glass);
-      backdrop-filter: blur(var(--blur));
-      -webkit-backdrop-filter: blur(var(--blur));
-      box-shadow: 0 10px 24px rgba(2, 6, 23, 0.08);
+    .avatar{
+      width:148px;height:148px;border-radius:18px;
+      border:1px solid rgba(15,23,42,.12);
+      box-shadow:0 14px 30px rgba(2,6,23,.10);
+      overflow:hidden;
+      background:rgba(255,255,255,.70);
+      flex:0 0 auto;
     }
-    .traffic-item.red { border-top: 7px solid rgba(239, 68, 68, 0.55); }
-    .traffic-item.yellow { border-top: 7px solid rgba(245, 158, 11, 0.55); }
-    .traffic-item.green { border-top: 7px solid rgba(16, 185, 129, 0.55); }
-
-    /* License card */
-    .license-card {
-      background: rgba(255,255,255,0.68);
-      border: 1px solid rgba(15, 23, 42, 0.10);
-      border-radius: 18px;
-      padding: 40px;
-      text-align: center;
-      position: relative;
-      box-shadow: 0 18px 40px rgba(2, 6, 23, 0.10);
-      max-width: 620px;
-      margin: 0 auto;
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      overflow: hidden;
-    }
-    .license-card::before {
-      content: '';
-      position: absolute;
-      inset: 0 0 auto 0;
-      height: 10px;
-      background: linear-gradient(90deg, rgba(0,243,255,0.70), rgba(188,19,254,0.55));
-      opacity: 0.85;
-    }
+    .avatar svg{width:100%;height:100%;display:block;}
 
     /* AIP chips */
-    .aip-stack { display: flex; flex-direction: column; gap: 10px; }
-    .aip-chip {
-      padding: 12px 14px;
-      border-radius: 12px;
-      border: 1px solid rgba(15, 23, 42, 0.10);
-      font-size: 0.78em;
-      font-weight: 900;
-      letter-spacing: 0.02em;
+    .aip-stack{display:flex;flex-direction:column;gap:10px;}
+    .aip-chip{
+      padding:12px 14px;
+      border-radius:12px;
+      border:1px solid rgba(15,23,42,.10);
+      font-size:.78em;
+      font-weight:800;
+      letter-spacing:.02em;
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
     }
-    .aip-nr   { background: var(--aip-nr-bg);   color: var(--aip-nr-fg); }
-    .aip-prop { background: var(--aip-prop-bg); color: var(--aip-prop-fg); }
-    .aip-c    { background: var(--aip-c-bg);    color: var(--aip-c-fg); }
-    .aip-b    { background: var(--aip-b-bg);    color: var(--aip-b-fg); }
-    .aip-a    { background: var(--aip-a-bg);    color: var(--aip-a-fg); }
+    .aip-nr{background:var(--aip-nr-bg);color:var(--aip-nr-fg);}
+    .aip-prop{background:var(--aip-prop-bg);color:var(--aip-prop-fg);}
+    .aip-c{background:var(--aip-c-bg);color:var(--aip-c-fg);}
+    .aip-b{background:var(--aip-b-bg);color:var(--aip-b-fg);}
+    .aip-a{background:var(--aip-a-bg);color:var(--aip-a-fg);}
 
-    /* Preview controls */
-    .preview-btn {
-      position: fixed;
-      right: 18px;
-      bottom: 18px;
-      z-index: 2000;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 14px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.76);
-      border: 1px solid rgba(15, 23, 42, 0.12);
-      box-shadow: 0 14px 34px rgba(2, 6, 23, 0.12);
+    /* Traffic */
+    .traffic-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;margin-top:18px;}
+    .traffic-item{
+      text-align:center;
+      padding:26px 18px;
+      border:1px solid rgba(15,23,42,.10);
+      border-radius:var(--radius);
+      background:var(--glass);
+      backdrop-filter: blur(var(--blur));
+      -webkit-backdrop-filter: blur(var(--blur));
+      box-shadow:0 10px 24px rgba(2,6,23,.08);
+    }
+    .traffic-item.red{border-top:7px solid rgba(239,68,68,.42);}
+    .traffic-item.yellow{border-top:7px solid rgba(245,158,11,.42);}
+    .traffic-item.green{border-top:7px solid rgba(16,185,129,.42);}
+
+    /* License card */
+    .license-card{
+      background:rgba(255,255,255,.74);
+      border:1px solid rgba(15,23,42,.10);
+      border-radius:18px;
+      padding:40px;
+      text-align:center;
+      position:relative;
+      box-shadow:0 18px 40px rgba(2,6,23,.10);
+      max-width:620px;
+      margin:0 auto;
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
-      font-weight: 900;
-      color: rgba(11, 42, 74, 0.92);
-      cursor: pointer;
-      user-select: none;
-      -webkit-tap-highlight-color: transparent;
+      overflow:hidden;
     }
-    .preview-btn .dot {
-      width: 10px; height: 10px; border-radius: 999px;
-      background: linear-gradient(90deg, rgba(0,243,255,0.85), rgba(188,19,254,0.70));
-      box-shadow: 0 0 0 4px rgba(0,243,255,0.10);
-    }
-    .preview-hint {
-      position: fixed;
-      right: 18px;
-      bottom: 62px;
-      z-index: 2000;
-      font-size: 12px;
-      color: rgba(15, 23, 42, 0.55);
-      background: rgba(255,255,255,0.72);
-      border: 1px solid rgba(15, 23, 42, 0.10);
-      border-radius: 12px;
-      padding: 8px 10px;
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      box-shadow: 0 10px 22px rgba(2, 6, 23, 0.08);
-      max-width: 260px;
+    .license-card::before{
+      content:'';
+      position:absolute; inset:0 0 auto 0;
+      height:10px;
+      background: linear-gradient(90deg, rgba(0,243,255,.54), rgba(188,19,254,.34));
+      opacity:.85;
     }
 
-    /* Upgrade utilities */
-    .kpi-row{display:flex;flex-wrap:wrap;gap:12px;align-items:stretch;justify-content:center}
-    .kpi-pill{padding:14px 16px;border-radius:14px;border:1px solid rgba(15,23,42,.10);background:rgba(255,255,255,.68);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 10px 24px rgba(2,6,23,.08);font-weight:900;color:rgba(2,6,23,.82)}
-    .kpi-pill small{display:block;margin-top:6px;font-weight:500;color:rgba(15,23,42,.60);letter-spacing:.01em}
-
-    .rule-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-    @media (max-width:1024px){.rule-grid{grid-template-columns:1fr}}
-    .rule-item{padding:18px;border-radius:16px;border:1px solid rgba(15,23,42,.10);background:rgba(255,255,255,.62);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 10px 24px rgba(2,6,23,.08)}
-    .rule-item h4{margin:0 0 8px 0}
-    .rule-item ul{margin:0;padding-left:18px;color:rgba(15,23,42,.70);font-size:.92em;line-height:1.65}
-
-    .screen-leak{
-      border-radius:18px;border:1px solid rgba(15,23,42,.10);
-      background:linear-gradient(180deg, rgba(255,255,255,.78), rgba(255,255,255,.58));
-      box-shadow:0 18px 40px rgba(2,6,23,.10);
-      padding:18px; overflow:hidden;
+    @keyframes pulse-soft{
+      0%{box-shadow:0 0 0 0 rgba(239,68,68,.18);}
+      70%{box-shadow:0 0 0 12px rgba(239,68,68,0);}
+      100%{box-shadow:0 0 0 0 rgba(239,68,68,0);}
     }
-    .screen-leak .bar{display:flex;gap:8px;align-items:center;margin-bottom:12px}
-    .screen-leak .dot{width:10px;height:10px;border-radius:999px;background:rgba(15,23,42,.18)}
-    .screen-leak code{font-size:.88em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
-    @media (max-width:480px){ .screen-leak code{white-space:normal} }
-
-    /* Animations */
-    @keyframes pulse-soft {
-      0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.25); }
-      70% { box-shadow: 0 0 0 12px rgba(239, 68, 68, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
-    }
-    .pulse-warning { animation: pulse-soft 2.2s infinite; }
-
-    aside.notes { font-size: 16px; line-height: 1.5; font-family: 'Roboto', sans-serif; }
+    .pulse-warning{animation:pulse-soft 2.2s infinite;}
   </style>
 </head>
 
 <body>
+  <!-- Transparent logo (no container / no tile) -->
+  <img id="brandLogo"
+       src="https://www.tsmc.com/themes/custom/bootstrap_sass/images/logo.png"
+       alt="TSMC logo" />
+
+  <!-- Preview button (left-bottom) -->
+  <div class="preview-btn" id="previewBtn" title="Toggle Overview / Preview">
+    <span class="dot"></span> Preview
+  </div>
+
   <div class="reveal">
-
-    <!-- LOGO PLACEHOLDER -->
-    <div id="company-logo">
-      <img src="https://placehold.co/160x50/0B2A4A/ffffff?text=LOGO" alt="Company Logo">
-    </div>
-
-    <!-- Preview / Overview -->
-    <div class="preview-hint">
-      Tip: Tap “Preview” for slide overview (fast audit).<br>
-      Keyboard: <strong>Esc</strong> also toggles overview.
-    </div>
-    <div class="preview-btn" id="previewBtn" title="Toggle Overview / Preview">
-      <span class="dot"></span> Preview
-    </div>
-
     <div class="slides">
 
-      <!-- SLIDE 1: HOOK -->
-      <section class="flex-center">
-        <div class="icon-circle" style="width: 120px; height: 120px; font-size: 3em;">
+      <!-- Slide 1 -->
+      <section class="flex-center" data-logo="big">
+        <div class="icon-circle" style="width:120px;height:120px;font-size:3em;">
           <i class="fas fa-hand-paper"></i>
         </div>
-        <h2 style="border:none; margin-bottom: 10px;">Quick Question</h2>
-
-        <div class="fragment fade-up measure">
-          <p style="font-size: clamp(18px, 1.7vw, 28px); color: rgba(2,6,23,0.85);">
+        <h2 style="border:none;margin-bottom:10px;">Quick Question</h2>
+        <div class="measure">
+          <p style="font-size:clamp(18px,1.9vw,28px);color:rgba(2,6,23,.85);margin-top:6px;">
             "Raise your hand if you checked your <strong>personal phone</strong><br>
             this morning <em>before</em> walking through our gates."
           </p>
         </div>
-
-        <div class="fragment fade-up badge" style="margin-top: 28px;">
-          Thinking Activity
-        </div>
-
-        <aside class="notes">
-          (00:00–00:20) Raise your hand first. Ask the question. Pause for 3 seconds.
-          (00:20–00:35) “Good. You passed the first test… or did you?”
-        </aside>
+        <div class="badge" style="margin-top:18px;">Thinking Activity</div>
       </section>
 
-      <!-- SLIDE 2: TITLE -->
+      <!-- Slide 2 -->
       <section>
         <div class="grid-2">
           <div>
             <div class="badge blue">Newcomer Training 2025</div>
-            <h1 style="margin-top: 14px;">Securing<br>Our Future</h1>
-            <h3 style="color: var(--text-muted); font-weight: 300; margin-top: 14px;">Digital Self-Defense for New Partners</h3>
-
-            <div class="card" style="margin-top: 34px;">
+            <h1 style="margin-top:14px;">Securing<br>Our Future</h1>
+            <h3 style="color:var(--text-muted);font-weight:300;margin-top:14px;">Digital Self-Defense for New Partners</h3>
+            <div class="card" style="margin-top:26px;">
               <strong>Proprietary Information Protection (PIP)</strong><br>
-              <span style="color: var(--text-muted); font-size: 0.9em;">Global Security Management</span>
+              <span style="color:var(--text-muted);font-size:.9em;">Global Security Management</span>
             </div>
           </div>
-
-          <div style="display:flex; justify-content:center; align-items:center;">
-            <div class="card" style="width: min(520px, 100%); text-align:center;">
-              <div style="font-size: 5.2em; opacity: 0.14; color: var(--corp-blue);">
+          <div style="display:flex;justify-content:center;align-items:center;">
+            <div class="card" style="width:min(520px,100%);text-align:center;">
+              <div style="font-size:5em;opacity:.14;color:var(--corp-blue);">
                 <i class="fas fa-shield-halved"></i>
               </div>
-              <div class="badge blue" style="margin-top: 10px;">AURORA GLASS™ // Design OS</div>
-              <p style="margin: 10px 0 0;">High-signal, low-noise security onboarding.</p>
+              <div class="badge blue" style="margin-top:10px;">AURORA GLASS™ // Design OS</div>
+              <p style="margin:10px 0 0;">High-signal, low-noise security onboarding.</p>
             </div>
           </div>
         </div>
-
-        <aside class="notes">
-          (00:35–01:00) Set the tone: “Today is not about fear. It’s about muscle memory.”
-        </aside>
       </section>
 
-      <!-- SLIDE 3: WHO WE ARE -->
+      <!-- Slide 3 -->
       <section>
         <h2>Who We Are</h2>
 
         <div class="profile-container">
-          <img class="profile-photo" src="assets/rockie.jpg" alt="Rockie photo"
-               onerror="this.style.display='none'; document.getElementById('photoFallback').style.display='flex';" />
-
-          <div id="photoFallback" class="profile-photo" style="display:none; align-items:center; justify-content:center; font-weight:900; color:rgba(11,42,74,0.9);">
-            R
+          <!-- Single-file SVG avatar (replace later if needed) -->
+          <div class="avatar" aria-label="Avatar">
+            <svg viewBox="0 0 200 200" role="img">
+              <defs>
+                <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#0B2A4A" stop-opacity="0.85"/>
+                  <stop offset="1" stop-color="#00f3ff" stop-opacity="0.55"/>
+                </linearGradient>
+              </defs>
+              <rect x="0" y="0" width="200" height="200" rx="22" fill="url(#g)"/>
+              <circle cx="100" cy="82" r="34" fill="rgba(255,255,255,0.85)"/>
+              <path d="M40 170c10-40 40-55 60-55s50 15 60 55" fill="rgba(255,255,255,0.78)"/>
+              <text x="100" y="194" text-anchor="middle" font-family="Roboto, sans-serif" font-size="16" fill="rgba(255,255,255,0.92)">Rockie</text>
+            </svg>
           </div>
 
-          <div style="flex: 1;">
-            <h3 style="margin: 0; color: var(--corp-blue);">Rockie</h3>
-            <p style="margin: 6px 0 14px 0;">PIP @ Global Security Management</p>
-            <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+          <div style="flex:1;">
+            <h3 style="margin:0;color:var(--corp-blue);">Rockie</h3>
+            <p style="margin:6px 0 14px 0;">PIP @ Global Security Management</p>
+            <div style="display:flex;gap:12px;flex-wrap:wrap;">
               <span class="badge blue">13+ Years Exp</span>
               <span class="badge blue">3+ Years TSMC</span>
-              <span class="badge blue">EU/Overseas Onboarding</span>
+              <span class="badge blue">Overseas Onboarding</span>
             </div>
           </div>
         </div>
 
-        <div class="grid-3" style="margin-top: 26px;">
-          <div class="card" style="text-align: center;">
-            <div style="opacity: 0.65; font-size: 2em; margin-bottom: 10px;"><i class="fas fa-server"></i></div>
-            <h4 style="font-size: 0.95em; margin: 0;">IT Security</h4>
+        <div class="grid-3" style="margin-top:18px;">
+          <div class="card" style="text-align:center;">
+            <div style="opacity:.65;font-size:2em;margin-bottom:10px;"><i class="fas fa-server"></i></div>
+            <h4 style="font-size:.95em;margin:0;">IT Security</h4>
             <small>Outside-In</small>
           </div>
-          <div class="card" style="text-align: center;">
-            <div style="opacity: 0.65; font-size: 2em; margin-bottom: 10px;"><i class="fas fa-building-shield"></i></div>
-            <h4 style="font-size: 0.95em; margin: 0;">Physical</h4>
-            <small>People &amp; Site</small>
+          <div class="card" style="text-align:center;">
+            <div style="opacity:.65;font-size:2em;margin-bottom:10px;"><i class="fas fa-building-shield"></i></div>
+            <h4 style="font-size:.95em;margin:0;">Physical</h4>
+            <small>People & Site</small>
           </div>
-          <div class="card highlight" style="text-align: center;">
-            <div style="font-size: 2em; margin-bottom: 10px; color: rgba(11,42,74,0.9);"><i class="fas fa-file-shield"></i></div>
-            <h4 style="font-size: 0.95em; margin: 0;">PIP (Me)</h4>
+          <div class="card highlight" style="text-align:center;">
+            <div style="font-size:2em;margin-bottom:10px;color:rgba(11,42,74,.9);"><i class="fas fa-file-shield"></i></div>
+            <h4 style="font-size:.95em;margin:0;">PIP (Me)</h4>
             <small>Inside-Out</small>
           </div>
         </div>
 
-        <div class="fragment card success" style="margin-top: 18px; padding: 14px;">
-          <p style="margin:0; font-size: 0.95em;"><strong><i class="fas fa-check-circle"></i> Culture:</strong> "We are the Immune System, not the Police."</p>
+        <div class="card success" style="margin-top:14px;padding:14px;">
+          <p style="margin:0;font-size:.95em;"><strong><i class="fas fa-check-circle"></i> Culture:</strong> "We are the Immune System, not the Police."</p>
         </div>
-
-        <aside class="notes">
-          (01:00–01:40) Quick positioning: you help them succeed; you don’t “hunt mistakes.”
-        </aside>
       </section>
 
-      <!-- SLIDE 4: LOGIC -->
+      <!-- Slide 4 -->
       <section class="flex-center">
         <div class="measure">
           <h2>The Business Logic</h2>
           <p>Why is PIP strict? It’s simple math.</p>
-
-          <div style="display:flex; flex-wrap:wrap; justify-content:center; gap: 12px; margin-top: 26px;">
+          <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:16px;">
             <div class="card">R&amp;D + IP</div>
             <div class="card">Leadership</div>
-            <div class="card highlight" style="border-left-color: rgba(16,185,129,0.55);">
+            <div class="card highlight" style="border-left-color:rgba(16,185,129,.42);">
               <i class="fas fa-wallet"></i> YOUR BONUS
             </div>
           </div>
-
-          <div class="fragment card danger" style="margin-top: 24px;">
+          <div class="card danger" style="margin-top:16px;">
             <em>"If IP leaks, prices drop, revenue drops, and bonuses vanish."</em>
           </div>
         </div>
-
-        <aside class="notes">
-          (01:40–02:20) Make it personal but factual: “Security is business continuity.”
-        </aside>
       </section>
 
-      <!-- NEW SLIDE 4.5: Authorized ≠ Appropriate -->
-      <section>
-        <h2>Just Because You Can, Doesn’t Mean You Should</h2>
-        <p class="measure">Most real-world leaks are not “hacks”. They are <strong>authorized actions</strong> taken in the wrong context.</p>
-
-        <div class="kpi-row" style="margin-top:18px;">
-          <div class="kpi-pill">Authorized <small>You have access</small></div>
-          <div class="kpi-pill">≠ Appropriate <small>It is still your judgment</small></div>
-          <div class="kpi-pill">≠ Defensible <small>Can you justify it later?</small></div>
-        </div>
-
-        <div class="rule-grid" style="margin-top:18px;">
-          <div class="rule-item">
-            <h4>Common “Good Intent” Triggers</h4>
-            <ul>
-              <li>“Just a quick screenshot”</li>
-              <li>“Just a backup to personal storage”</li>
-              <li>“Just asking AI to summarize”</li>
-            </ul>
-          </div>
-          <div class="rule-item">
-            <h4>Decision Filter</h4>
-            <ul>
-              <li><strong>Need-to-know</strong> satisfied?</li>
-              <li>Is this the <strong>right tool</strong> for this data class?</li>
-              <li>Would you be comfortable if this appeared in an investigation?</li>
-            </ul>
-          </div>
-          <div class="rule-item">
-            <h4>One-liner to Remember</h4>
-            <p style="margin:0;color:rgba(2,6,23,.82);font-weight:900;font-size:1.05em;">
-              Access is trust, not immunity.
-            </p>
-            <small>Professionalism = pause and think once.</small>
-          </div>
-        </div>
-
-        <aside class="notes">
-          (02:20–03:10) Transition from “business logic” to “personal judgment”.
-          (03:10–03:40) Emphasize: most incidents are convenience-driven, not malicious.
-          (03:40–04:10) “If you remember one upgrade today: Authorized does not mean appropriate.”
-        </aside>
-      </section>
-
-      <!-- SLIDE 5: GENERAL PRINCIPLE -->
+      <!-- Slide 5 -->
       <section>
         <h2>General Principle</h2>
-        <div class="flex-center" style="margin-bottom: 22px;">
-          <h3 style="font-size: clamp(28px, 2.3vw, 40px); color: var(--corp-blue); margin: 0;">"NEED TO KNOW"</h3>
+        <div class="flex-center" style="margin-bottom:12px;">
+          <h3 style="font-size:clamp(28px,2.3vw,40px);color:var(--corp-blue);margin:0;">"NEED TO KNOW"</h3>
           <small>The Fundamental Filter</small>
         </div>
-
         <div class="grid-auto">
-          <div class="card fragment" style="text-align:center;">
-            <div style="font-size: 2em; opacity: 0.7; margin-bottom: 10px;"><i class="fas fa-eye"></i></div>
-            <h4>SEE</h4>
-            <small>Access only what’s necessary</small>
+          <div class="card" style="text-align:center;">
+            <div style="font-size:2em;opacity:.7;margin-bottom:10px;"><i class="fas fa-eye"></i></div>
+            <h4>SEE</h4><small>Access only what’s necessary</small>
           </div>
-          <div class="card fragment" style="text-align:center;">
-            <div style="font-size: 2em; opacity: 0.7; margin-bottom: 10px;"><i class="fas fa-ear-listen"></i></div>
-            <h4>HEAR</h4>
-            <small>No eavesdropping</small>
+          <div class="card" style="text-align:center;">
+            <div style="font-size:2em;opacity:.7;margin-bottom:10px;"><i class="fas fa-ear-listen"></i></div>
+            <h4>HEAR</h4><small>No eavesdropping</small>
           </div>
-          <div class="card fragment" style="text-align:center;">
-            <div style="font-size: 2em; opacity: 0.7; margin-bottom: 10px;"><i class="fas fa-comment"></i></div>
-            <h4>SPEAK</h4>
-            <small>Discuss only with your team</small>
+          <div class="card" style="text-align:center;">
+            <div style="font-size:2em;opacity:.7;margin-bottom:10px;"><i class="fas fa-comment"></i></div>
+            <h4>SPEAK</h4><small>Discuss only with your team</small>
           </div>
-          <div class="card fragment" style="text-align:center;">
-            <div style="font-size: 2em; opacity: 0.7; margin-bottom: 10px;"><i class="fas fa-share-nodes"></i></div>
-            <h4>SHARE</h4>
-            <small>No unauthorized transfers</small>
+          <div class="card" style="text-align:center;">
+            <div style="font-size:2em;opacity:.7;margin-bottom:10px;"><i class="fas fa-share-nodes"></i></div>
+            <h4>SHARE</h4><small>No unauthorized transfers</small>
           </div>
         </div>
-
-        <aside class="notes">
-          (04:10–05:00) “This rule scales. If you remember only one thing, remember this.”
-        </aside>
       </section>
 
-      <!-- SLIDE 6: TRAP 1 (GATE) -->
+      <!-- Slide 6 -->
       <section>
         <div class="timeline">
           <span class="active">Gate Check</span><span>Tailgate</span><span>Clean Start</span><span>Phishing</span><span>AI</span><span>Off-Site</span>
         </div>
         <h3>Trap #1: The Gate Check</h3>
-
-        <div class="grid-2" style="align-items: start;">
+        <div class="grid-2" style="align-items:start;">
           <div>
             <div class="card danger">
               <h4 style="margin:0;"><i class="fas fa-ban"></i> PROHIBITED DEVICES</h4>
-              <div class="grid-3" style="gap: 10px; margin-top: 12px;">
-                <div style="font-size: 0.75em; text-align: center;"><i class="fas fa-mobile-alt"></i><br>Phones</div>
-                <div style="font-size: 0.75em; text-align: center;"><i class="fas fa-laptop"></i><br>Laptops</div>
-                <div style="font-size: 0.75em; text-align: center;"><i class="fas fa-camera"></i><br>Cameras</div>
-                <div style="font-size: 0.75em; text-align: center;"><i class="fas fa-clock"></i><br><strong>Smart Watch</strong></div>
-                <div style="font-size: 0.75em; text-align: center;"><i class="fas fa-tag"></i><br><strong>AirTags</strong></div>
-                <div style="font-size: 0.75em; text-align: center;"><i class="fas fa-hdd"></i><br>USB/Drones</div>
+              <div class="grid-3" style="gap:10px;margin-top:12px;">
+                <div style="font-size:.75em;text-align:center;"><i class="fas fa-mobile-alt"></i><br>Phones</div>
+                <div style="font-size:.75em;text-align:center;"><i class="fas fa-laptop"></i><br>Laptops</div>
+                <div style="font-size:.75em;text-align:center;"><i class="fas fa-camera"></i><br>Cameras</div>
+                <div style="font-size:.75em;text-align:center;"><i class="fas fa-clock"></i><br><strong>Smart Watch</strong></div>
+                <div style="font-size:.75em;text-align:center;"><i class="fas fa-tag"></i><br><strong>AirTags</strong></div>
+                <div style="font-size:.75em;text-align:center;"><i class="fas fa-hdd"></i><br>USB/Drones</div>
               </div>
             </div>
 
-            <div class="fragment card success" style="margin-top: 14px;">
-              <h4 style="font-size: 1em; margin:0;"><i class="fas fa-shield-alt"></i> Privacy Guarantee</h4>
+            <div class="card success" style="margin-top:12px;">
+              <h4 style="font-size:1em;margin:0;"><i class="fas fa-shield-alt"></i> Privacy Guarantee</h4>
               <small>Lockers are secure. Zero company access. Backed by Works Council (where applicable).</small>
             </div>
           </div>
 
           <div>
-            <div class="card" style="border-left: 6px solid rgba(245,158,11,0.45); background: rgba(255,255,255,0.72);">
-              <p style="margin:0; font-size: 0.95em; color: rgba(120, 53, 15, 0.88); font-style: italic;">
+            <div class="card" style="border-left:6px solid rgba(245,158,11,.36);background:rgba(255,255,255,.82);">
+              <p style="margin:0;font-size:.95em;color:rgba(120,53,15,.88);font-style:italic;">
                 "This might be the world's safest place to work. Nothing gets stolen, and if it does, the thief is caught immediately."
               </p>
-              <div style="margin-top: 10px;">
-                <strong style="font-size: 0.85em; color: rgba(120,53,15,0.82);">- Dean, Stanford Sustainability School</strong>
+              <div style="margin-top:10px;">
+                <strong style="font-size:.85em;color:rgba(120,53,15,.82);">- Dean, Stanford Sustainability School</strong>
               </div>
             </div>
 
-            <div class="fragment" style="margin-top: 16px;">
-              <h4 style="font-size: 1em;">Access Process</h4>
-              <ol style="font-size: 0.9em; margin-left: 18px; color: var(--text-muted);">
+            <div style="margin-top:14px;">
+              <h4 style="font-size:1em;">Access Process</h4>
+              <ol style="font-size:.9em;margin-left:18px;color:var(--text-muted);">
                 <li>Check Approved List</li>
                 <li>Strict Internal Review</li>
                 <li>Stakeholder Approval</li>
               </ol>
-              <div class="badge red" style="margin-top: 8px;">No Greenlight = No Entry</div>
+              <div class="badge red" style="margin-top:8px;">No Greenlight = No Entry</div>
             </div>
           </div>
         </div>
-
-        <aside class="notes">
-          (05:00–06:00) Emphasize fairness: “The rule applies to everyone, including leadership.”
-        </aside>
       </section>
 
-      <!-- SLIDE 7: TRAP 2 (TAILGATING) -->
+      <!-- Slide 7 -->
       <section>
         <div class="timeline">
           <span>Gate Check</span><span class="active">Tailgate</span><span>Clean Start</span><span>Phishing</span><span>AI</span><span>Off-Site</span>
         </div>
         <h3>Trap #2: The Friendly Stranger</h3>
-
         <div class="grid-2">
           <div>
             <p><strong>Scenario:</strong> Someone smiles and waits for you to hold the door.</p>
-            <div class="card" style="text-align: center; padding: 34px;">
-              <div style="font-size: 4em; opacity: 0.65; margin-bottom: 14px;"><i class="fas fa-id-card-clip"></i></div>
+            <div class="card" style="text-align:center;padding:34px;">
+              <div style="font-size:4em;opacity:.65;margin-bottom:14px;"><i class="fas fa-id-card-clip"></i></div>
               <h4>One Badge, One Person</h4>
             </div>
           </div>
-
           <div>
             <div class="card highlight">
               <div class="badge blue">🇩🇪 Professional Script</div>
-              <p style="font-size: clamp(18px, 1.8vw, 28px); font-style: italic; color: rgba(11,42,74,0.92); line-height: 1.35; margin-top: 12px;">
+              <p style="font-size:clamp(18px,1.8vw,28px);font-style:italic;color:rgba(11,42,74,.92);line-height:1.35;margin-top:12px;">
                 "Entschuldigung, Vorschrift ist Vorschrift. Ich warte kurz, bis Sie gescannt haben."
               </p>
-              <hr style="border: none; border-top: 1px solid rgba(15,23,42,0.10); margin: 14px 0;">
+              <hr style="border:none;border-top:1px solid rgba(15,23,42,.10);margin:14px 0;">
               <small>(Sorry, rules are rules. I'll wait until you scan.)</small>
             </div>
           </div>
         </div>
-
-        <aside class="notes">
-          (06:00–07:00) Overseas colleagues appreciate “polite firmness” scripts—keep it simple.
-        </aside>
       </section>
 
-      <!-- SLIDE 8: TRAP 3 (AIP) -->
+      <!-- Slide 8 -->
       <section>
         <div class="timeline">
           <span>Gate Check</span><span>Tailgate</span><span class="active">Data</span><span>Phishing</span><span>AI</span><span>Off-Site</span>
@@ -725,7 +552,7 @@
         <h3>Trap #3: The Unlabeled File</h3>
         <p>Data classification (AIP) is mandatory.</p>
 
-        <div class="grid-2">
+        <div class="grid-2" style="align-items:start;">
           <div class="aip-stack">
             <div class="aip-chip aip-nr">No Restrictions</div>
             <div class="aip-chip aip-prop">TSMC Properties</div>
@@ -734,87 +561,39 @@
             <div class="aip-chip aip-a">Security A/AA</div>
           </div>
 
-          <div style="display:flex; flex-direction: column; gap: 12px;">
-            <div class="fragment card">
-              <h4 style="font-size: 1em; margin:0;"><i class="fas fa-envelope"></i> Email Guard</h4>
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <div class="card">
+              <h4 style="font-size:1em;margin:0;"><i class="fas fa-envelope"></i> Email Guard</h4>
               <small>System blocks sending high-classification data to external recipients.</small>
             </div>
-            <div class="fragment card">
-              <h4 style="font-size: 1em; margin:0;"><i class="fas fa-print"></i> Printing Trace</h4>
-              <small>Mandatory watermarks &amp; traceability.<br><em>"If found outside, we can identify the print source."</em></small>
+            <div class="card">
+              <h4 style="font-size:1em;margin:0;"><i class="fas fa-print"></i> Printing Trace</h4>
+              <small>Mandatory watermarks &amp; traceability.</small>
             </div>
           </div>
         </div>
-
-        <aside class="notes">
-          (07:00–08:10) Legal-friendly framing: focus on “duty of care” and traceability, not surveillance.
-        </aside>
       </section>
 
-      <!-- NEW SLIDE 8.5: Data Residue -->
-      <section>
-        <h2>Delete ≠ Disappear</h2>
-        <p class="measure">Information leaves traces even when you think it’s gone. This is why “clean handling” matters.</p>
-
-        <div class="grid-2" style="align-items:start; margin-top:18px;">
-          <div class="card">
-            <h4 style="margin:0 0 10px 0;"><i class="fas fa-footprints"></i> Hidden Residue Sources</h4>
-            <ul style="margin:0; padding-left:18px; color:rgba(15,23,42,.72); line-height:1.75;">
-              <li>Auto-save / version history</li>
-              <li>Clipboard / copy buffer</li>
-              <li>Browser cache / recent files</li>
-              <li>Cloud sync / personal account overlap</li>
-              <li>Meeting recordings &amp; AI summaries</li>
-            </ul>
-          </div>
-
-          <div class="card highlight">
-            <h4 style="margin:0 0 10px 0;"><i class="fas fa-shield"></i> Practical Habits (Low Effort)</h4>
-            <ul style="margin:0; padding-left:18px; color:rgba(15,23,42,.72); line-height:1.75;">
-              <li>Keep company &amp; personal accounts separated</li>
-              <li>Use approved storage only</li>
-              <li>Think before copy/paste across contexts</li>
-              <li>When unsure: <strong>ask first</strong></li>
-            </ul>
-            <div class="badge blue" style="margin-top:12px;">Data Lifecycle Awareness</div>
-          </div>
-        </div>
-
-        <aside class="notes">
-          (08:10–09:00) Position as “why policy exists”: modern tools keep histories.
-          (09:00–09:30) Give 2 quick examples: clipboard + meeting recording.
-          (09:30–10:00) Tie back to AIP: classification + handling go together.
-        </aside>
-      </section>
-
-      <!-- SLIDE 9: TRAP 4 (CONTAMINATION) -->
-      <section>
+      <!-- Slide 9 -->
+      <section class="flex-center">
         <div class="timeline">
           <span>Gate Check</span><span>Tailgate</span><span class="active">Clean Start</span><span>Phishing</span><span>AI</span><span>Off-Site</span>
         </div>
-        <div class="flex-center" style="height: 100%;">
-          <div class="icon-circle red" style="width: 120px; height: 120px; font-size: 4em;">
-            <i class="fas fa-biohazard"></i>
-          </div>
-          <h2 style="border: none; color: rgba(153,27,27,0.90);">DATA CONTAMINATION</h2>
-
-          <p class="measure" style="font-size: clamp(18px, 1.6vw, 26px); color: rgba(2,6,23,0.80);">
-            The Risk: Bringing IP, code, patents, or templates from your <strong>Former Employer</strong>.
-          </p>
-
-          <div class="fragment card danger pulse-warning measure" style="margin-top: 16px;">
-            <strong><i class="fas fa-exclamation-triangle"></i> DANGER</strong>
-            <p style="margin: 10px 0;">Using unowned IP exposes the company to lawsuits and reputational loss.</p>
-            <strong style="color: rgba(153,27,27,0.90);">Rule: Bring your experience, NEVER their data.</strong>
-          </div>
+        <div class="icon-circle red" style="width:120px;height:120px;font-size:4em;">
+          <i class="fas fa-biohazard"></i>
         </div>
-
-        <aside class="notes">
-          (10:00–11:00) Keep it respectful: “We protect you from accidental violations.”
-        </aside>
+        <h2 style="border:none;color:rgba(153,27,27,.90);">DATA CONTAMINATION</h2>
+        <p class="measure" style="font-size:clamp(18px,1.6vw,26px);color:rgba(2,6,23,.80);">
+          The Risk: Bringing IP, code, patents, or templates from your <strong>Former Employer</strong>.
+        </p>
+        <div class="card danger pulse-warning measure" style="margin-top:14px;">
+          <strong><i class="fas fa-exclamation-triangle"></i> DANGER</strong>
+          <p style="margin:10px 0;">Using unowned IP exposes the company to lawsuits and reputational loss.</p>
+          <strong style="color:rgba(153,27,27,.90);">Rule: Bring your experience, NEVER their data.</strong>
+        </div>
       </section>
 
-      <!-- SLIDE 10: TRAP 5 (PHISHING) -->
+      <!-- Slide 10 -->
       <section>
         <div class="timeline">
           <span>Gate Check</span><span>Tailgate</span><span>Clean Start</span><span class="active">Phishing</span><span>AI</span><span>Off-Site</span>
@@ -822,32 +601,28 @@
         <h3>Trap #4: The Fake Welcome</h3>
 
         <div class="grid-2">
-          <div class="card" style="font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; border-left: 6px solid rgba(239,68,68,0.50);">
-            <div style="color: rgba(153,27,27,0.88); font-weight: 900;">From: HR-Admin &lt;hr-support@gmaiI.com&gt;</div>
-            <div style="margin-bottom: 12px;">Subject: Action Required: Payroll Update</div>
-            <div style="font-size: 0.9em;">Dear Partner, please click here to update bank info...</div>
+          <div class="card" style="font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;border-left:6px solid rgba(239,68,68,.42);">
+            <div style="color:rgba(153,27,27,.88);font-weight:800;">From: HR-Admin &lt;hr-support@gmaiI.com&gt;</div>
+            <div style="margin-bottom:12px;">Subject: Action Required: Payroll Update</div>
+            <div style="font-size:.9em;">Dear Partner, please click here to update bank info...</div>
           </div>
 
           <div class="flex-center">
-            <h4 style="font-size: clamp(26px, 2.2vw, 42px); margin-bottom: 8px; color: rgba(153,27,27,0.88);">STOP. CHECK. CALL.</h4>
+            <h4 style="font-size:clamp(26px,2.2vw,42px);margin-bottom:8px;color:rgba(153,27,27,.88);">STOP. CHECK. CALL.</h4>
             <p>New hires are a top target.</p>
           </div>
         </div>
 
-        <div class="fragment card" style="display:flex; gap: 16px; align-items:center; margin-top: 14px;">
-          <div style="font-size: 3em; opacity: 0.75; color: rgba(153,27,27,0.80);"><i class="fas fa-qrcode"></i></div>
+        <div class="card" style="display:flex;gap:16px;align-items:center;margin-top:12px;">
+          <div style="font-size:3em;opacity:.75;color:rgba(153,27,27,.80);"><i class="fas fa-qrcode"></i></div>
           <div>
             <strong>Watch out for "Quishing"</strong><br>
             <small>Fake QR stickers. Use official channels only.</small>
           </div>
         </div>
-
-        <aside class="notes">
-          (11:00–12:10) Keep examples culturally neutral and universal (QR scams exist everywhere).
-        </aside>
       </section>
 
-      <!-- SLIDE 11: TRAP 6 (AI) -->
+      <!-- Slide 11 -->
       <section>
         <div class="timeline">
           <span>Gate Check</span><span>Tailgate</span><span>Clean Start</span><span>Phishing</span><span class="active">AI</span><span>Off-Site</span>
@@ -855,243 +630,114 @@
         <h3>Trap #5: The AI Trap</h3>
         <p>"Your Input = Their Training Data"</p>
 
-        <div class="grid-2">
-          <div class="card danger text-center fragment">
+        <div class="grid-2" style="align-items:start;">
+          <div class="card danger">
             <div class="icon-circle red"><i class="fas fa-ban"></i></div>
-            <h4 style="color: rgba(153,27,27,0.88);">PROHIBITED</h4>
-            <ul style="text-align: left; font-size: 0.9em; list-style: none; padding: 0; margin: 0;">
+            <h4 style="color:rgba(153,27,27,.88);margin-top:0;">PROHIBITED</h4>
+            <ul style="text-align:left;font-size:.9em;list-style:none;padding:0;margin:0;">
               <li><i class="fas fa-times"></i> Public ChatGPT / DeepL (for sensitive content)</li>
               <li><i class="fas fa-times"></i> <strong>Shadow IT:</strong> Notion, Figma, Trello (unless reviewed)</li>
             </ul>
           </div>
 
-          <div class="card success text-center fragment">
+          <div class="card success">
             <div class="icon-circle green"><i class="fas fa-check"></i></div>
-            <h4 style="color: rgba(6,95,70,0.88);">APPROVED</h4>
-            <ul style="text-align: left; font-size: 0.9em; list-style: none; padding: 0; margin: 0;">
+            <h4 style="color:rgba(6,95,70,.88);margin-top:0;">APPROVED</h4>
+            <ul style="text-align:left;font-size:.9em;list-style:none;padding:0;margin:0;">
               <li><i class="fas fa-check"></i> <strong>tGenie</strong> (Internal LLM)</li>
               <li><i class="fas fa-check"></i> Approved Software List</li>
             </ul>
           </div>
         </div>
-
-        <aside class="notes">
-          (12:10–13:10) Avoid tool-bashing; focus on “right tool for right data class.”
-        </aside>
       </section>
 
-      <!-- NEW SLIDE 11.5: Prompt as IP -->
-      <section>
-        <h2>Your Prompt Is Also IP</h2>
-        <p class="measure">Even without attaching files, prompts can reveal <strong>know-how</strong>: assumptions, logic, process parameters, and decision context.</p>
-
-        <div class="grid-2" style="align-items:start; margin-top:18px;">
-          <div class="card danger">
-            <h4 style="margin:0 0 10px 0;"><i class="fas fa-triangle-exclamation"></i> Risk Pattern</h4>
-            <p style="margin:0;color:rgba(2,6,23,.80);">
-              “I didn’t paste secret data — I only described the problem.”
-            </p>
-            <div style="margin-top:10px;">
-              <small>Problem description may still encode IP.</small>
-            </div>
-          </div>
-
-          <div class="card success">
-            <h4 style="margin:0 0 10px 0;"><i class="fas fa-check"></i> Safe Mental Model</h4>
-            <p style="margin:0;color:rgba(2,6,23,.80);font-weight:900;">
-              If you wouldn’t email it externally, don’t prompt it externally.
-            </p>
-            <div style="margin-top:10px;">
-              <small>Use internal/approved tools for sensitive context.</small>
-            </div>
-          </div>
-        </div>
-
-        <div class="card" style="margin-top:14px;">
-          <h4 style="margin:0 0 10px 0;"><i class="fas fa-wand-magic-sparkles"></i> Better Prompting Without Leaking</h4>
-          <ul style="margin:0; padding-left:18px; color:rgba(15,23,42,.72); line-height:1.75;">
-            <li>Abstract the problem (remove identifiers, specifics, proprietary steps)</li>
-            <li>Use placeholders (Component A / Process B / Dataset X)</li>
-            <li>Ask for frameworks, checklists, or generic examples</li>
-          </ul>
-        </div>
-
-        <aside class="notes">
-          (13:10–14:00) Prompts can disclose know-how.
-          (14:00–14:30) Give one example: “process optimization” prompt that reveals unique steps.
-          (14:30–15:00) Provide the safe alternative: abstract + placeholders + internal tools.
-        </aside>
-      </section>
-
-      <!-- NEW SLIDE 12.0: Visual Leakage -->
-      <section>
-        <h2>If It’s on Your Screen, It’s Already Exposed</h2>
-        <p class="measure">Hybrid work created a new leak surface: <strong>screens, shares, recordings, and AI meeting notes</strong>.</p>
-
-        <div class="grid-2" style="align-items:start; margin-top:18px;">
-          <div class="screen-leak">
-            <div class="bar">
-              <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-              <small style="margin-left:8px;">Screen Share: what others may see</small>
-            </div>
-            <code>Project_Name_SecurityA-AA_Final_v7.pptx</code>
-            <code>\\shared_drive\\partner\\roadmap\\pricing_strategy.xlsx</code>
-            <code>Pop-up: “Can you send the yield issue screenshot?”</code>
-            <small style="display:block;margin-top:10px;">Even filenames, paths, and pop-ups can disclose context.</small>
-          </div>
-
-          <div class="card highlight">
-            <h4 style="margin:0 0 10px 0;"><i class="fas fa-list-check"></i> 3-Second Habit Before Sharing</h4>
-            <ul style="margin:0; padding-left:18px; color:rgba(15,23,42,.72); line-height:1.75;">
-              <li>Close unrelated tabs/apps</li>
-              <li>Disable notifications</li>
-              <li>Use a “clean desktop” workspace</li>
-            </ul>
-            <div class="badge blue" style="margin-top:12px;">Pause → Check → Share</div>
-          </div>
-        </div>
-
-        <aside class="notes">
-          (15:00–15:40) Hybrid is universal; colleagues relate instantly.
-          (15:40–16:10) Mention recordings + AI summaries as “data objects”.
-          (16:10–16:40) Teach the 3-second habit. Simple and memorable.
-        </aside>
-      </section>
-
-      <!-- SLIDE 12: OFF SITE -->
+      <!-- Slide 12 -->
       <section>
         <div class="timeline">
           <span>Gate Check</span><span>Tailgate</span><span>Clean Start</span><span>Phishing</span><span>AI</span><span class="active">Off-Site</span>
         </div>
         <h3>Trap #6 &amp; #7: Off-Site</h3>
-
         <div class="grid-2">
           <div>
-            <ul style="font-size: 0.98em; line-height: 2;">
+            <ul style="font-size:.98em;line-height:2;margin:0;padding-left:18px;">
               <li><strong>Trap #6 (Public Talk):</strong> No client names in public transport or restaurants.</li>
               <li><strong>Trap #7 (Taking Data Home):</strong> <span class="badge red">Just Don’t.</span></li>
             </ul>
           </div>
-
-          <div class="card highlight text-center">
-            <div style="font-size: 3em; opacity: 0.70; margin-bottom: 12px;"><i class="fas fa-mug-hot"></i></div>
+          <div class="card highlight" style="text-align:center;">
+            <div style="font-size:3em;opacity:.70;margin-bottom:12px;"><i class="fas fa-mug-hot"></i></div>
             <h4>Work-Life Balance</h4>
-            <p style="font-size: 0.95em;">Data stays on-site. Disconnect to recharge.</p>
+            <p style="font-size:.95em;">Data stays on-site. Disconnect to recharge.</p>
             <div class="badge blue">Respect your Feierabend</div>
           </div>
         </div>
-
-        <aside class="notes">
-          (16:40–17:40) Keep “Feierabend” optional depending on site culture.
-        </aside>
       </section>
 
-      <!-- NEW SLIDE 12.5: Ecosystem Leakage -->
+      <!-- Slide 13 -->
       <section>
-        <h2>Our Risk Extends Beyond Our Badge</h2>
-        <p class="measure">Modern leakage often happens through the ecosystem: partners, vendors, consultants, joint projects.</p>
-
-        <div class="grid-2" style="align-items:start; margin-top:18px;">
-          <div class="card">
-            <h4 style="margin:0 0 10px 0;"><i class="fas fa-handshake"></i> Common Grey Zones</h4>
-            <ul style="margin:0; padding-left:18px; color:rgba(15,23,42,.72); line-height:1.75;">
-              <li>“They have NDA, so it’s fine.”</li>
-              <li>Shared folders with mixed classifications</li>
-              <li>External meetings with screen shares</li>
-              <li>Sending “context” that’s more than necessary</li>
-            </ul>
-          </div>
-
-          <div class="card success">
-            <h4 style="margin:0 0 10px 0;"><i class="fas fa-shield-halved"></i> Minimum Disclosure Principle</h4>
-            <p style="margin:0;color:rgba(2,6,23,.80);font-weight:900;">
-              Share the minimum needed to achieve the purpose — nothing more.
-            </p>
-            <div style="margin-top:10px;">
-              <small>Trust is not transferable. NDA is not a blank check.</small>
-            </div>
-            <div class="badge blue" style="margin-top:12px;">Need-to-Know Applies Externally Too</div>
-          </div>
-        </div>
-
-        <aside class="notes">
-          (17:40–18:30) Ecosystem is part of boundary; minimum disclosure is the rule.
-        </aside>
-      </section>
-
-      <!-- SLIDE 13: DETERRENCE -->
-      <section>
-        <h2 style="border-bottom-color: rgba(2,6,23,0.9); color: rgba(153,27,27,0.90);">Reality Check</h2>
+        <h2 style="color:rgba(153,27,27,.90);">Reality Check</h2>
         <p>The impact is greater than you expect.</p>
 
-        <div class="fragment card danger" style="margin-bottom: 14px;">
+        <div class="card danger" style="margin-bottom:12px;">
           <div class="flex-row">
-            <div style="font-size: 1.6em; opacity: 0.75; color: rgba(153,27,27,0.85);"><i class="fas fa-file-contract"></i></div>
+            <div style="font-size:1.6em;opacity:.75;color:rgba(153,27,27,.85);"><i class="fas fa-file-contract"></i></div>
             <div>
               <strong>Case Study A:</strong> Engineer took a photo of an error code to work from home.<br>
-              <span class="badge red" style="margin-top: 8px; display:inline-block;">RESULT: Immediate Dismissal + Legal Action</span>
+              <span class="badge red" style="margin-top:8px;display:inline-block;">RESULT: Immediate Dismissal + Legal Action</span>
             </div>
           </div>
         </div>
 
-        <div class="fragment card danger">
+        <div class="card danger">
           <div class="flex-row">
-            <div style="font-size: 1.6em; opacity: 0.75; color: rgba(153,27,27,0.85);"><i class="fas fa-code-branch"></i></div>
+            <div style="font-size:1.6em;opacity:.75;color:rgba(153,27,27,.85);"><i class="fas fa-code-branch"></i></div>
             <div>
               <strong>Case Study B:</strong> Employee uploaded code to GitHub for "backup".<br>
-              <span class="badge red" style="margin-top: 8px; display:inline-block;">RESULT: Bonus Forfeited + Formal Warning</span>
+              <span class="badge red" style="margin-top:8px;display:inline-block;">RESULT: Bonus Forfeited + Formal Warning</span>
             </div>
           </div>
         </div>
-
-        <aside class="notes">
-          (18:30–19:20) Legal voice: stick to outcomes; avoid exaggerated numbers.
-        </aside>
       </section>
 
-      <!-- SLIDE 14: TRAFFIC LIGHT RECAP -->
+      <!-- Slide 14 -->
       <section>
         <h2>Traffic Light System</h2>
-        <div class="traffic-grid" style="margin-top: 22px;">
+        <div class="traffic-grid">
           <div class="traffic-item red">
-            <div style="font-size: 2em; opacity: 0.75; margin-bottom: 10px; color: rgba(153,27,27,0.85);"><i class="fas fa-times-circle"></i></div>
-            <h4 style="color: rgba(153,27,27,0.88);">PROHIBITED</h4>
+            <div style="font-size:2em;opacity:.75;margin-bottom:10px;color:rgba(153,27,27,.85);"><i class="fas fa-times-circle"></i></div>
+            <h4 style="color:rgba(153,27,27,.88);margin:0 0 6px 0;">PROHIBITED</h4>
             <small>USBs, Cameras, Recorders, Transmission Devices</small>
           </div>
           <div class="traffic-item yellow">
-            <div style="font-size: 2em; opacity: 0.75; margin-bottom: 10px; color: rgba(146,64,14,0.82);"><i class="fas fa-exclamation-triangle"></i></div>
-            <h4 style="color: rgba(146,64,14,0.86);">REGISTER</h4>
+            <div style="font-size:2em;opacity:.75;margin-bottom:10px;color:rgba(146,64,14,.82);"><i class="fas fa-exclamation-triangle"></i></div>
+            <h4 style="color:rgba(146,64,14,.86);margin:0 0 6px 0;">REGISTER</h4>
             <small>Personal Laptops, Tablets (IT Scan Required)</small>
           </div>
           <div class="traffic-item green">
-            <div style="font-size: 2em; opacity: 0.75; margin-bottom: 10px; color: rgba(6,95,70,0.82);"><i class="fas fa-check-circle"></i></div>
-            <h4 style="color: rgba(6,95,70,0.88);">ALLOWED</h4>
+            <div style="font-size:2em;opacity:.75;margin-bottom:10px;color:rgba(6,95,70,.82);"><i class="fas fa-check-circle"></i></div>
+            <h4 style="color:rgba(6,95,70,.88);margin:0 0 6px 0;">ALLOWED</h4>
             <small>Water bottles, non-digital items</small>
           </div>
         </div>
-
-        <aside class="notes">
-          (19:20–20:00) “Traffic light is your memory shortcut.”
-        </aside>
       </section>
 
-      <!-- SLIDE 15: RESOURCES -->
+      <!-- Slide 15 -->
       <section>
         <h2>Resources &amp; Culture</h2>
-        <div class="grid-2" style="align-items: start;">
+        <div class="grid-2" style="align-items:start;">
           <div>
-            <h4 style="font-size: 1em;">Digital Toolbox</h4>
-            <div class="card" style="padding: 16px;">
-              <ul style="margin: 0; padding-left: 18px; font-size: 0.92em;">
+            <h4 style="font-size:1em;">Digital Toolbox</h4>
+            <div class="card" style="padding:16px;">
+              <ul style="margin:0;padding-left:18px;font-size:.92em;">
                 <li><code>go/security</code> (Portal)</li>
                 <li>Policy Finder</li>
                 <li>Approved Device List</li>
               </ul>
             </div>
 
-            <h4 style="font-size: 1em; margin-top: 14px;">Human Network</h4>
-            <div class="card" style="padding: 16px;">
-              <ul style="margin: 0; padding-left: 18px; font-size: 0.92em;">
+            <h4 style="font-size:1em;margin-top:12px;">Human Network</h4>
+            <div class="card" style="padding:16px;">
+              <ul style="margin:0;padding-left:18px;font-size:.92em;">
                 <li><strong>PIP Guardians</strong> (Dept. Seniors)</li>
                 <li><strong>DPO</strong> (Privacy)</li>
               </ul>
@@ -1099,110 +745,165 @@
           </div>
 
           <div>
-            <div class="fragment license-card">
-              <div class="badge red" style="position: absolute; top: 16px; right: 16px;">VALID: 3 MONTHS</div>
-              <div style="font-size: 4em; opacity: 0.68; color: rgba(11,42,74,0.90); margin-bottom: 10px;">
+            <div class="license-card">
+              <div class="badge red" style="position:absolute;top:16px;right:16px;">VALID: 3 MONTHS</div>
+              <div style="font-size:4em;opacity:.68;color:rgba(11,42,74,.90);margin-bottom:10px;">
                 <i class="fas fa-id-badge"></i>
               </div>
-              <h3 style="color: var(--corp-blue); margin: 0;">LICENSE TO ASK</h3>
-              <p style="font-style: italic; margin-top: 8px;">"There are no stupid questions."</p>
+              <h3 style="color:var(--corp-blue);margin:0;">LICENSE TO ASK</h3>
+              <p style="font-style:italic;margin-top:8px;">"There are no stupid questions."</p>
             </div>
           </div>
         </div>
-
-        <aside class="notes">
-          (20:00–21:00) Invite questions explicitly; it reduces “silent mistakes.”
-        </aside>
       </section>
 
-      <!-- SLIDE 16: SOP -->
+      <!-- Slide 16 -->
       <section>
         <h2>Incident Reporting</h2>
-        <div class="badge blue" style="font-size: 0.9em; padding: 10px 16px;">
+        <div class="badge blue" style="font-size:.9em;padding:10px 16px;">
           Golden Rule: Reporting = Amnesty. Hiding = Trouble.
         </div>
-
-        <div class="card" style="margin-top:14px;">
-          <strong>Reporting = Protection.</strong>
-          <p style="margin:8px 0 0;">Silence amplifies risk. Early reporting lets the “immune system” respond fast.</p>
-        </div>
-
-        <div class="grid-3" style="text-align: center; margin-top: 18px;">
+        <div class="grid-3" style="text-align:center;margin-top:16px;">
           <div class="card">
-            <div style="font-size: 3em; font-weight: 900; color: rgba(148,163,184,0.55);">1</div>
-            <h4>Disconnect</h4>
-            <small>Unplug / Wi-Fi Off</small>
+            <div style="font-size:3em;font-weight:800;color:rgba(148,163,184,.55);">1</div>
+            <h4>Disconnect</h4><small>Unplug / Wi-Fi Off</small>
           </div>
           <div class="card">
-            <div style="font-size: 3em; font-weight: 900; color: rgba(148,163,184,0.55);">2</div>
-            <h4>Report</h4>
-            <small>Ext. 1234 / Button</small>
+            <div style="font-size:3em;font-weight:800;color:rgba(148,163,184,.55);">2</div>
+            <h4>Report</h4><small>Ext. 1234 / Button</small>
           </div>
           <div class="card">
-            <div style="font-size: 3em; font-weight: 900; color: rgba(148,163,184,0.55);">3</div>
-            <h4>Wait</h4>
-            <small>For IT Support</small>
+            <div style="font-size:3em;font-weight:800;color:rgba(148,163,184,.55);">3</div>
+            <h4>Wait</h4><small>For IT Support</small>
           </div>
         </div>
-
-        <aside class="notes">
-          (21:00–22:00) Add: “We reward early reporting. We do not reward hiding.”
-        </aside>
       </section>
 
-      <!-- SLIDE 17: VERDICT (CLOSING) -->
+      <!-- Slide 17 -->
       <section class="flex-center">
         <div class="measure">
           <h2>The Verdict</h2>
-
-          <div class="card" style="padding: 26px;">
-            <div class="grid-2" style="gap: 18px;">
-              <div style="text-align: left; border-right: 1px solid rgba(15,23,42,0.10); padding-right: 18px;">
-                <div style="font-size: 3em; opacity: 0.72; margin-bottom: 10px;"><i class="fas fa-question-circle"></i></div>
-                <p style="font-style: italic; font-size: 1.05em; color: rgba(2,6,23,0.82);">
+          <div class="card" style="padding:26px;">
+            <div class="grid-2" style="gap:18px;">
+              <div style="text-align:left;border-right:1px solid rgba(15,23,42,.10);padding-right:18px;">
+                <div style="font-size:3em;opacity:.72;margin-bottom:10px;"><i class="fas fa-question-circle"></i></div>
+                <p style="font-style:italic;font-size:1.05em;color:rgba(2,6,23,.82);">
                   "Did you check your phone<br><strong>BEFORE</strong> the gate?"
                 </p>
-                <div style="margin-top: 10px;">
+                <div style="margin-top:10px;">
                   <span class="badge green">GREEN ZONE (Life)</span>
-                  <span style="margin:0 8px; color: rgba(15,23,42,0.45); font-weight:900;">vs</span>
+                  <span style="margin:0 8px;color:rgba(15,23,42,.45);font-weight:800;">vs</span>
                   <span class="badge red">RED ZONE (IP)</span>
                 </div>
-                <small style="display: block; margin-top: 8px;">Know the boundary.</small>
+                <small style="display:block;margin-top:8px;">Know the boundary.</small>
               </div>
 
               <div class="flex-center">
-                <h4 style="margin-bottom: 10px;">MISSION #1</h4>
-                <div style="font-size: 6em; opacity: 0.6;"><i class="fas fa-qrcode"></i></div>
-                <p style="margin: 10px 0 0;"><strong>Action: Scan &amp; Save</strong></p>
-                <div class="badge blue" style="font-size: 0.95em;">"PIP SOS"</div>
+                <h4 style="margin-bottom:10px;">MISSION #1</h4>
+                <div style="font-size:6em;opacity:.60;"><i class="fas fa-qrcode"></i></div>
+                <p style="margin:10px 0 0;"><strong>Action: Scan &amp; Save</strong></p>
+                <div class="badge blue" style="font-size:.95em;">"PIP SOS"</div>
               </div>
             </div>
           </div>
+          <div style="margin-top:12px;text-align:left;">
+            <strong>Your Partner: Rockie</strong><br>
+            <small>Welcome to the team.</small>
+          </div>
+        </div>
+      </section>
 
-          <div style="margin-top: 18px; display:flex; align-items:center; gap: 12px;">
-            <img src="assets/rockie.jpg" alt="Rockie"
-                 onerror="this.style.display='none';"
-                 style="width:52px;height:52px;border-radius:14px;object-fit:cover;border:1px solid rgba(15,23,42,0.10);box-shadow:0 10px 20px rgba(2,6,23,0.10);">
-            <div style="text-align:left;">
-              <strong>Your Partner: Rockie</strong><br>
-              <small>Welcome to the team.</small>
-            </div>
+      <!-- Appendix A -->
+      <section>
+        <h2>Appendix A: Global Info Protection Landscape (2025)</h2>
+        <p>Key themes to align communication globally (high-signal, practical).</p>
+
+        <div class="grid-2" style="align-items:start;">
+          <div class="card">
+            <h4 style="margin-top:0;">1) Data & IP Egress Control</h4>
+            <ul style="margin:0;padding-left:18px;color:var(--text-muted);line-height:1.8;">
+              <li>DLP & data exfiltration (email / web / USB / cloud sync)</li>
+              <li>Source code leakage (GitHub, snippets, paste sites)</li>
+              <li>Print / screenshot / camera capture controls</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h4 style="margin-top:0;">2) Identity & Access</h4>
+            <ul style="margin:0;padding-left:18px;color:var(--text-muted);line-height:1.8;">
+              <li>Phishing / MFA fatigue / session hijack</li>
+              <li>Privileged access misuse & just-in-time access</li>
+              <li>Vendor / contractor access segmentation</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h4 style="margin-top:0;">3) GenAI & Shadow IT</h4>
+            <ul style="margin:0;padding-left:18px;color:var(--text-muted);line-height:1.8;">
+              <li>Prompt leakage (sensitive input exposure)</li>
+              <li>Unapproved SaaS storing corporate content</li>
+              <li>Hallucination risk in compliance deliverables</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h4 style="margin-top:0;">4) Insider Risk</h4>
+            <ul style="margin:0;padding-left:18px;color:var(--text-muted);line-height:1.8;">
+              <li>Departure-stage risks (portfolio, “personal backup”)</li>
+              <li>Misclassification & over-sharing by convenience</li>
+              <li>Behavioral signals: sudden access spikes</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Appendix C -->
+      <section>
+        <h2>Appendix C: Recommended New Messaging Angles</h2>
+        <p>To strengthen daily behavior change (especially for newcomers overseas).</p>
+
+        <div class="grid-3" style="align-items:stretch;">
+          <div class="card highlight">
+            <h4 style="margin-top:0;">“Boundary Design”</h4>
+            <small>Make rules feel like usability, not punishment.</small>
+            <ul style="margin:10px 0 0;padding-left:18px;color:var(--text-muted);line-height:1.8;">
+              <li>Green zone vs Red zone mental model</li>
+              <li>Scripts for saying “no” politely</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h4 style="margin-top:0;">“Safe Defaults”</h4>
+            <small>Reduce decision fatigue by default workflows.</small>
+            <ul style="margin:10px 0 0;padding-left:18px;color:var(--text-muted);line-height:1.8;">
+              <li>Auto AIP labeling prompts</li>
+              <li>Approved tools quick list by scenario</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h4 style="margin-top:0;">“Report Early = Protected”</h4>
+            <small>Psychological safety for incident reporting.</small>
+            <ul style="margin:10px 0 0;padding-left:18px;color:var(--text-muted);line-height:1.8;">
+              <li>Amnesty framing</li>
+              <li>Transparent “what happens next”</li>
+            </ul>
           </div>
         </div>
 
-        <aside class="notes">
-          (22:00–23:00) Close with confidence: “You now know what ‘good’ looks like.”
-        </aside>
+        <div class="card success" style="margin-top:14px;">
+          <strong>Trainer tip:</strong>
+          <span style="color:var(--text-muted);">Convert policies into “micro-scripts + micro-checks” that work in real life within 10 seconds.</span>
+        </div>
       </section>
 
-      <!-- SLIDE 18: APPENDIX -->
+      <!-- Legal -->
       <section>
         <h2>Appendix: Legal Defense</h2>
-        <div class="card success" style="margin-bottom: 14px;">
+        <div class="card success" style="margin-bottom:12px;">
           <strong>Universal Defense: Duty of Care</strong>
-          <p style="margin: 8px 0 0;">"We monitor and control to prevent negligence and protect stakeholders."</p>
+          <p style="margin:8px 0 0;">"We monitor and control to prevent negligence and protect stakeholders."</p>
         </div>
-
         <div class="grid-2">
           <div class="card">
             <strong>GDPR Recital 49</strong>
@@ -1213,47 +914,45 @@
             <p>Logs are for <strong>traceability</strong> (incidents), not “watching people.”</p>
           </div>
         </div>
-
-        <aside class="notes">
-          (Optional) Only cover if asked; keep it short to avoid losing the room.
-        </aside>
       </section>
 
-    </div><!-- /.slides -->
-  </div><!-- /.reveal -->
+    </div>
+  </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/notes/notes.min.js"></script>
 
   <script>
-    // Reveal config tuned for 2025 devices
     Reveal.initialize({
       hash: true,
       controls: true,
       progress: true,
       slideNumber: 'c/t',
       transition: 'slide',
-      center: true,
-
+      center: false,   // KEY for mobile-friendly layout
       width: 1366,
       height: 768,
       margin: 0.04,
-      minScale: 0.18,
+      minScale: 0.22,
       maxScale: 2.0,
-
       plugins: [ RevealNotes ]
     });
 
-    // Preview button (Reveal overview)
-    const previewBtn = document.getElementById('previewBtn');
-    previewBtn.addEventListener('click', () => Reveal.toggleOverview());
+    // Preview toggle (left-bottom)
+    document.getElementById('previewBtn').addEventListener('click', () => Reveal.toggleOverview());
     document.addEventListener('keydown', (e) => {
-      const k = (e.key || '').toLowerCase();
-      if (k === 'p') Reveal.toggleOverview();
+      if (e.key && e.key.toLowerCase() === 'p') Reveal.toggleOverview();
     });
 
-    // Mobile tap improvement: prevent double-tap zoom on the preview button
-    previewBtn.addEventListener('touchend', (e) => { e.preventDefault(); Reveal.toggleOverview(); }, { passive: false });
+    // Logo size: Slide 1 big, Slide 2+ small
+    const brandLogo = document.getElementById('brandLogo');
+    function updateLogo(){
+      const idx = (Reveal.getIndices().h || 0);
+      if (idx >= 1) brandLogo.classList.add('logo-small');
+      else brandLogo.classList.remove('logo-small');
+    }
+    Reveal.on('ready', updateLogo);
+    Reveal.on('slidechanged', updateLogo);
   </script>
 </body>
 </html>

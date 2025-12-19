@@ -300,36 +300,6 @@
       box-shadow: 0 0 0 4px rgba(0,243,255,0.10);
     }
 
-    /* Logo: remove "fitted chrome box"; use clean float + adaptive sizing */
-    #brand-logo{
-      position: fixed;
-      top: clamp(10px, 2.0vh, 22px);
-      left: clamp(10px, 2.0vw, 22px);
-      z-index: 2400;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      pointer-events: none;
-      transition: transform 220ms ease, opacity 220ms ease;
-      transform-origin: top left;
-    }
-    #brand-logo img{
-      display:block;
-      width: clamp(120px, 16vw, 190px);
-      height: auto;
-      filter: drop-shadow(0 8px 18px rgba(2,6,23,0.16));
-    }
-    /* Bigger on "homepage" slide */
-    #brand-logo.is-home{
-      transform: scale(1.10);
-      opacity: 1;
-    }
-    /* Smaller after slide 1 */
-    #brand-logo.is-small{
-      transform: scale(0.78);
-      opacity: 0.95;
-    }
-
     /* Notes */
     aside.notes{ font-size: 16px; line-height: 1.5; font-family: 'Roboto', sans-serif; }
 

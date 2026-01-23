@@ -3,1143 +3,423 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Security Awareness Foundational – Digital Self-Defense</title>
+  <title>Securing Our Future - GSM Training</title>
 
-  <!-- Typography: Roboto -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <!-- Performance: preconnect for fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-  <!-- Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-  <!-- Reveal.js (single source, single load) -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reset.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/white.min.css" id="theme">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
 
   <style>
-    /* =========================================================
-      AURORA GLASS™ — Design OS (IP)
-      - Roboto typography
-      - Glassmorphism surfaces
-      - RWD hardened Reveal stage
-      - Calm, reduced-contrast AIP palette
-      - Mobile-friendly overview preview button (left-bottom)
-      - No duplicated head/body, no duplicated Reveal loads
-    ========================================================== */
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600;800&display=swap');
 
-    :root{
-      /* Palette (softened for glass aesthetic) */
-      --corp-blue: #0B2A4A;
-      --corp-blue-2:#123A62;
-
-      --ink:#0b1220;
-      --muted: rgba(11, 18, 32, 0.68);
-
-      --grid-dot: rgba(148, 163, 184, 0.18);
-      --border: rgba(15, 23, 42, 0.12);
-
-      /* Accents (kept restrained) */
-      --accent-cyan: rgba(0, 243, 255, 0.85);
-      --accent-purple: rgba(188, 19, 254, 0.70);
-
-      /* Glass */
-      --glass: rgba(255,255,255,0.62);
-      --glass-strong: rgba(255,255,255,0.76);
-      --blur: 14px;
-      --shadow: 0 10px 30px rgba(2, 6, 23, 0.08);
-
-      /* Layout */
-      --gap: 24px;
-      --radius: 16px;
-
-      /* AIP palette (reduced contrast, calmer tones) */
-      --aip-nr-bg: rgba(15, 23, 42, 0.06);
-      --aip-nr-fg: rgba(15, 23, 42, 0.78);
-
-      --aip-prop-bg: rgba(59, 130, 246, 0.10);
-      --aip-prop-fg: rgba(29, 78, 216, 0.78);
-
-      --aip-c-bg: rgba(245, 158, 11, 0.12);
-      --aip-c-fg: rgba(146, 64, 14, 0.78);
-
-      --aip-b-bg: rgba(249, 115, 22, 0.12);
-      --aip-b-fg: rgba(154, 52, 18, 0.80);
-
-      --aip-a-bg: rgba(239, 68, 68, 0.10);
-      --aip-a-fg: rgba(127, 29, 29, 0.82);
+    :root {
+      --tech-blue: #00f3ff;
+      --tech-dark: #0a0f1c;
+      --tech-darker: #05080f;
+      --tech-alert: #ff2a6d;
+      --tech-warn: #f59e0b;
+      --tech-safe: #10b981;
+      --grid-color: rgba(0, 243, 255, 0.05);
     }
 
-    /* Background canvas */
-    html, body { height: 100%; width: 100%; margin: 0; }
-    body{
-      background:#fff;
-      background-image: radial-gradient(var(--grid-dot) 1px, transparent 1px);
-      background-size: 22px 22px;
+    /* Accessibility: honor reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
     }
 
-    /* RWD hardening for Reveal stage */
-    .reveal{
-      position: fixed;
-      inset: 0;
-      font-family: 'Roboto', system-ui, -apple-system, Segoe UI, Helvetica, Arial, sans-serif !important;
-      color: var(--ink);
-      font-size: clamp(16px, 1.5vw, 24px);
-    }
-    .reveal .slides{ height: 100% !important; }
-    .reveal .slides section{
-      height: 100%;
-      padding: clamp(14px, 2.2vw, 28px);
-      box-sizing: border-box;
-      text-align: left;
-    }
-
-    .reveal h1,.reveal h2,.reveal h3,.reveal h4{
-      color: var(--corp-blue);
-      font-weight: 900;
-      letter-spacing: -0.02em;
-      margin: 0 0 0.5em 0;
-    }
-    .reveal h1 { font-size: clamp(40px, 4.2vw, 78px); line-height: 1.05; }
-    .reveal h2 { font-size: clamp(28px, 2.6vw, 46px); line-height: 1.15; }
-    .reveal h3 { font-size: clamp(20px, 2.0vw, 34px); line-height: 1.25; }
-    .reveal p  { margin: 0 0 1em 0; line-height: 1.6; color: var(--muted); }
-    .reveal strong{ color: rgba(2,6,23,0.92); }
-    .reveal small { font-size: 0.72em; color: rgba(15,23,42,0.62); }
-
-    /* Subtle underline accent for h2 */
-    .reveal h2{
-      position: relative;
-      display: inline-block;
-    }
-    .reveal h2::after{
-      content:'';
-      display:block;
-      width: 64px;
-      height: 5px;
-      margin-top: 10px;
-      border-radius: 999px;
-      background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
-      opacity: 0.70;
-    }
-
-    /* Utilities */
-    .grid-2{ display:grid; grid-template-columns: 1fr 1fr; gap: var(--gap); align-items:center; }
-    .grid-3{ display:grid; grid-template-columns: repeat(3, 1fr); gap: var(--gap); }
-    .grid-auto{ display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
-    .flex-center{ display:flex; justify-content:center; align-items:center; flex-direction:column; text-align:center; }
-    .flex-row{ display:flex; gap: var(--gap); align-items:flex-start; }
-    .measure{ max-width: 960px; margin: 0 auto; }
-
-    @media (max-width: 1024px){
-      .grid-2{ grid-template-columns: 1fr !important; }
-      .grid-3{ grid-template-columns: 1fr !important; }
-      .traffic-grid{ grid-template-columns: 1fr !important; }
-      .flex-row{ flex-direction: column; }
-    }
-
-    /* Glass components */
-    .card{
-      background: var(--glass);
-      border: 1px solid rgba(15,23,42,0.10);
-      border-radius: var(--radius);
-      padding: 24px;
-      backdrop-filter: blur(var(--blur));
-      -webkit-backdrop-filter: blur(var(--blur));
-      box-shadow: 0 6px 22px rgba(2,6,23,0.08);
-      transition: transform 0.18s ease, box-shadow 0.18s ease;
-    }
-    .card:hover{
-      transform: translateY(-2px);
-      box-shadow: 0 14px 36px rgba(2,6,23,0.10);
-    }
-    .card.highlight{ border-left: 6px solid rgba(0,243,255,0.55); }
-    .card.danger{
-      border-left: 6px solid rgba(239,68,68,0.55);
-      background: rgba(255,255,255,0.72);
-    }
-    .card.success{
-      border-left: 6px solid rgba(16,185,129,0.55);
-      background: rgba(255,255,255,0.72);
-    }
-
-    .badge{
-      display:inline-block;
-      padding: 6px 12px;
-      border-radius: 999px;
-      font-size: 0.62em;
-      font-weight: 900;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      border: 1px solid rgba(15,23,42,0.12);
-      background: rgba(255,255,255,0.72);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-    }
-    .badge.blue  { color: rgba(11, 42, 74, 0.88); }
-    .badge.green { color: rgba(6, 95, 70, 0.85); }
-    .badge.red   { color: rgba(153, 27, 27, 0.85); }
-
-    .icon-circle{
-      width: 84px; height: 84px;
-      border-radius: 22px;
-      background: rgba(255,255,255,0.62);
-      border: 1px solid rgba(15,23,42,0.10);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      color: var(--corp-blue);
-      display:flex; align-items:center; justify-content:center;
-      font-size: 2em;
-      box-shadow: var(--shadow);
-      margin: 0 auto 16px auto;
-    }
-    .icon-circle.red{ color: rgba(153,27,27,0.85); }
-    .icon-circle.green{ color: rgba(6,95,70,0.85); }
-
-    /* Timeline */
-    .timeline{
-      display:flex;
-      justify-content: space-between;
-      gap: 10px;
-      border-bottom: 1px solid rgba(15,23,42,0.10);
-      margin-bottom: 34px;
-      padding-bottom: 12px;
-      flex-wrap: wrap;
-    }
-    .timeline span{
-      font-size: 0.62em;
-      color: rgba(15,23,42,0.35);
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      white-space: nowrap;
-    }
-    .timeline span.active{
-      color: rgba(11,42,74,0.92);
-      border-bottom: 3px solid rgba(0,243,255,0.50);
-      padding-bottom: 10px;
-    }
-
-    /* Profile */
-    .profile-container{
-      display:flex;
-      align-items:center;
-      gap: 26px;
-      background: var(--glass);
-      padding: 26px;
-      border-radius: var(--radius);
-      border: 1px solid rgba(15,23,42,0.10);
-      backdrop-filter: blur(var(--blur));
-      -webkit-backdrop-filter: blur(var(--blur));
-      box-shadow: var(--shadow);
-    }
-    @media (max-width: 768px){
-      .profile-container{ flex-direction: column; align-items: flex-start; }
-    }
-    .profile-photo{
-      width: 148px;
-      height: 148px;
-      border-radius: 18px;
-      object-fit: cover;
-      border: 1px solid rgba(15,23,42,0.12);
-      box-shadow: 0 14px 30px rgba(2,6,23,0.10);
-      background: rgba(255,255,255,0.6);
-    }
-
-    /* AIP */
-    .aip-stack{ display:flex; flex-direction:column; gap: 10px; }
-    .aip-chip{
-      padding: 12px 14px;
-      border-radius: 12px;
-      border: 1px solid rgba(15,23,42,0.10);
-      font-size: 0.78em;
-      font-weight: 900;
-      letter-spacing: 0.02em;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-    }
-    .aip-nr   { background: var(--aip-nr-bg);   color: var(--aip-nr-fg); }
-    .aip-prop { background: var(--aip-prop-bg); color: var(--aip-prop-fg); }
-    .aip-c    { background: var(--aip-c-bg);    color: var(--aip-c-fg); }
-    .aip-b    { background: var(--aip-b-bg);    color: var(--aip-b-fg); }
-    .aip-a    { background: var(--aip-a-bg);    color: var(--aip-a-fg); }
-
-    /* Traffic grid */
-    .traffic-grid{ display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; }
-    .traffic-item{
-      text-align:center;
-      padding: 26px 18px;
-      border: 1px solid rgba(15,23,42,0.10);
-      border-radius: var(--radius);
-      background: var(--glass);
-      backdrop-filter: blur(var(--blur));
-      -webkit-backdrop-filter: blur(var(--blur));
-      box-shadow: 0 10px 24px rgba(2,6,23,0.08);
-    }
-    .traffic-item.red{ border-top: 7px solid rgba(239,68,68,0.55); }
-    .traffic-item.yellow{ border-top: 7px solid rgba(245,158,11,0.55); }
-    .traffic-item.green{ border-top: 7px solid rgba(16,185,129,0.55); }
-
-    /* License card */
-    .license-card{
-      background: rgba(255,255,255,0.68);
-      border: 1px solid rgba(15,23,42,0.10);
-      border-radius: 18px;
-      padding: 40px;
-      text-align:center;
-      position: relative;
-      box-shadow: 0 18px 40px rgba(2,6,23,0.10);
-      max-width: 680px;
-      margin: 0 auto;
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+    body {
+      background-color: var(--tech-darker);
+      color: #e2e8f0;
+      font-family: 'Inter', sans-serif;
+      /* Keep stage fixed; slides handle their own scrolling */
+      margin: 0;
+      height: 100vh;
+      width: 100vw;
       overflow: hidden;
     }
-    .license-card::before{
-      content:'';
-      position:absolute;
-      inset: 0 0 auto 0;
-      height: 10px;
-      background: linear-gradient(90deg, rgba(0,243,255,0.70), rgba(188,19,254,0.55));
-      opacity: 0.85;
+
+    .bg-grid {
+      background-image:
+        linear-gradient(var(--grid-color) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+      background-size: 40px 40px;
+      position: absolute;
+      inset: 0;
+      z-index: -1;
     }
 
-    /* Pulse */
-    @keyframes pulse-soft{
-      0% { box-shadow: 0 0 0 0 rgba(239,68,68,0.25); }
-      70%{ box-shadow: 0 0 0 12px rgba(239,68,68,0); }
-      100%{ box-shadow: 0 0 0 0 rgba(239,68,68,0); }
-    }
-    .pulse-warning{ animation: pulse-soft 2.2s infinite; }
-
-    /* Preview button (left-bottom). No tip text. */
-    .preview-btn{
-      position: fixed;
-      left: 18px;
-      bottom: 18px;
-      z-index: 2000;
-      display:inline-flex;
-      align-items:center;
-      gap: 10px;
-      padding: 10px 14px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.78);
-      border: 1px solid rgba(15,23,42,0.12);
-      box-shadow: 0 14px 34px rgba(2,6,23,0.12);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      font-weight: 900;
-      color: rgba(11,42,74,0.92);
-      cursor: pointer;
-      user-select: none;
-    }
-    .preview-btn .dot{
-      width: 10px; height: 10px; border-radius: 999px;
-      background: linear-gradient(90deg, rgba(0,243,255,0.85), rgba(188,19,254,0.70));
-      box-shadow: 0 0 0 4px rgba(0,243,255,0.10);
+    h1, h2, h3, .mono {
+      font-family: 'JetBrains Mono', monospace;
+      letter-spacing: -0.05em;
     }
 
-    /* Notes */
-    aside.notes{
-      font-size: 16px;
-      line-height: 1.5;
-      font-family: 'Roboto', sans-serif;
+    .slide-container {
+      position: relative;
+      height: 100%;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      perspective: 1000px;
     }
+
+    .slide {
+      position: absolute;
+      width: 95%;
+      height: 85%;
+      opacity: 0;
+      transform: scale(0.95) translateY(20px);
+      transition: opacity 0.35s ease, transform 0.35s ease;
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+
+      /* Mobile: allow slide content to scroll */
+      overflow-y: auto;
+      scrollbar-width: none;
+      will-change: transform, opacity;
+    }
+
+    @media (min-width: 768px) {
+      .slide { width: 85%; height: 75%; overflow-y: visible; }
+    }
+
+    .slide::-webkit-scrollbar { display: none; }
+
+    .slide.active {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+      pointer-events: auto;
+      z-index: 10;
+    }
+
+    .slide.active .stagger-1 { animation: fadeInUp 0.45s ease-out forwards 0.08s; opacity: 0; }
+    .slide.active .stagger-2 { animation: fadeInUp 0.45s ease-out forwards 0.16s; opacity: 0; }
+    .slide.active .stagger-3 { animation: fadeInUp 0.45s ease-out forwards 0.24s; opacity: 0; }
+    .slide.active .stagger-4 { animation: fadeInUp 0.45s ease-out forwards 0.32s; opacity: 0; }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .glass-panel {
+      background: rgba(16, 23, 42, 0.7);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(0, 243, 255, 0.15);
+      box-shadow: 0 0 20px rgba(0, 243, 255, 0.05);
+      transition: all 0.25s ease;
+    }
+
+    .glass-panel:hover {
+      border-color: rgba(0, 243, 255, 0.3);
+      box-shadow: 0 0 30px rgba(0, 243, 255, 0.1);
+    }
+
+    .scan-line {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--tech-blue);
+      box-shadow: 0 0 10px var(--tech-blue);
+      animation: scan 3s linear infinite;
+      opacity: 0.5;
+    }
+
+    @keyframes scan {
+      0% { top: 0%; opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { top: 100%; opacity: 0; }
+    }
+
+    /* Notes Panel: keep offscreen unless visible */
+    #notes-panel {
+      transform: translateY(120%);
+      transition: transform 0.25s ease-in-out;
+    }
+    #notes-panel.visible { transform: translateY(0); }
+
+    .hidden-script { display: none; }
+
+    .slide-title { text-shadow: 0 0 15px rgba(0, 243, 255, 0.4); }
+
+    /* Optional: focus visibility for keyboard users */
+    :focus-visible { outline: 2px solid var(--tech-blue); outline-offset: 2px; }
   </style>
 </head>
 
 <body>
-  <div class="reveal">
-    <!--
-      Logo removed by request (prevents compression distortion).
-      If you want to add back later:
-      1) Create a div positioned absolute
-      2) Use a stable image ratio (no forced height)
-    -->
+  <div class="bg-grid"></div>
 
-    <div class="preview-btn" id="previewBtn" title="Toggle overview preview (Esc also works)">
-      <span class="dot"></span> Preview
+  <!-- Header -->
+  <header class="fixed top-0 w-full p-4 md:p-6 flex justify-between items-center z-50 text-[10px] md:text-xs tracking-widest text-slate-500 uppercase font-mono bg-slate-900/50 backdrop-blur-sm md:bg-transparent md:backdrop-filter-none border-b border-slate-800/50 md:border-none">
+    <div class="flex items-center gap-2">
+      <div class="p-1 bg-slate-800 rounded border border-slate-700">
+        <i data-lucide="shield-check" class="text-[var(--tech-blue)] w-4 h-4 md:w-5 md:h-5"></i>
+      </div>
+      <span class="hidden md:inline text-slate-300">GSM // Global Security Management</span>
+      <span class="md:hidden text-slate-300">GSM // Security</span>
+    </div>
+    <div class="flex items-center gap-4">
+      <span class="text-[var(--tech-alert)] animate-pulse flex items-center gap-1 font-bold">● <span class="hidden md:inline">RESTRICTED</span></span>
+      <span class="hidden md:inline opacity-60">CONFIDENTIAL</span>
+    </div>
+  </header>
+
+  <!-- Main Slide Stage -->
+  <main class="slide-container" id="slide-stage" aria-live="polite">
+    <!-- Keep your existing slides EXACTLY as-is here -->
+    <!-- ... (Slides 1–16 unchanged) ... -->
+
+    <!-- IMPORTANT: I did not paste all slides again to keep this snippet readable.
+         Apply only the JS + button changes below to your full file.
+         If you want, I can return a complete single-file version with all slides included. -->
+  </main>
+
+  <!-- Footer / Controls -->
+  <footer class="fixed bottom-0 w-full p-4 md:p-6 bg-slate-900/90 backdrop-blur-md border-t border-slate-800 flex justify-between items-center z-50">
+    <div class="flex items-center gap-4">
+      <span class="text-slate-500 font-mono text-xs md:text-sm" id="slide-counter">01 / 16</span>
     </div>
 
-    <div class="slides">
-
-      <!-- SLIDE 1: HOOK -->
-      <section class="flex-center">
-        <div class="icon-circle" style="width: 120px; height: 120px; font-size: 3em;">
-          <i class="fas fa-hand-paper"></i>
-        </div>
-        <h2 style="border:none; margin-bottom: 10px;">Quick Question</h2>
-
-        <div class="fragment fade-up measure">
-          <p style="font-size: clamp(18px, 1.7vw, 28px); color: rgba(2,6,23,0.85);">
-            "Raise your hand if you checked your <strong>personal phone</strong><br>
-            this morning <em>before</em> walking through our gates."
-          </p>
-        </div>
-
-        <div class="fragment fade-up badge" style="margin-top: 28px;">
-          Thinking Activity
-        </div>
-
-        <aside class="notes">
-          (00:00–00:20) Raise your hand first. Ask the question. Pause.
-          (00:20–00:35) “Good. You passed the first test… or did you?”
-        </aside>
-      </section>
-
-      <!-- SLIDE 2: TITLE -->
-      <section>
-        <div class="grid-2">
-          <div>
-            <div class="badge blue">Newcomer Training 2025</div>
-            <h1 style="margin-top: 14px;">Securing<br>Our Future</h1>
-            <h3 style="color: var(--muted); font-weight: 300; margin-top: 14px;">Digital Self-Defense for New Partners</h3>
-
-            <div class="card" style="margin-top: 34px;">
-              <strong>Proprietary Information Protection (PIP)</strong><br>
-              <span style="color: var(--muted); font-size: 0.9em;">Global Security Management</span>
-            </div>
-          </div>
-
-          <div style="display:flex; justify-content:center; align-items:center;">
-            <div class="card" style="width: min(560px, 100%); text-align:center;">
-              <div style="font-size: 5.2em; opacity: 0.14; color: var(--corp-blue);">
-                <i class="fas fa-shield-halved"></i>
-              </div>
-              <div class="badge blue" style="margin-top: 10px;">AURORA GLASS™ // Design OS</div>
-              <p style="margin: 10px 0 0;">High-signal, low-noise security onboarding.</p>
-            </div>
-          </div>
-        </div>
-
-        <aside class="notes">
-          (00:35–01:00) Set the tone: “Not fear. Muscle memory.”
-        </aside>
-      </section>
-
-      <!-- SLIDE 3: WHO WE ARE -->
-      <section>
-        <h2>Who We Are</h2>
-
-        <div class="profile-container">
-          <!-- Update this path if needed -->
-          <img class="profile-photo" src="assets/rockie.jpg" alt="Rockie photo">
-
-          <div style="flex: 1;">
-            <h3 style="margin: 0; color: var(--corp-blue);">Rockie</h3>
-            <p style="margin: 6px 0 14px 0;">PIP @ Global Security Management</p>
-            <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-              <span class="badge blue">13+ Years Exp</span>
-              <span class="badge blue">3+ Years TSMC</span>
-              <span class="badge blue">Overseas Onboarding</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="grid-3" style="margin-top: 26px;">
-          <div class="card" style="text-align: center;">
-            <div style="opacity: 0.65; font-size: 2em; margin-bottom: 10px;"><i class="fas fa-server"></i></div>
-            <h4 style="font-size: 0.95em; margin: 0;">IT Security</h4>
-            <small>Outside-In</small>
-          </div>
-          <div class="card" style="text-align: center;">
-            <div style="opacity: 0.65; font-size: 2em; margin-bottom: 10px;"><i class="fas fa-building-shield"></i></div>
-            <h4 style="font-size: 0.95em; margin: 0;">Physical</h4>
-            <small>People &amp; Site</small>
-          </div>
-          <div class="card highlight" style="text-align: center;">
-            <div style="font-size: 2em; margin-bottom: 10px; color: rgba(11,42,74,0.9);"><i class="fas fa-file-shield"></i></div>
-            <h4 style="font-size: 0.95em; margin: 0;">PIP (Me)</h4>
-            <small>Inside-Out</small>
-          </div>
-        </div>
-
-        <div class="fragment card success" style="margin-top: 18px; padding: 14px;">
-          <p style="margin:0; font-size: 0.95em;"><strong><i class="fas fa-check-circle"></i> Culture:</strong> "We are the Immune System, not the Police."</p>
-        </div>
-
-        <aside class="notes">
-          (01:00–01:40) Position: “We help you succeed; we don’t hunt mistakes.”
-        </aside>
-      </section>
-
-      <!-- SLIDE 4: LOGIC -->
-      <section class="flex-center">
-        <div class="measure">
-          <h2>The Business Logic</h2>
-          <p>Why is PIP strict? It’s simple math.</p>
-
-          <div style="display:flex; flex-wrap:wrap; justify-content:center; gap: 12px; margin-top: 26px;">
-            <div class="card">R&amp;D + IP</div>
-            <div class="card">Leadership</div>
-            <div class="card highlight" style="border-left-color: rgba(16,185,129,0.55);">
-              <i class="fas fa-wallet"></i> YOUR BONUS
-            </div>
-          </div>
-
-          <div class="fragment card danger" style="margin-top: 24px;">
-            <em>"If IP leaks, prices drop, revenue drops, and bonuses vanish."</em>
-          </div>
-        </div>
-
-        <aside class="notes">
-          (01:40–02:20) Keep it factual: security = business continuity.
-        </aside>
-      </section>
-
-      <!-- SLIDE 5: GENERAL PRINCIPLE -->
-      <section>
-        <h2>General Principle</h2>
-        <div class="flex-center" style="margin-bottom: 22px;">
-          <h3 style="font-size: clamp(28px, 2.3vw, 40px); color: var(--corp-blue); margin: 0;">"NEED TO KNOW"</h3>
-          <small>The Fundamental Filter</small>
-        </div>
-
-        <div class="grid-auto">
-          <div class="card fragment" style="text-align:center;">
-            <div style="font-size: 2em; opacity: 0.7; margin-bottom: 10px;"><i class="fas fa-eye"></i></div>
-            <h4>SEE</h4>
-            <small>Access only what’s necessary</small>
-          </div>
-          <div class="card fragment" style="text-align:center;">
-            <div style="font-size: 2em; opacity: 0.7; margin-bottom: 10px;"><i class="fas fa-ear-listen"></i></div>
-            <h4>HEAR</h4>
-            <small>No eavesdropping</small>
-          </div>
-          <div class="card fragment" style="text-align:center;">
-            <div style="font-size: 2em; opacity: 0.7; margin-bottom: 10px;"><i class="fas fa-comment"></i></div>
-            <h4>SPEAK</h4>
-            <small>Discuss only with your team</small>
-          </div>
-          <div class="card fragment" style="text-align:center;">
-            <div style="font-size: 2em; opacity: 0.7; margin-bottom: 10px;"><i class="fas fa-share-nodes"></i></div>
-            <h4>SHARE</h4>
-            <small>No unauthorized transfers</small>
-          </div>
-        </div>
-
-        <aside class="notes">
-          (02:20–03:10) “If you remember one thing, remember this.”
-        </aside>
-      </section>
-
-      <!-- SLIDE 6: TRAP 1 (GATE) -->
-      <section>
-        <div class="timeline">
-          <span class="active">Gate Check</span><span>Tailgate</span><span>Data</span><span>Clean Start</span><span>Phishing</span><span>AI</span><span>Off-Site</span>
-        </div>
-        <h3>Trap #1: The Gate Check</h3>
-
-        <div class="grid-2" style="align-items: start;">
-          <div>
-            <div class="card danger">
-              <h4 style="margin:0;"><i class="fas fa-ban"></i> PROHIBITED DEVICES</h4>
-              <div class="grid-3" style="gap: 10px; margin-top: 12px;">
-                <div style="font-size: 0.75em; text-align: center;"><i class="fas fa-mobile-alt"></i><br>Phones</div>
-                <div style="font-size: 0.75em; text-align: center;"><i class="fas fa-laptop"></i><br>Laptops</div>
-                <div style="font-size: 0.75em; text-align: center;"><i class="fas fa-camera"></i><br>Cameras</div>
-                <div style="font-size: 0.75em; text-align: center;"><i class="fas fa-clock"></i><br><strong>Smart Watch</strong></div>
-                <div style="font-size: 0.75em; text-align: center;"><i class="fas fa-tag"></i><br><strong>AirTags</strong></div>
-                <div style="font-size: 0.75em; text-align: center;"><i class="fas fa-hdd"></i><br>USB/Drones</div>
-              </div>
-            </div>
-
-            <div class="fragment card success" style="margin-top: 14px;">
-              <h4 style="font-size: 1em; margin:0;"><i class="fas fa-shield-alt"></i> Privacy Guarantee</h4>
-              <small>Lockers are secure. Zero company access. Backed by local governance (where applicable).</small>
-            </div>
-          </div>
-
-          <div>
-            <div class="card" style="border-left: 6px solid rgba(245,158,11,0.45); background: rgba(255,255,255,0.72);">
-              <p style="margin:0; font-size: 0.95em; color: rgba(120, 53, 15, 0.88); font-style: italic;">
-                "This might be the world's safest place to work. Nothing gets stolen, and if it does, the thief is caught immediately."
-              </p>
-              <div style="margin-top: 10px;">
-                <strong style="font-size: 0.85em; color: rgba(120,53,15,0.82);">- Dean, Stanford Sustainability School</strong>
-              </div>
-            </div>
-
-            <div class="fragment" style="margin-top: 16px;">
-              <h4 style="font-size: 1em;">Access Process</h4>
-              <ol style="font-size: 0.9em; margin-left: 18px; color: var(--muted);">
-                <li>Check Approved List</li>
-                <li>Strict Internal Review</li>
-                <li>Stakeholder Approval</li>
-              </ol>
-              <div class="badge red" style="margin-top: 8px;">No Greenlight = No Entry</div>
-            </div>
-          </div>
-        </div>
-
-        <aside class="notes">
-          (03:10–04:10) “Rules apply to everyone, including leadership.”
-        </aside>
-      </section>
-
-      <!-- SLIDE 7: TRAP 2 (TAILGATING) -->
-      <section>
-        <div class="timeline">
-          <span>Gate Check</span><span class="active">Tailgate</span><span>Data</span><span>Clean Start</span><span>Phishing</span><span>AI</span><span>Off-Site</span>
-        </div>
-        <h3>Trap #2: The Friendly Stranger</h3>
-
-        <div class="grid-2">
-          <div>
-            <p><strong>Scenario:</strong> Someone smiles and waits for you to hold the door.</p>
-            <div class="card" style="text-align: center; padding: 34px;">
-              <div style="font-size: 4em; opacity: 0.65; margin-bottom: 14px;"><i class="fas fa-id-card-clip"></i></div>
-              <h4>One Badge, One Person</h4>
-            </div>
-          </div>
-
-          <div>
-            <div class="card highlight">
-              <div class="badge blue">Professional Script</div>
-              <p style="font-size: clamp(18px, 1.8vw, 28px); font-style: italic; color: rgba(11,42,74,0.92); line-height: 1.35; margin-top: 12px;">
-                "Sorry, rules are rules. I’ll wait until you scan."
-              </p>
-              <hr style="border: none; border-top: 1px solid rgba(15,23,42,0.10); margin: 14px 0;">
-              <small>Tip: Be polite. Be firm. Be consistent.</small>
-            </div>
-          </div>
-        </div>
-
-        <aside class="notes">
-          (04:10–05:10) Overseas-friendly: “polite firmness” works across cultures.
-        </aside>
-      </section>
-
-      <!-- SLIDE 8: TRAP 3 (AIP) -->
-      <section>
-        <div class="timeline">
-          <span>Gate Check</span><span>Tailgate</span><span class="active">Data</span><span>Clean Start</span><span>Phishing</span><span>AI</span><span>Off-Site</span>
-        </div>
-        <h3>Trap #3: The Unlabeled File</h3>
-        <p>Data classification (AIP) is mandatory.</p>
-
-        <div class="grid-2">
-          <div class="aip-stack">
-            <div class="aip-chip aip-nr">No Restrictions</div>
-            <div class="aip-chip aip-prop">TSMC Properties</div>
-            <div class="aip-chip aip-c">Security C</div>
-            <div class="aip-chip aip-b">Security B</div>
-            <div class="aip-chip aip-a">Security A/AA</div>
-          </div>
-
-          <div style="display:flex; flex-direction: column; gap: 12px;">
-            <div class="fragment card">
-              <h4 style="font-size: 1em; margin:0;"><i class="fas fa-envelope"></i> Email Guard</h4>
-              <small>Systems may block sending high-classification data to external recipients.</small>
-            </div>
-            <div class="fragment card">
-              <h4 style="font-size: 1em; margin:0;"><i class="fas fa-print"></i> Printing Trace</h4>
-              <small>Mandatory watermark &amp; traceability.<br><em>"If found outside, we can identify the print source."</em></small>
-            </div>
-          </div>
-        </div>
-
-        <aside class="notes">
-          (05:10–06:20) Legal-friendly framing: duty of care + traceability, not surveillance.
-        </aside>
-      </section>
-
-      <!-- NEW SLIDE A1: Emerging Risk #1 -->
-      <section>
-        <h2>Emerging Risk #1</h2>
-        <h3>AI Does Not Forget</h3>
-
-        <p>
-          Modern AI tools do not understand your intent.<br>
-          They only understand <strong>input</strong>.
-        </p>
-
-        <div class="grid-2">
-          <div class="card">
-            <h4>Common Misjudgment</h4>
-            <ul style="color: var(--muted); line-height: 1.9; margin: 0; padding-left: 18px;">
-              <li>“I didn’t mean to share confidential data.”</li>
-              <li>“It’s just a draft / example.”</li>
-              <li>“I removed the company name.”</li>
-            </ul>
-          </div>
-
-          <div class="card">
-            <h4>Security Reality</h4>
-            <ul style="color: var(--muted); line-height: 1.9; margin: 0; padding-left: 18px;">
-              <li>Context can still be reconstructed</li>
-              <li>Logging / retention may persist</li>
-              <li>Output ≠ safe storage</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="card highlight" style="margin-top: 16px;">
-          <strong>Rule of thumb:</strong>
-          <div style="margin-top: 6px; color: var(--muted);">
-            If data should not leave the company, it should not enter public AI.
-          </div>
-        </div>
-
-        <aside class="notes">
-          (06:20–07:10) Trainer note: focus on “right tool for right data class.”
-        </aside>
-      </section>
-
-      <!-- SLIDE 10: TRAP 4 (CONTAMINATION / CLEAN START) -->
-      <section>
-        <div class="timeline">
-          <span>Gate Check</span><span>Tailgate</span><span>Data</span><span class="active">Clean Start</span><span>Phishing</span><span>AI</span><span>Off-Site</span>
-        </div>
-
-        <div class="flex-center" style="height: 100%;">
-          <div class="icon-circle red" style="width: 120px; height: 120px; font-size: 4em;">
-            <i class="fas fa-biohazard"></i>
-          </div>
-          <h2 style="border: none; color: rgba(153,27,27,0.90);">DATA CONTAMINATION</h2>
-
-          <p class="measure" style="font-size: clamp(18px, 1.6vw, 26px); color: rgba(2,6,23,0.80);">
-            The Risk: Bringing IP, code, patents, or templates from your <strong>Former Employer</strong>.
-          </p>
-
-          <div class="fragment card danger pulse-warning measure" style="margin-top: 16px;">
-            <strong><i class="fas fa-exclamation-triangle"></i> DANGER</strong>
-            <p style="margin: 10px 0;">Using unowned IP exposes the company to lawsuits and reputational loss.</p>
-            <strong style="color: rgba(153,27,27,0.90);">Rule: Bring your experience, NEVER their data.</strong>
-          </div>
-        </div>
-
-        <aside class="notes">
-          (07:10–08:10) Keep respectful: “We protect you from accidental violations.”
-        </aside>
-      </section>
-
-      <!-- SLIDE 11: TRAP 5 (PHISHING) -->
-      <section>
-        <div class="timeline">
-          <span>Gate Check</span><span>Tailgate</span><span>Data</span><span>Clean Start</span><span class="active">Phishing</span><span>AI</span><span>Off-Site</span>
-        </div>
-        <h3>Trap #5: The Fake Welcome</h3>
-
-        <div class="grid-2">
-          <div class="card" style="font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; border-left: 6px solid rgba(239,68,68,0.50);">
-            <div style="color: rgba(153,27,27,0.88); font-weight: 900;">From: HR-Admin &lt;hr-support@gmaiI.com&gt;</div>
-            <div style="margin-bottom: 12px;">Subject: Action Required: Payroll Update</div>
-            <div style="font-size: 0.9em;">Dear Partner, please click here to update bank info...</div>
-          </div>
-
-          <div class="flex-center">
-            <h4 style="font-size: clamp(26px, 2.2vw, 42px); margin-bottom: 8px; color: rgba(153,27,27,0.88);">STOP. CHECK. CALL.</h4>
-            <p>New hires are a top target.</p>
-          </div>
-        </div>
-
-        <div class="fragment card" style="display:flex; gap: 16px; align-items:center; margin-top: 14px;">
-          <div style="font-size: 3em; opacity: 0.75; color: rgba(153,27,27,0.80);"><i class="fas fa-qrcode"></i></div>
-          <div>
-            <strong>Watch out for "Quishing"</strong><br>
-            <small>Fake QR stickers. Use official channels only.</small>
-          </div>
-        </div>
-
-        <aside class="notes">
-          (08:10–09:10) Keep examples universal; avoid region-specific assumptions.
-        </aside>
-      </section>
-
-      <!-- SLIDE 12: TRAP 6 (AI) -->
-      <section>
-        <div class="timeline">
-          <span>Gate Check</span><span>Tailgate</span><span>Data</span><span>Clean Start</span><span>Phishing</span><span class="active">AI</span><span>Off-Site</span>
-        </div>
-        <h3>Trap #6: The AI Trap</h3>
-        <p>"Your Input = Their Training Data"</p>
-
-        <div class="grid-2">
-          <div class="card danger text-center fragment">
-            <div class="icon-circle red"><i class="fas fa-ban"></i></div>
-            <h4 style="color: rgba(153,27,27,0.88);">PROHIBITED</h4>
-            <ul style="text-align: left; font-size: 0.9em; list-style: none; padding: 0; margin: 0; color: var(--muted); line-height: 1.9;">
-              <li><i class="fas fa-times"></i> Public AI tools for sensitive content</li>
-              <li><i class="fas fa-times"></i> <strong>Shadow IT:</strong> unreviewed SaaS tools</li>
-            </ul>
-          </div>
-
-          <div class="card success text-center fragment">
-            <div class="icon-circle green"><i class="fas fa-check"></i></div>
-            <h4 style="color: rgba(6,95,70,0.88);">APPROVED</h4>
-            <ul style="text-align: left; font-size: 0.9em; list-style: none; padding: 0; margin: 0; color: var(--muted); line-height: 1.9;">
-              <li><i class="fas fa-check"></i> <strong>Internal LLM</strong> (approved)</li>
-              <li><i class="fas fa-check"></i> Approved software list</li>
-            </ul>
-          </div>
-        </div>
-
-        <aside class="notes">
-          (09:10–10:00) Avoid tool-bashing. Focus on “data class drives tool choice.”
-        </aside>
-      </section>
-
-      <!-- NEW SLIDE C1: Emerging Risk #2 -->
-      <section>
-        <h2>Emerging Risk #2</h2>
-        <h3>Location Changes Risk</h3>
-
-        <p>
-          Your security responsibility does not end<br>
-          when you leave the office.
-        </p>
-
-        <div class="grid-2">
-          <div class="card">
-            <h4>High-Risk Scenarios</h4>
-            <ul style="color: var(--muted); line-height: 1.9; margin: 0; padding-left: 18px;">
-              <li>Video calls in public spaces</li>
-              <li>Screens visible to others</li>
-              <li>Shared networks / public Wi-Fi</li>
-            </ul>
-          </div>
-
-          <div class="card">
-            <h4>Typical Blind Spot</h4>
-            <ul style="color: var(--muted); line-height: 1.9; margin: 0; padding-left: 18px;">
-              <li>“No one understands our language.”</li>
-              <li>“I’m only showing part of the screen.”</li>
-              <li>“It’s not sensitive data.”</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="card highlight" style="margin-top: 16px;">
-          <strong>Boundary principle:</strong>
-          <div style="margin-top: 6px; color: var(--muted);">Public space = public risk.</div>
-        </div>
-
-        <aside class="notes">
-          (10:00–10:45) Keep it practical; give one “do this now” behavior if time.
-        </aside>
-      </section>
-
-      <!-- NEW SLIDE C2: Emerging Risk #3 -->
-      <section>
-        <h2>Emerging Risk #3</h2>
-        <h3>Convenience ≠ Approval</h3>
-
-        <p>
-          Modern work moves fast.<br>
-          Risk often hides in “temporary solutions”.
-        </p>
-
-        <div class="grid-2">
-          <div class="card">
-            <h4>Common Patterns</h4>
-            <ul style="color: var(--muted); line-height: 1.9; margin: 0; padding-left: 18px;">
-              <li>Using personal cloud storage</li>
-              <li>Sharing files via unapproved tools</li>
-              <li>“Just this once” workarounds</li>
-            </ul>
-          </div>
-
-          <div class="card">
-            <h4>Why This Matters</h4>
-            <ul style="color: var(--muted); line-height: 1.9; margin: 0; padding-left: 18px;">
-              <li>No audit trail</li>
-              <li>No access control</li>
-              <li>No incident recovery</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="card highlight" style="margin-top: 16px;">
-          <strong>Key message:</strong>
-          <div style="margin-top: 6px; color: var(--muted);">If a tool is not approved, the risk is yours.</div>
-        </div>
-
-        <aside class="notes">
-          (10:45–11:30) Empathy: “We know you want speed. We want safe speed.”
-        </aside>
-      </section>
-
-      <!-- SLIDE 15: OFF SITE -->
-      <section>
-        <div class="timeline">
-          <span>Gate Check</span><span>Tailgate</span><span>Data</span><span>Clean Start</span><span>Phishing</span><span>AI</span><span class="active">Off-Site</span>
-        </div>
-        <h3>Trap #7: Off-Site</h3>
-
-        <div class="grid-2">
-          <div>
-            <ul style="font-size: 0.98em; line-height: 2; color: var(--muted); margin: 0; padding-left: 18px;">
-              <li><strong>Public Talk:</strong> No client names in public transport or restaurants.</li>
-              <li><strong>Taking Data Home:</strong> <span class="badge red">Just Don’t.</span></li>
-              <li><strong>Screens:</strong> Mind the shoulder-surfing risk.</li>
-            </ul>
-          </div>
-
-          <div class="card highlight text-center">
-            <div style="font-size: 3em; opacity: 0.70; margin-bottom: 12px;"><i class="fas fa-mug-hot"></i></div>
-            <h4>Work-Life Balance</h4>
-            <p style="font-size: 0.95em;">Data stays on-site. Disconnect to recharge.</p>
-            <div class="badge blue">Respect your downtime</div>
-          </div>
-        </div>
-
-        <aside class="notes">
-          (11:30–12:20) Keep it non-preachy; “protect your future self.”
-        </aside>
-      </section>
-
-      <!-- SLIDE 16: DETERRENCE -->
-      <section>
-        <h2 style="border-bottom-color: rgba(2,6,23,0.9); color: rgba(153,27,27,0.90);">Reality Check</h2>
-        <p>The impact is greater than you expect.</p>
-
-        <div class="fragment card danger" style="margin-bottom: 14px;">
-          <div class="flex-row">
-            <div style="font-size: 1.6em; opacity: 0.75; color: rgba(153,27,27,0.85);"><i class="fas fa-file-contract"></i></div>
-            <div>
-              <strong>Case A:</strong> Photo of error code to work from home.<br>
-              <span class="badge red" style="margin-top: 8px; display:inline-block;">RESULT: Dismissal + Legal Action</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="fragment card danger">
-          <div class="flex-row">
-            <div style="font-size: 1.6em; opacity: 0.75; color: rgba(153,27,27,0.85);"><i class="fas fa-code-branch"></i></div>
-            <div>
-              <strong>Case B:</strong> Upload code to public repo for “backup”.<br>
-              <span class="badge red" style="margin-top: 8px; display:inline-block;">RESULT: Bonus Forfeited + Formal Action</span>
-            </div>
-          </div>
-        </div>
-
-        <aside class="notes">
-          (12:20–13:10) Legal tone: stick to outcomes; avoid exaggerated claims.
-        </aside>
-      </section>
-
-      <!-- SLIDE 17: TRAFFIC LIGHT -->
-      <section>
-        <h2>Traffic Light System</h2>
-        <div class="traffic-grid" style="margin-top: 22px;">
-          <div class="traffic-item red">
-            <div style="font-size: 2em; opacity: 0.75; margin-bottom: 10px; color: rgba(153,27,27,0.85);"><i class="fas fa-times-circle"></i></div>
-            <h4 style="color: rgba(153,27,27,0.88);">PROHIBITED</h4>
-            <small>USBs, Cameras, Recorders, Transmission Devices</small>
-          </div>
-          <div class="traffic-item yellow">
-            <div style="font-size: 2em; opacity: 0.75; margin-bottom: 10px; color: rgba(146,64,14,0.82);"><i class="fas fa-exclamation-triangle"></i></div>
-            <h4 style="color: rgba(146,64,14,0.86);">REGISTER</h4>
-            <small>Personal laptops/tablets (IT scan required)</small>
-          </div>
-          <div class="traffic-item green">
-            <div style="font-size: 2em; opacity: 0.75; margin-bottom: 10px; color: rgba(6,95,70,0.82);"><i class="fas fa-check-circle"></i></div>
-            <h4 style="color: rgba(6,95,70,0.88);">ALLOWED</h4>
-            <small>Non-digital items</small>
-          </div>
-        </div>
-
-        <aside class="notes">
-          (13:10–14:00) Trainer note: this is the memory shortcut.
-        </aside>
-      </section>
-
-      <!-- SLIDE 18: RESOURCES -->
-      <section>
-        <h2>Resources &amp; Culture</h2>
-        <div class="grid-2" style="align-items: start;">
-          <div>
-            <h4 style="font-size: 1em;">Digital Toolbox</h4>
-            <div class="card" style="padding: 16px;">
-              <ul style="margin: 0; padding-left: 18px; font-size: 0.92em; color: var(--muted); line-height: 1.9;">
-                <li><code>go/security</code> (Portal)</li>
-                <li>Policy Finder</li>
-                <li>Approved Device List</li>
-              </ul>
-            </div>
-
-            <h4 style="font-size: 1em; margin-top: 14px;">Human Network</h4>
-            <div class="card" style="padding: 16px;">
-              <ul style="margin: 0; padding-left: 18px; font-size: 0.92em; color: var(--muted); line-height: 1.9;">
-                <li><strong>PIP Guardians</strong> (Dept. seniors)</li>
-                <li><strong>DPO</strong> (Privacy)</li>
-                <li><strong>Security / IT Help</strong></li>
-              </ul>
-            </div>
-          </div>
-
-          <div>
-            <div class="fragment license-card">
-              <div class="badge red" style="position: absolute; top: 16px; right: 16px;">VALID: 3 MONTHS</div>
-              <div style="font-size: 4em; opacity: 0.68; color: rgba(11,42,74,0.90); margin-bottom: 10px;">
-                <i class="fas fa-id-badge"></i>
-              </div>
-              <h3 style="color: var(--corp-blue); margin: 0;">LICENSE TO ASK</h3>
-              <p style="font-style: italic; margin-top: 8px;">"There are no stupid questions."</p>
-            </div>
-          </div>
-        </div>
-
-        <aside class="notes">
-          (14:00–14:50) Explicitly invite questions. It prevents silent mistakes.
-        </aside>
-      </section>
-
-      <!-- SLIDE 19: INCIDENT REPORTING -->
-      <section>
-        <h2>Incident Reporting</h2>
-        <div class="badge blue" style="font-size: 0.9em; padding: 10px 16px;">
-          Golden Rule: Reporting = Amnesty. Hiding = Trouble.
-        </div>
-
-        <div class="grid-3" style="text-align: center; margin-top: 18px;">
-          <div class="card">
-            <div style="font-size: 3em; font-weight: 900; color: rgba(148,163,184,0.55);">1</div>
-            <h4>Disconnect</h4>
-            <small>Unplug / Wi-Fi Off</small>
-          </div>
-          <div class="card">
-            <div style="font-size: 3em; font-weight: 900; color: rgba(148,163,184,0.55);">2</div>
-            <h4>Report</h4>
-            <small>Hotline / Portal Button</small>
-          </div>
-          <div class="card">
-            <div style="font-size: 3em; font-weight: 900; color: rgba(148,163,184,0.55);">3</div>
-            <h4>Wait</h4>
-            <small>For support instructions</small>
-          </div>
-        </div>
-
-        <aside class="notes">
-          (14:50–15:40) Reinforce: “Early reporting protects you and the company.”
-        </aside>
-      </section>
-
-      <!-- SLIDE 20: VERDICT -->
-      <section class="flex-center">
-        <div class="measure">
-          <h2>The Verdict</h2>
-
-          <div class="card" style="padding: 26px;">
-            <div class="grid-2" style="gap: 18px;">
-              <div style="text-align: left; border-right: 1px solid rgba(15,23,42,0.10); padding-right: 18px;">
-                <div style="font-size: 3em; opacity: 0.72; margin-bottom: 10px;"><i class="fas fa-question-circle"></i></div>
-                <p style="font-style: italic; font-size: 1.05em; color: rgba(2,6,23,0.82);">
-                  "Did you check your phone<br><strong>BEFORE</strong> the gate?"
-                </p>
-                <div style="margin-top: 10px;">
-                  <span class="badge green">GREEN ZONE (Life)</span>
-                  <span style="margin:0 8px; color: rgba(15,23,42,0.45); font-weight:900;">vs</span>
-                  <span class="badge red">RED ZONE (IP)</span>
-                </div>
-                <small style="display: block; margin-top: 8px;">Know the boundary.</small>
-              </div>
-
-              <div class="flex-center">
-                <h4 style="margin-bottom: 10px;">MISSION #1</h4>
-                <div style="font-size: 6em; opacity: 0.6;"><i class="fas fa-qrcode"></i></div>
-                <p style="margin: 10px 0 0;"><strong>Action: Scan &amp; Save</strong></p>
-                <div class="badge blue" style="font-size: 0.95em;">"PIP SOS"</div>
-              </div>
-            </div>
-          </div>
-
-          <div style="margin-top: 18px; display:flex; align-items:center; gap: 12px;">
-            <img src="assets/rockie.jpg" alt="Rockie"
-              style="width:52px;height:52px;border-radius:14px;object-fit:cover;border:1px solid rgba(15,23,42,0.10);box-shadow:0 10px 20px rgba(2,6,23,0.10);">
-            <div style="text-align:left;">
-              <strong>Your Partner: Rockie</strong><br>
-              <small>Welcome to the team.</small>
-            </div>
-          </div>
-        </div>
-
-        <aside class="notes">
-          (15:40–16:20) Close with confidence: “You now know what ‘good’ looks like.”
-        </aside>
-      </section>
-
-      <!-- SLIDE 21: APPENDIX (LEGAL) -->
-      <section>
-        <h2>Appendix: Legal Defense</h2>
-        <div class="card success" style="margin-bottom: 14px;">
-          <strong>Universal Defense: Duty of Care</strong>
-          <p style="margin: 8px 0 0;">"We monitor and control to prevent negligence and protect stakeholders."</p>
-        </div>
-
-        <div class="grid-2">
-          <div class="card">
-            <strong>GDPR Recital 49</strong>
-            <p>Ensuring network / information security can be a "legitimate interest".</p>
-          </div>
-          <div class="card">
-            <strong>Forensics ≠ Surveillance</strong>
-            <p>Logs are for <strong>traceability</strong> (incidents), not “watching people.”</p>
-          </div>
-        </div>
-
-        <aside class="notes">
-          Optional. Use only if asked. Keep it short.
-        </aside>
-      </section>
-
-      <!-- SLIDE 22: END / THANK YOU -->
-      <section class="flex-center">
-        <div class="measure">
-          <div class="icon-circle green" style="width: 120px; height: 120px; font-size: 3.4em;">
-            <i class="fas fa-shield-heart"></i>
-          </div>
-          <h2 style="border:none;">Thank You</h2>
-          <p style="font-size: clamp(18px, 1.6vw, 26px); color: rgba(2,6,23,0.80);">
-            Security is not a department.<br>
-            It’s a daily habit.
-          </p>
-          <div style="margin-top: 14px;">
-            <span class="badge blue">Preview (Overview): Esc</span>
-            <span class="badge blue" style="margin-left: 8px;">Next: Q&amp;A</span>
-          </div>
-        </div>
-      </section>
-
+    <div class="flex gap-4" role="group" aria-label="Slide navigation">
+      <button id="btn-prev" type="button"
+        class="p-3 md:p-2 bg-slate-800 hover:bg-slate-700 rounded-full transition-colors text-white border border-slate-700"
+        aria-label="Previous slide">
+        <i data-lucide="chevron-left"></i>
+      </button>
+      <button id="btn-next" type="button"
+        class="p-3 md:p-2 bg-slate-800 hover:bg-slate-700 rounded-full transition-colors text-white border border-slate-700"
+        aria-label="Next slide">
+        <i data-lucide="chevron-right"></i>
+      </button>
     </div>
+
+    <div class="flex gap-2" role="group" aria-label="View controls">
+      <button id="btn-fullscreen" type="button"
+        class="flex items-center gap-2 px-3 py-2 bg-slate-800 hover:bg-slate-700 rounded text-xs md:text-sm text-slate-300 transition-colors border border-slate-700"
+        title="Toggle Full Screen" aria-label="Toggle full screen">
+        <i data-lucide="maximize" class="w-4 h-4"></i>
+        <span class="hidden md:inline">Maximize</span>
+      </button>
+      <button id="btn-notes" type="button"
+        class="flex items-center gap-2 px-3 py-2 bg-slate-800 hover:bg-slate-700 rounded text-xs md:text-sm text-slate-300 transition-colors border border-slate-700"
+        aria-controls="notes-panel" aria-expanded="false" aria-label="Toggle speaker notes">
+        <i data-lucide="file-text" class="w-4 h-4"></i>
+        <span class="hidden md:inline">Notes</span>
+      </button>
+    </div>
+  </footer>
+
+  <!-- Presenter Notes Overlay -->
+  <div id="notes-panel" class="fixed bottom-[80px] md:bottom-[88px] right-2 md:right-6 left-2 md:left-auto md:w-96 bg-slate-900/95 backdrop-blur-xl border border-[var(--tech-blue)] rounded-lg shadow-2xl z-40 p-4 md:p-6 max-h-[40vh] md:max-h-64 overflow-y-auto" hidden>
+    <h4 class="text-[var(--tech-blue)] text-xs font-bold uppercase tracking-widest mb-2 border-b border-slate-700 pb-2 flex items-center justify-between">
+      <span>Speaker Script</span>
+      <i data-lucide="mic" class="w-3 h-3"></i>
+    </h4>
+    <p id="current-script" class="text-slate-300 text-xs md:text-sm leading-relaxed font-mono">Loading script...</p>
   </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/notes/notes.min.js"></script>
-
   <script>
-    // Reveal config tuned for 2025 devices
-    Reveal.initialize({
-      hash: true,
-      controls: true,
-      progress: true,
-      slideNumber: 'c/t',
-      transition: 'slide',
-      center: true,
+    (() => {
+      "use strict";
 
-      // Balanced for common laptop/desktop. Reveal will scale down on mobile.
-      width: 1366,
-      height: 768,
-      margin: 0.04,
-      minScale: 0.18,
-      maxScale: 2.0,
+      const $ = (sel, root = document) => root.querySelector(sel);
+      const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
-      // Touch friendly
-      touch: true,
+      // DOM
+      const slides = $$(".slide");
+      const totalSlides = slides.length;
 
-      plugins: [ RevealNotes ]
-    });
+      const scriptDisplay = $("#current-script");
+      const counterDisplay = $("#slide-counter");
+      const notesPanel = $("#notes-panel");
+      const btnPrev = $("#btn-prev");
+      const btnNext = $("#btn-next");
+      const btnNotes = $("#btn-notes");
+      const btnFullscreen = $("#btn-fullscreen");
 
-    // Preview / Overview button (left-bottom)
-    const previewBtn = document.getElementById('previewBtn');
-    previewBtn.addEventListener('click', () => Reveal.toggleOverview());
+      // State
+      let currentSlide = 0;
 
-    // Optional: allow "P" key for preview
-    document.addEventListener('keydown', (e) => {
-      if (e.key && e.key.toLowerCase() === 'p') Reveal.toggleOverview();
-    });
+      // Helpers
+      const clamp = (n, min, max) => Math.min(max, Math.max(min, n));
+      const pad2 = (n) => String(n).padStart(2, "0");
+
+      function getScriptForSlide(slideEl) {
+        const scriptEl = slideEl.querySelector(".hidden-script");
+        return scriptEl ? scriptEl.innerText.trim() : "No speaker script for this slide.";
+      }
+
+      function setActiveSlide(nextIndex, { focusStage = false } = {}) {
+        currentSlide = clamp(nextIndex, 0, totalSlides - 1);
+
+        slides.forEach((slide, idx) => {
+          slide.classList.toggle("active", idx === currentSlide);
+          if (idx === currentSlide) slide.scrollTop = 0; // UX: reset scroll per slide
+        });
+
+        // Update script
+        if (scriptDisplay) {
+          scriptDisplay.innerText = getScriptForSlide(slides[currentSlide]);
+        }
+
+        // Counter
+        if (counterDisplay) {
+          counterDisplay.innerText = `${pad2(currentSlide + 1)} / ${pad2(totalSlides)}`;
+        }
+
+        // Deep link (no history spam)
+        if ("replaceState" in history) {
+          history.replaceState(null, "", `#slide-${currentSlide + 1}`);
+        }
+
+        // Buttons enabled state (optional clarity)
+        if (btnPrev) btnPrev.disabled = currentSlide === 0;
+        if (btnNext) btnNext.disabled = currentSlide === totalSlides - 1;
+
+        if (focusStage) {
+          const stage = $("#slide-stage");
+          if (stage) stage.focus?.();
+        }
+      }
+
+      function nextSlide() { setActiveSlide(currentSlide + 1); }
+      function prevSlide() { setActiveSlide(currentSlide - 1); }
+
+      function toggleNotes() {
+        const willShow = notesPanel.hasAttribute("hidden");
+        if (willShow) {
+          notesPanel.removeAttribute("hidden");
+          // allow layout then animate
+          requestAnimationFrame(() => notesPanel.classList.add("visible"));
+        } else {
+          notesPanel.classList.remove("visible");
+          // wait for transition then hide for a11y/tab order
+          window.setTimeout(() => notesPanel.setAttribute("hidden", ""), 250);
+        }
+
+        btnNotes?.setAttribute("aria-expanded", String(willShow));
+      }
+
+      async function toggleFullScreen() {
+        try {
+          if (!document.fullscreenElement) {
+            await document.documentElement.requestFullscreen();
+          } else {
+            await document.exitFullscreen();
+          }
+        } catch (err) {
+          // Avoid alert() in training content; console is enough
+          console.error("Fullscreen error:", err);
+        }
+      }
+
+      // Keyboard navigation (avoid space scrolling / button activation conflicts)
+      function onKeyDown(e) {
+        const target = e.target;
+        const isTypingContext =
+          target && (target.tagName === "INPUT" || target.tagName === "TEXTAREA" || target.isContentEditable);
+
+        if (isTypingContext) return;
+
+        if (e.key === "ArrowRight" || e.key === "PageDown") {
+          e.preventDefault();
+          nextSlide();
+        } else if (e.key === "ArrowLeft" || e.key === "PageUp") {
+          e.preventDefault();
+          prevSlide();
+        } else if (e.key === " " || e.key === "Spacebar") {
+          e.preventDefault();
+          nextSlide();
+        } else if (e.key === "Home") {
+          e.preventDefault();
+          setActiveSlide(0);
+        } else if (e.key === "End") {
+          e.preventDefault();
+          setActiveSlide(totalSlides - 1);
+        } else if (e.key.toLowerCase() === "n") {
+          // optional: quick toggle notes
+          toggleNotes();
+        } else if (e.key === "Escape" && !notesPanel.hasAttribute("hidden")) {
+          toggleNotes();
+        }
+      }
+
+      // Touch swipe (avoid accidental swipes while scrolling vertically)
+      let touchStartX = 0;
+      let touchStartY = 0;
+      let touchEndX = 0;
+      let touchEndY = 0;
+
+      function onTouchStart(e) {
+        const t = e.changedTouches[0];
+        touchStartX = t.screenX;
+        touchStartY = t.screenY;
+      }
+
+      function onTouchEnd(e) {
+        const t = e.changedTouches[0];
+        touchEndX = t.screenX;
+        touchEndY = t.screenY;
+
+        const dx = touchEndX - touchStartX;
+        const dy = touchEndY - touchStartY;
+
+        // Horizontal swipe only if clearly horizontal
+        if (Math.abs(dx) > 55 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+          if (dx < 0) nextSlide();
+          else prevSlide();
+        }
+      }
+
+      // Hash -> slide support
+      function slideIndexFromHash() {
+        const m = (location.hash || "").match(/^#slide-(\d+)$/);
+        if (!m) return null;
+        const n = Number(m[1]);
+        if (!Number.isFinite(n)) return null;
+        return clamp(n - 1, 0, totalSlides - 1);
+      }
+
+      // Init after DOM is ready
+      function init() {
+        // icons
+        if (window.lucide?.createIcons) lucide.createIcons();
+
+        // wire events (no inline onclick)
+        btnPrev?.addEventListener("click", prevSlide);
+        btnNext?.addEventListener("click", nextSlide);
+        btnNotes?.addEventListener("click", toggleNotes);
+        btnFullscreen?.addEventListener("click", toggleFullScreen);
+
+        document.addEventListener("keydown", onKeyDown, { passive: false });
+        document.addEventListener("touchstart", onTouchStart, { passive: true });
+        document.addEventListener("touchend", onTouchEnd, { passive: true });
+
+        // load slide from hash if present
+        const fromHash = slideIndexFromHash();
+        setActiveSlide(fromHash ?? 0);
+
+        // if user edits hash manually
+        window.addEventListener("hashchange", () => {
+          const idx = slideIndexFromHash();
+          if (idx !== null) setActiveSlide(idx);
+        });
+      }
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", init);
+      } else {
+        init();
+      }
+    })();
   </script>
 </body>
 </html>

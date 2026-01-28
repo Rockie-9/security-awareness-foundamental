@@ -1,1259 +1,763 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <title>Securing Our Future: Digital Self-Defense</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PIP Training Deck: Securing Our Future</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- React & ReactDOM -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    
+    <!-- Babel for JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide-react@0.263.1/dist/umd/lucide-react.min.js"></script>
 
-  <!-- Typography: Roboto family -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;900&family=JetBrains+Mono:wght@400;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #020617; /* slate-950 */
+            color: #e2e8f0; /* slate-200 */
+        }
+        
+        .font-mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
 
-  <!-- Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-  <!-- Reveal.js -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reset.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/white.min.css" id="theme">
-
-  <style>
-    /* =========================================================
-      AURORA GLASS™ // Design OS (IP label)
-      - Single-file, no duplicate head/body
-      - Glassmorphism system + RWD hardening
-      - Preview/Overview button for rapid audit
-      - Roboto typography
-      - AIP labels updated with reduced contrast
-    ========================================================== */
-
-    :root {
-      /* Core palette (softened for glass aesthetic) */
-      --corp-blue: #0B2A4A;
-      --corp-blue-2: #123A62;
-
-      --ink: #0f172a;
-      --text-main: rgba(2, 6, 23, 0.92);
-      --text-muted: rgba(15, 23, 42, 0.70);
-
-      /* Accent (subtle gradient usage) */
-      --accent-cyan: rgba(0,243,255,0.85);
-      --accent-purple: rgba(188,19,254,0.70);
-
-      /* Surfaces */
-      --bg: #ffffff;
-      --grid-dot: rgba(148, 163, 184, 0.18);
-      --border: rgba(15, 23, 42, 0.12);
-
-      /* Glass tokens */
-      --glass: rgba(255, 255, 255, 0.62);
-      --glass-strong: rgba(255, 255, 255, 0.76);
-      --blur: 14px;
-      --shadow: 0 10px 30px rgba(2, 6, 23, 0.08);
-
-      /* Layout */
-      --gap: 24px;
-      --radius: 16px;
-
-      /* AIP palette (reduced contrast, calmer tones) */
-      --aip-nr-bg: rgba(15, 23, 42, 0.06);
-      --aip-nr-fg: rgba(15, 23, 42, 0.78);
-
-      --aip-prop-bg: rgba(59, 130, 246, 0.10);
-      --aip-prop-fg: rgba(29, 78, 216, 0.78);
-
-      --aip-c-bg: rgba(245, 158, 11, 0.12);
-      --aip-c-fg: rgba(146, 64, 14, 0.78);
-
-      --aip-b-bg: rgba(249, 115, 22, 0.12);
-      --aip-b-fg: rgba(154, 52, 18, 0.80);
-
-      --aip-a-bg: rgba(239, 68, 68, 0.10);
-      --aip-a-fg: rgba(127, 29, 29, 0.82);
-    }
-
-    /* Background canvas */
-    body {
-      background-color: var(--bg);
-      background-image: radial-gradient(var(--grid-dot) 1px, transparent 1px);
-      background-size: 22px 22px;
-      margin: 0;
-      overflow: hidden; /* important for mobile */
-    }
-
-    /* =========================================================
-      RWD HARDENING FOR REVEAL
-    ========================================================== */
-    html, body { height: 100%; width: 100%; }
-
-    .reveal {
-      position: fixed;
-      inset: 0;
-      font-family: 'Roboto', system-ui, -apple-system, Segoe UI, Helvetica, Arial, sans-serif !important;
-      color: var(--text-main);
-      font-size: clamp(16px, 1.5vw, 24px);
-    }
-
-    /* Ensure stage is full viewport and stable */
-    .reveal .slides { height: 100% !important; }
-    .reveal .slides section {
-      padding: clamp(14px, 2.2vw, 28px);
-      height: 100%;
-      text-align: left;
-      box-sizing: border-box;
-    }
-
-    .reveal h1, .reveal h2, .reveal h3, .reveal h4 {
-      color: var(--corp-blue);
-      font-family: 'Roboto', system-ui, -apple-system, Segoe UI, Helvetica, Arial, sans-serif;
-      font-weight: 900;
-      text-transform: none;
-      letter-spacing: -0.02em;
-      margin-bottom: 0.5em;
-    }
-    .reveal h1 { font-size: clamp(40px, 4.2vw, 78px); line-height: 1.05; }
-    .reveal h2 { font-size: clamp(28px, 2.6vw, 46px); line-height: 1.15; }
-    .reveal h3 { font-size: clamp(20px, 2.0vw, 34px); line-height: 1.25; }
-    .reveal p  { margin-bottom: 1em; line-height: 1.6; color: var(--text-muted); }
-    .reveal strong { font-weight: 800; color: rgba(2, 6, 23, 0.92); }
-    .reveal small { font-size: 0.72em; color: rgba(15, 23, 42, 0.65); }
-
-    /* H2 underline accent (subtle) */
-    .reveal h2 { position: relative; display: inline-block; }
-    .reveal h2::after {
-      content: '';
-      display: block;
-      width: 64px;
-      height: 5px;
-      margin-top: 10px;
-      border-radius: 999px;
-      background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
-      opacity: 0.75;
-    }
-
-    /* Logo chrome (glass) */
-    #company-logo {
-      position: absolute;
-      top: clamp(10px, 2.0vh, 22px);
-      left: clamp(10px, 2.0vw, 22px);
-      z-index: 1000;
-      width: clamp(110px, 14vw, 170px);
-      padding: 10px 12px;
-      border-radius: 14px;
-      background: var(--glass-strong);
-      border: 1px solid rgba(15, 23, 42, 0.10);
-      backdrop-filter: blur(var(--blur));
-      -webkit-backdrop-filter: blur(var(--blur));
-      box-shadow: var(--shadow);
-    }
-    #company-logo img { width: 100%; display: block; border-radius: 10px; }
-
-    /* Layout utilities */
-    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); align-items: center; }
-    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gap); }
-    .grid-auto { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
-    .flex-center { display: flex; justify-content: center; align-items: center; flex-direction: column; text-align: center; }
-    .flex-row { display: flex; gap: var(--gap); align-items: flex-start; }
-    .measure { max-width: 940px; }
-
-    /* Collapse grids on smaller screens */
-    @media (max-width: 1024px) {
-      .grid-2 { grid-template-columns: 1fr !important; }
-      .grid-3 { grid-template-columns: 1fr !important; }
-      .traffic-grid { grid-template-columns: 1fr !important; }
-      .flex-row { flex-direction: column; }
-    }
-
-    /* Small screens: reduce padding density */
-    @media (max-width: 480px) {
-      #company-logo { width: 120px; }
-      .card { padding: 16px; }
-      .icon-circle { width: 64px; height: 64px; font-size: 1.6em; }
-    }
-
-    /* Glass components */
-    .card {
-      background: var(--glass);
-      border: 1px solid rgba(15, 23, 42, 0.10);
-      border-radius: var(--radius);
-      padding: 24px;
-      backdrop-filter: blur(var(--blur));
-      -webkit-backdrop-filter: blur(var(--blur));
-      box-shadow: 0 6px 22px rgba(2, 6, 23, 0.08);
-      transition: transform 0.18s ease, box-shadow 0.18s ease;
-    }
-    .card:hover { transform: translateY(-2px); box-shadow: 0 14px 36px rgba(2, 6, 23, 0.10); }
-    .card.highlight { border-left: 6px solid rgba(0, 243, 255, 0.55); }
-    .card.danger { border-left: 6px solid rgba(239, 68, 68, 0.55); background: rgba(255, 255, 255, 0.72); }
-    .card.success { border-left: 6px solid rgba(16, 185, 129, 0.55); background: rgba(255, 255, 255, 0.72); }
-
-    .badge {
-      display: inline-block;
-      padding: 6px 12px;
-      border-radius: 999px;
-      font-size: 0.62em;
-      font-weight: 900;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      border: 1px solid rgba(15, 23, 42, 0.12);
-      background: rgba(255, 255, 255, 0.72);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-    }
-    .badge.blue  { color: rgba(11, 42, 74, 0.88); }
-    .badge.green { color: rgba(6, 95, 70, 0.85); }
-    .badge.red   { color: rgba(153, 27, 27, 0.85); }
-
-    .icon-circle {
-      width: 84px; height: 84px;
-      border-radius: 22px;
-      background: rgba(255,255,255,0.62);
-      border: 1px solid rgba(15, 23, 42, 0.10);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      color: var(--corp-blue);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 2em;
-      box-shadow: var(--shadow);
-      margin: 0 auto 16px auto;
-    }
-    .icon-circle.red { color: rgba(153, 27, 27, 0.85); }
-    .icon-circle.green { color: rgba(6, 95, 70, 0.85); }
-
-    .timeline {
-      display: flex; justify-content: space-between;
-      gap: 10px;
-      border-bottom: 1px solid rgba(15, 23, 42, 0.10);
-      margin-bottom: 34px;
-      padding-bottom: 12px;
-    }
-    .timeline span {
-      font-size: 0.62em;
-      color: rgba(15, 23, 42, 0.35);
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      white-space: nowrap;
-    }
-    .timeline span.active {
-      color: rgba(11, 42, 74, 0.92);
-      border-bottom: 3px solid rgba(0,243,255,0.55);
-      padding-bottom: 10px;
-    }
-
-    /* Profile */
-    .profile-container {
-      display: flex; align-items: center; gap: 26px;
-      background: var(--glass);
-      padding: 26px;
-      border-radius: var(--radius);
-      border: 1px solid rgba(15, 23, 42, 0.10);
-      backdrop-filter: blur(var(--blur));
-      -webkit-backdrop-filter: blur(var(--blur));
-      box-shadow: var(--shadow);
-    }
-    @media (max-width: 768px) { .profile-container { flex-direction: column; align-items: flex-start; } }
-
-    .profile-photo {
-      width: 148px; height: 148px;
-      border-radius: 18px;
-      object-fit: cover;
-      border: 1px solid rgba(15, 23, 42, 0.12);
-      box-shadow: 0 14px 30px rgba(2, 6, 23, 0.10);
-      background: rgba(255,255,255,0.6);
-      display: block;
-    }
-
-    /* Traffic */
-    .traffic-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; }
-    .traffic-item {
-      text-align: center;
-      padding: 26px 18px;
-      border: 1px solid rgba(15, 23, 42, 0.10);
-      border-radius: var(--radius);
-      background: var(--glass);
-      backdrop-filter: blur(var(--blur));
-      -webkit-backdrop-filter: blur(var(--blur));
-      box-shadow: 0 10px 24px rgba(2, 6, 23, 0.08);
-    }
-    .traffic-item.red { border-top: 7px solid rgba(239, 68, 68, 0.55); }
-    .traffic-item.yellow { border-top: 7px solid rgba(245, 158, 11, 0.55); }
-    .traffic-item.green { border-top: 7px solid rgba(16, 185, 129, 0.55); }
-
-    /* License card */
-    .license-card {
-      background: rgba(255,255,255,0.68);
-      border: 1px solid rgba(15, 23, 42, 0.10);
-      border-radius: 18px;
-      padding: 40px;
-      text-align: center;
-      position: relative;
-      box-shadow: 0 18px 40px rgba(2, 6, 23, 0.10);
-      max-width: 620px;
-      margin: 0 auto;
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      overflow: hidden;
-    }
-    .license-card::before {
-      content: '';
-      position: absolute;
-      inset: 0 0 auto 0;
-      height: 10px;
-      background: linear-gradient(90deg, rgba(0,243,255,0.70), rgba(188,19,254,0.55));
-      opacity: 0.85;
-    }
-
-    /* AIP chips */
-    .aip-stack { display: flex; flex-direction: column; gap: 10px; }
-    .aip-chip {
-      padding: 12px 14px;
-      border-radius: 12px;
-      border: 1px solid rgba(15, 23, 42, 0.10);
-      font-size: 0.78em;
-      font-weight: 900;
-      letter-spacing: 0.02em;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-    }
-    .aip-nr   { background: var(--aip-nr-bg);   color: var(--aip-nr-fg); }
-    .aip-prop { background: var(--aip-prop-bg); color: var(--aip-prop-fg); }
-    .aip-c    { background: var(--aip-c-bg);    color: var(--aip-c-fg); }
-    .aip-b    { background: var(--aip-b-bg);    color: var(--aip-b-fg); }
-    .aip-a    { background: var(--aip-a-bg);    color: var(--aip-a-fg); }
-
-    /* Preview controls */
-    .preview-btn {
-      position: fixed;
-      right: 18px;
-      bottom: 18px;
-      z-index: 2000;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 14px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.76);
-      border: 1px solid rgba(15, 23, 42, 0.12);
-      box-shadow: 0 14px 34px rgba(2, 6, 23, 0.12);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      font-weight: 900;
-      color: rgba(11, 42, 74, 0.92);
-      cursor: pointer;
-      user-select: none;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .preview-btn .dot {
-      width: 10px; height: 10px; border-radius: 999px;
-      background: linear-gradient(90deg, rgba(0,243,255,0.85), rgba(188,19,254,0.70));
-      box-shadow: 0 0 0 4px rgba(0,243,255,0.10);
-    }
-    .preview-hint {
-      position: fixed;
-      right: 18px;
-      bottom: 62px;
-      z-index: 2000;
-      font-size: 12px;
-      color: rgba(15, 23, 42, 0.55);
-      background: rgba(255,255,255,0.72);
-      border: 1px solid rgba(15, 23, 42, 0.10);
-      border-radius: 12px;
-      padding: 8px 10px;
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      box-shadow: 0 10px 22px rgba(2, 6, 23, 0.08);
-      max-width: 260px;
-    }
-
-    /* Upgrade utilities */
-    .kpi-row{display:flex;flex-wrap:wrap;gap:12px;align-items:stretch;justify-content:center}
-    .kpi-pill{padding:14px 16px;border-radius:14px;border:1px solid rgba(15,23,42,.10);background:rgba(255,255,255,.68);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 10px 24px rgba(2,6,23,.08);font-weight:900;color:rgba(2,6,23,.82)}
-    .kpi-pill small{display:block;margin-top:6px;font-weight:500;color:rgba(15,23,42,.60);letter-spacing:.01em}
-
-    .rule-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-    @media (max-width:1024px){.rule-grid{grid-template-columns:1fr}}
-    .rule-item{padding:18px;border-radius:16px;border:1px solid rgba(15,23,42,.10);background:rgba(255,255,255,.62);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 10px 24px rgba(2,6,23,.08)}
-    .rule-item h4{margin:0 0 8px 0}
-    .rule-item ul{margin:0;padding-left:18px;color:rgba(15,23,42,.70);font-size:.92em;line-height:1.65}
-
-    .screen-leak{
-      border-radius:18px;border:1px solid rgba(15,23,42,.10);
-      background:linear-gradient(180deg, rgba(255,255,255,.78), rgba(255,255,255,.58));
-      box-shadow:0 18px 40px rgba(2,6,23,.10);
-      padding:18px; overflow:hidden;
-    }
-    .screen-leak .bar{display:flex;gap:8px;align-items:center;margin-bottom:12px}
-    .screen-leak .dot{width:10px;height:10px;border-radius:999px;background:rgba(15,23,42,.18)}
-    .screen-leak code{font-size:.88em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
-    @media (max-width:480px){ .screen-leak code{white-space:normal} }
-
-    /* Animations */
-    @keyframes pulse-soft {
-      0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.25); }
-      70% { box-shadow: 0 0 0 12px rgba(239, 68, 68, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
-    }
-    .pulse-warning { animation: pulse-soft 2.2s infinite; }
-
-    aside.notes { font-size: 16px; line-height: 1.5; font-family: 'Roboto', sans-serif; }
-  </style>
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        .animate-slideUp {
+            animation: slideUp 0.3s ease-out forwards;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569; 
+        }
+    </style>
 </head>
-
 <body>
-  <div class="reveal">
+    <div id="root"></div>
 
-    <!-- LOGO PLACEHOLDER -->
-    <div id="company-logo">
-      <img src="https://placehold.co/160x50/0B2A4A/ffffff?text=LOGO" alt="Company Logo">
-    </div>
+    <script type="text/babel">
+        const { useState, useRef, useEffect } = React;
+        const { 
+            Shield, Lock, Smartphone, UserX, AlertTriangle, 
+            Eye, Ear, Mic, Share2, Briefcase, Coffee, 
+            ChevronRight, ChevronLeft, CheckCircle, XCircle, 
+            Server, FileText, X, Menu, Maximize, Minimize,
+            LayoutGrid
+        } = lucideReact;
 
-    <!-- Preview / Overview -->
-    <div class="preview-hint">
-      Tip: Tap “Preview” for slide overview (fast audit).<br>
-      Keyboard: <strong>Esc</strong> also toggles overview.
-    </div>
-    <div class="preview-btn" id="previewBtn" title="Toggle Overview / Preview">
-      <span class="dot"></span> Preview
-    </div>
-
-    <div class="slides">
-
-      <!-- SLIDE 1: HOOK -->
-      <section class="flex-center">
-        <div class="icon-circle" style="width: 120px; height: 120px; font-size: 3em;">
-          <i class="fas fa-hand-paper"></i>
-        </div>
-        <h2 style="border:none; margin-bottom: 10px;">Quick Question</h2>
-
-        <div class="fragment fade-up measure">
-          <p style="font-size: clamp(18px, 1.7vw, 28px); color: rgba(2,6,23,0.85);">
-            "Raise your hand if you checked your <strong>personal phone</strong><br>
-            this morning <em>before</em> walking through our gates."
-          </p>
-        </div>
-
-        <div class="fragment fade-up badge" style="margin-top: 28px;">
-          Thinking Activity
-        </div>
-
-        <aside class="notes">
-          (00:00–00:20) Raise your hand first. Ask the question. Pause for 3 seconds.
-          (00:20–00:35) “Good. You passed the first test… or did you?”
-        </aside>
-      </section>
-
-      <!-- SLIDE 2: TITLE -->
-      <section>
-        <div class="grid-2">
-          <div>
-            <div class="badge blue">Newcomer Training 2025</div>
-            <h1 style="margin-top: 14px;">Securing<br>Our Future</h1>
-            <h3 style="color: var(--text-muted); font-weight: 300; margin-top: 14px;">Digital Self-Defense for New Partners</h3>
-
-            <div class="card" style="margin-top: 34px;">
-              <strong>Proprietary Information Protection (PIP)</strong><br>
-              <span style="color: var(--text-muted); font-size: 0.9em;">Global Security Management</span>
-            </div>
-          </div>
-
-          <div style="display:flex; justify-content:center; align-items:center;">
-            <div class="card" style="width: min(520px, 100%); text-align:center;">
-              <div style="font-size: 5.2em; opacity: 0.14; color: var(--corp-blue);">
-                <i class="fas fa-shield-halved"></i>
+        // --- Data Structure for Slides ---
+        const slides = [
+          {
+            id: 1,
+            title: "PIP IS LIFE",
+            subtitle: "Professional Information Protection: A 24/7 Mindset",
+            type: "title",
+            icon: <Shield className="w-16 h-16 md:w-24 md:h-24 text-cyan-400" />,
+            script: "Welcome. Today, we aren't just talking about rules. We are talking about a mindset. We call it PIP: Professional Information Protection. You might think security is about firewalls. It’s not. It’s about Life. It protects Our life as a company and Your life—your career and reputation. Let’s begin."
+          },
+          {
+            id: 2,
+            title: "The 24/7 Mindset",
+            type: "content",
+            layout: "split",
+            leftContent: (
+              <div className="flex flex-col items-center justify-center h-full opacity-50 grayscale py-8 md:py-0">
+                <div className="text-5xl md:text-6xl font-bold line-through decoration-red-500 text-slate-400">9-to-5</div>
+                <p className="mt-4 text-lg md:text-xl text-slate-500">The Old Way</p>
               </div>
-              <div class="badge blue" style="margin-top: 10px;">AURORA GLASS™ // Design OS</div>
-              <p style="margin: 10px 0 0;">High-signal, low-noise security onboarding.</p>
-            </div>
-          </div>
-        </div>
-
-        <aside class="notes">
-          (00:35–01:00) Set the tone: “Today is not about fear. It’s about muscle memory.”
-        </aside>
-      </section>
-
-      <!-- SLIDE 3: WHO WE ARE -->
-      <section>
-        <h2>Who We Are</h2>
-
-        <div class="profile-container">
-          <img class="profile-photo" src="assets/rockie.jpg" alt="Rockie photo"
-               onerror="this.style.display='none'; document.getElementById('photoFallback').style.display='flex';" />
-
-          <div id="photoFallback" class="profile-photo" style="display:none; align-items:center; justify-content:center; font-weight:900; color:rgba(11,42,74,0.9);">
-            R
-          </div>
-
-          <div style="flex: 1;">
-            <h3 style="margin: 0; color: var(--corp-blue);">Rockie</h3>
-            <p style="margin: 6px 0 14px 0;">PIP @ Global Security Management</p>
-            <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-              <span class="badge blue">13+ Years Exp</span>
-              <span class="badge blue">3+ Years TSMC</span>
-              <span class="badge blue">EU/Overseas Onboarding</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="grid-3" style="margin-top: 26px;">
-          <div class="card" style="text-align: center;">
-            <div style="opacity: 0.65; font-size: 2em; margin-bottom: 10px;"><i class="fas fa-server"></i></div>
-            <h4 style="font-size: 0.95em; margin: 0;">IT Security</h4>
-            <small>Outside-In</small>
-          </div>
-          <div class="card" style="text-align: center;">
-            <div style="opacity: 0.65; font-size: 2em; margin-bottom: 10px;"><i class="fas fa-building-shield"></i></div>
-            <h4 style="font-size: 0.95em; margin: 0;">Physical</h4>
-            <small>People &amp; Site</small>
-          </div>
-          <div class="card highlight" style="text-align: center;">
-            <div style="font-size: 2em; margin-bottom: 10px; color: rgba(11,42,74,0.9);"><i class="fas fa-file-shield"></i></div>
-            <h4 style="font-size: 0.95em; margin: 0;">PIP (Me)</h4>
-            <small>Inside-Out</small>
-          </div>
-        </div>
-
-        <div class="fragment card success" style="margin-top: 18px; padding: 14px;">
-          <p style="margin:0; font-size: 0.95em;"><strong><i class="fas fa-check-circle"></i> Culture:</strong> "We are the Immune System, not the Police."</p>
-        </div>
-
-        <aside class="notes">
-          (01:00–01:40) Quick positioning: you help them succeed; you don’t “hunt mistakes.”
-        </aside>
-      </section>
-
-      <!-- SLIDE 4: LOGIC -->
-      <section class="flex-center">
-        <div class="measure">
-          <h2>The Business Logic</h2>
-          <p>Why is PIP strict? It’s simple math.</p>
-
-          <div style="display:flex; flex-wrap:wrap; justify-content:center; gap: 12px; margin-top: 26px;">
-            <div class="card">R&amp;D + IP</div>
-            <div class="card">Leadership</div>
-            <div class="card highlight" style="border-left-color: rgba(16,185,129,0.55);">
-              <i class="fas fa-wallet"></i> YOUR BONUS
-            </div>
-          </div>
-
-          <div class="fragment card danger" style="margin-top: 24px;">
-            <em>"If IP leaks, prices drop, revenue drops, and bonuses vanish."</em>
-          </div>
-        </div>
-
-        <aside class="notes">
-          (01:40–02:20) Make it personal but factual: “Security is business continuity.”
-        </aside>
-      </section>
-
-      <!-- NEW SLIDE 4.5: Authorized ≠ Appropriate -->
-      <section>
-        <h2>Just Because You Can, Doesn’t Mean You Should</h2>
-        <p class="measure">Most real-world leaks are not “hacks”. They are <strong>authorized actions</strong> taken in the wrong context.</p>
-
-        <div class="kpi-row" style="margin-top:18px;">
-          <div class="kpi-pill">Authorized <small>You have access</small></div>
-          <div class="kpi-pill">≠ Appropriate <small>It is still your judgment</small></div>
-          <div class="kpi-pill">≠ Defensible <small>Can you justify it later?</small></div>
-        </div>
-
-        <div class="rule-grid" style="margin-top:18px;">
-          <div class="rule-item">
-            <h4>Common “Good Intent” Triggers</h4>
-            <ul>
-              <li>“Just a quick screenshot”</li>
-              <li>“Just a backup to personal storage”</li>
-              <li>“Just asking AI to summarize”</li>
-            </ul>
-          </div>
-          <div class="rule-item">
-            <h4>Decision Filter</h4>
-            <ul>
-              <li><strong>Need-to-know</strong> satisfied?</li>
-              <li>Is this the <strong>right tool</strong> for this data class?</li>
-              <li>Would you be comfortable if this appeared in an investigation?</li>
-            </ul>
-          </div>
-          <div class="rule-item">
-            <h4>One-liner to Remember</h4>
-            <p style="margin:0;color:rgba(2,6,23,.82);font-weight:900;font-size:1.05em;">
-              Access is trust, not immunity.
-            </p>
-            <small>Professionalism = pause and think once.</small>
-          </div>
-        </div>
-
-        <aside class="notes">
-          (02:20–03:10) Transition from “business logic” to “personal judgment”.
-          (03:10–03:40) Emphasize: most incidents are convenience-driven, not malicious.
-          (03:40–04:10) “If you remember one upgrade today: Authorized does not mean appropriate.”
-        </aside>
-      </section>
-
-      <!-- SLIDE 5: GENERAL PRINCIPLE -->
-      <section>
-        <h2>General Principle</h2>
-        <div class="flex-center" style="margin-bottom: 22px;">
-          <h3 style="font-size: clamp(28px, 2.3vw, 40px); color: var(--corp-blue); margin: 0;">"NEED TO KNOW"</h3>
-          <small>The Fundamental Filter</small>
-        </div>
-
-        <div class="grid-auto">
-          <div class="card fragment" style="text-align:center;">
-            <div style="font-size: 2em; opacity: 0.7; margin-bottom: 10px;"><i class="fas fa-eye"></i></div>
-            <h4>SEE</h4>
-            <small>Access only what’s necessary</small>
-          </div>
-          <div class="card fragment" style="text-align:center;">
-            <div style="font-size: 2em; opacity: 0.7; margin-bottom: 10px;"><i class="fas fa-ear-listen"></i></div>
-            <h4>HEAR</h4>
-            <small>No eavesdropping</small>
-          </div>
-          <div class="card fragment" style="text-align:center;">
-            <div style="font-size: 2em; opacity: 0.7; margin-bottom: 10px;"><i class="fas fa-comment"></i></div>
-            <h4>SPEAK</h4>
-            <small>Discuss only with your team</small>
-          </div>
-          <div class="card fragment" style="text-align:center;">
-            <div style="font-size: 2em; opacity: 0.7; margin-bottom: 10px;"><i class="fas fa-share-nodes"></i></div>
-            <h4>SHARE</h4>
-            <small>No unauthorized transfers</small>
-          </div>
-        </div>
-
-        <aside class="notes">
-          (04:10–05:00) “This rule scales. If you remember only one thing, remember this.”
-        </aside>
-      </section>
-
-      <!-- SLIDE 6: TRAP 1 (GATE) -->
-      <section>
-        <div class="timeline">
-          <span class="active">Gate Check</span><span>Tailgate</span><span>Clean Start</span><span>Phishing</span><span>AI</span><span>Off-Site</span>
-        </div>
-        <h3>Trap #1: The Gate Check</h3>
-
-        <div class="grid-2" style="align-items: start;">
-          <div>
-            <div class="card danger">
-              <h4 style="margin:0;"><i class="fas fa-ban"></i> PROHIBITED DEVICES</h4>
-              <div class="grid-3" style="gap: 10px; margin-top: 12px;">
-                <div style="font-size: 0.75em; text-align: center;"><i class="fas fa-mobile-alt"></i><br>Phones</div>
-                <div style="font-size: 0.75em; text-align: center;"><i class="fas fa-laptop"></i><br>Laptops</div>
-                <div style="font-size: 0.75em; text-align: center;"><i class="fas fa-camera"></i><br>Cameras</div>
-                <div style="font-size: 0.75em; text-align: center;"><i class="fas fa-clock"></i><br><strong>Smart Watch</strong></div>
-                <div style="font-size: 0.75em; text-align: center;"><i class="fas fa-tag"></i><br><strong>AirTags</strong></div>
-                <div style="font-size: 0.75em; text-align: center;"><i class="fas fa-hdd"></i><br>USB/Drones</div>
+            ),
+            rightContent: (
+              <div className="flex flex-col items-center justify-center h-full text-cyan-400 py-8 md:py-0">
+                <div className="text-5xl md:text-6xl font-bold animate-pulse">24/7</div>
+                <p className="mt-4 text-lg md:text-xl">The Reality</p>
+                <p className="mt-4 md:mt-8 text-center text-white text-base md:text-lg px-4">"You are the Perimeter."</p>
               </div>
-            </div>
+            ),
+            script: "The biggest mistake new hires make is thinking security is a '9-to-5' job. The reality is: PIP is a 24/7 Mindset. When you leave this building, you carry the secret in your head. Whether at a cafe or dinner table, YOU are the perimeter."
+          },
+          {
+            id: 3,
+            title: "Global Security Management (GSM)",
+            type: "content",
+            layout: "three-col",
+            items: [
+              { title: "IT Security", icon: <Server />, desc: "Cyber Defense & Networks", color: "text-blue-400" },
+              { title: "Physical Security", icon: <Lock />, desc: "Site Integrity & Access", color: "text-green-400" },
+              { title: "PIP", icon: <UserX />, desc: "People, Process & Secrets", color: "text-purple-400" }
+            ],
+            script: "What does our immune system look like? It has three divisions. 1. IT Security (Digital). 2. Physical Security (Site). 3. PIP (People & Process). This is where YOU come in."
+          },
+          {
+            id: 4,
+            title: "The Human Bridge",
+            type: "diagram",
+            visual: "bridge",
+            script: "Threats can't usually jump our firewalls. They need a Bridge. YOU are that bridge. You can be the Target (tricked), the Carrier (accidental), or the Amplifier (using trust to spread risk). Pull up the drawbridge."
+          },
+          {
+            id: 5,
+            title: "The Golden Rule: Need to Know",
+            type: "content",
+            layout: "quadrant",
+            items: [
+              { title: "SEE", icon: <Eye />, desc: "Eyes on your own screen." },
+              { title: "HEAR", icon: <Ear />, desc: "Walk away from sensitive talks." },
+              { title: "SPEAK", icon: <Mic />, desc: "Secure zones only." },
+              { title: "SHARE", icon: <Share2 />, desc: "Verify necessity first." }
+            ],
+            script: "How do we stop being the bridge? The Golden Rule: Authorization + Necessity. Apply it to your senses: See only what you must. Hear only what concerns you. Speak only in secure zones. Share only if strictly necessary."
+          },
+          {
+            id: 6,
+            title: "Trap #1: The 'Smart' Device",
+            type: "alert",
+            icon: <Smartphone className="w-12 h-12 md:w-16 md:h-16 text-red-500" />,
+            list: [
+              "Personal Smart Phones",
+              "Unlisted Smart Watches",
+              "Smart Glasses",
+              "Docking Stations"
+            ],
+            warning: "Forbidden: Recording, Storage, Transmission",
+            script: "Trap #1. The rule is strict. Personal phones, watches, glasses, and docks are prohibited. Why? Because they Record, Store, and Transmit. Perform a 'Self-Check' before you hit the gate."
+          },
+          {
+            id: 7,
+            title: "Trap #2: Tailgating",
+            type: "content",
+            layout: "center-focus",
+            mainText: "ONE BADGE. ONE PERSON.",
+            subText: "Politeness is a Security Gap.",
+            script: "Trap #2. We hold doors to be polite. But that door protects your colleagues. When you let a stranger in, you unlock your colleagues' safety. The rule is absolute: One Badge. One Person."
+          },
+          {
+            id: 8,
+            title: "Trap #3: Labeling",
+            type: "pyramid",
+            levels: [
+              { label: "AA / A (Top Secret)", color: "bg-red-600" },
+              { label: "B (Confidential)", color: "bg-orange-500" },
+              { label: "C (Internal)", color: "bg-yellow-500" },
+              { label: "No Restriction", color: "bg-green-500" }
+            ],
+            footer: "Unsure? Choose the HIGHEST level.",
+            script: "Trap #3. Our systems rely on labels. Know the hierarchy: AA is our Crown Jewels. If you create it, you label it. If you are unsure, always mark it AA. Over-protect rather than leak."
+          },
+          {
+            id: 9,
+            title: "Trap #4: Double Device Risk",
+            type: "split-warning",
+            left: { title: "The Action", text: "Installing Work Apps on Personal Phone" },
+            right: { title: "The Consequence", text: "Legal Seizure of Personal Device" },
+            script: "Trap #4. Do not install Teams or Outlook on your personal phone. If a legal investigation happens, authorities can SEIZE your personal phone. Your private photos become evidence. Segregation is Safety."
+          },
+          {
+            id: 10,
+            title: "Trap #5: Phishing Protocol",
+            type: "steps",
+            steps: ["STOP", "CHECK", "CALL"],
+            desc: "Panic is the Hack.",
+            script: "Trap #5. Phishing targets your emotions (Fear/Urgency). When you feel panic, STOP. CHECK the sender. CALL the person. Don't let them hack your brain."
+          },
+          {
+            id: 11,
+            title: "Trap #6: AI & The EU AI Act",
+            type: "comparison",
+            bad: { title: "Public AI (ChatGPT)", desc: "Your Input = Training Data" },
+            good: { title: "tGenie (Internal)", desc: "Compliant, Private, Safe" },
+            script: "Trap #6. The EU AI Act sets the standard. We must know where data goes. Public AI trains on your input. Do not use it. Use tGenie—our internal, compliant LLM. Keep us legal."
+          },
+          {
+            id: 12,
+            title: "Work-Life Balance",
+            type: "image-text",
+            icon: <Coffee className="w-16 h-16 text-yellow-400" />,
+            text: "The Ultimate Security Feature is Separation.",
+            sub: "Leave work at work. Protect your peace of mind.",
+            script: "Trap #7 is failing to disconnect. When you leave, leave work behind. Talk about hobbies, not deadlines. By separating work and life, you protect the secrets and your own mental health."
+          },
+          {
+            id: 13,
+            title: "Consequences",
+            type: "alert",
+            icon: <AlertTriangle className="w-12 h-12 md:w-16 md:h-16 text-orange-500" />,
+            list: [
+              "Termination",
+              "Legal Action",
+              "Failed Reference Checks"
+            ],
+            warning: "Intent ≠ Outcome",
+            script: "Intent does not change the outcome. An accidental leak destroys value. The unseen impact? Your future career. A security termination fails your future reference checks. Don't risk it."
+          },
+          {
+            id: 14,
+            title: "Resources & Pledge",
+            type: "resources",
+            items: ["Direct Supervisor", "Info Guardian", "Security Portal", "Digital Assistant"],
+            pledge: "I protect the innovation that builds our future.",
+            script: "You are not alone. Ask your Info Guardian. Ask your Supervisor. Security is about knowing who to ask. Your signature today is your promise."
+          }
+        ];
 
-            <div class="fragment card success" style="margin-top: 14px;">
-              <h4 style="font-size: 1em; margin:0;"><i class="fas fa-shield-alt"></i> Privacy Guarantee</h4>
-              <small>Lockers are secure. Zero company access. Backed by Works Council (where applicable).</small>
-            </div>
-          </div>
+        const quizQuestions = [
+          { q: "A friend asks about a secret project. You trust them.", options: ["Tell vaguely", "Say nothing ('PIP is Life')", "Show a photo"], correct: 1, hint: "Trust is not a security clearance." },
+          { q: "You have Smart Glasses that look normal. Can you wear them inside?", options: ["Yes, if off", "No", "Only in cafeteria"], correct: 1, hint: "If it records, stores, or transmits, it stays out." },
+          { q: "Colleague with coffee asks you to hold the door.", options: ["Hold it", "Ask them to swipe", "Squeeze in"], correct: 1, hint: "Politeness is a bridge for threats." },
+          { q: "You are unsure how to label a file.", options: ["Leave blank", "Mark AA (Highest)", "Ask a friend"], correct: 1, hint: "Always over-protect." },
+          { q: "URGENT email: 'Password Expiry'. What do you do?", options: ["Click link", "STOP - CHECK - CALL", "Reply email"], correct: 1, hint: "Panic is the hack." },
+          { q: "You need AI to debug code.", options: ["ChatGPT", "tGenie", "Bard"], correct: 1, hint: "Public AI trains on your data. tGenie is private." },
+          { q: "You have a template from your old job.", options: ["Use it", "Start fresh", "Edit header"], correct: 1, hint: "IP Contamination is theft." },
+          { q: "Legal investigation starts. You use personal phone for work.", options: ["Phone is safe", "Authorities can seize it", "Delete apps"], correct: 1, hint: "Double Device = Double Risk." },
+          { q: "Who is your department classification expert?", options: ["IT Helpdesk", "Info Guardian", "HR"], correct: 1, hint: "The Guardian knows the specific rules." },
+          { q: "Long term risk of security termination?", options: ["None", "Failed Reference Checks", "Small fine"], correct: 1, hint: "The industry is small." }
+        ];
 
-          <div>
-            <div class="card" style="border-left: 6px solid rgba(245,158,11,0.45); background: rgba(255,255,255,0.72);">
-              <p style="margin:0; font-size: 0.95em; color: rgba(120, 53, 15, 0.88); font-style: italic;">
-                "This might be the world's safest place to work. Nothing gets stolen, and if it does, the thief is caught immediately."
-              </p>
-              <div style="margin-top: 10px;">
-                <strong style="font-size: 0.85em; color: rgba(120,53,15,0.82);">- Dean, Stanford Sustainability School</strong>
-              </div>
-            </div>
+        function App() {
+          const [currentSlide, setCurrentSlide] = useState(0);
+          const [showScript, setShowScript] = useState(false);
+          const [quizMode, setQuizMode] = useState(false);
+          const [quizIndex, setQuizIndex] = useState(0);
+          const [score, setScore] = useState(0);
+          const [quizFinished, setQuizFinished] = useState(false);
+          const [feedback, setFeedback] = useState(null);
+          const [isFullscreen, setIsFullscreen] = useState(false);
+          const [showGrid, setShowGrid] = useState(false);
+          
+          const contentRef = useRef(null);
 
-            <div class="fragment" style="margin-top: 16px;">
-              <h4 style="font-size: 1em;">Access Process</h4>
-              <ol style="font-size: 0.9em; margin-left: 18px; color: var(--text-muted);">
-                <li>Check Approved List</li>
-                <li>Strict Internal Review</li>
-                <li>Stakeholder Approval</li>
-              </ol>
-              <div class="badge red" style="margin-top: 8px;">No Greenlight = No Entry</div>
-            </div>
-          </div>
-        </div>
+          useEffect(() => {
+            if (contentRef.current) {
+                contentRef.current.scrollTop = 0;
+            }
+          }, [currentSlide, quizMode, quizIndex, showGrid]);
 
-        <aside class="notes">
-          (05:00–06:00) Emphasize fairness: “The rule applies to everyone, including leadership.”
-        </aside>
-      </section>
+          const toggleFullScreen = () => {
+            if (!document.fullscreenElement) {
+              document.documentElement.requestFullscreen();
+              setIsFullscreen(true);
+            } else {
+              if (document.exitFullscreen) {
+                document.exitFullscreen();
+                setIsFullscreen(false);
+              }
+            }
+          };
 
-      <!-- SLIDE 7: TRAP 2 (TAILGATING) -->
-      <section>
-        <div class="timeline">
-          <span>Gate Check</span><span class="active">Tailgate</span><span>Clean Start</span><span>Phishing</span><span>AI</span><span>Off-Site</span>
-        </div>
-        <h3>Trap #2: The Friendly Stranger</h3>
+          const nextSlide = () => {
+            if (currentSlide < slides.length - 1) setCurrentSlide(curr => curr + 1);
+            else setQuizMode(true);
+          };
 
-        <div class="grid-2">
-          <div>
-            <p><strong>Scenario:</strong> Someone smiles and waits for you to hold the door.</p>
-            <div class="card" style="text-align: center; padding: 34px;">
-              <div style="font-size: 4em; opacity: 0.65; margin-bottom: 14px;"><i class="fas fa-id-card-clip"></i></div>
-              <h4>One Badge, One Person</h4>
-            </div>
-          </div>
+          const prevSlide = () => {
+            if (quizMode) {
+                if(window.confirm("Exit assessment? Progress will be lost.")) {
+                    setQuizMode(false);
+                    setQuizIndex(0);
+                    setScore(0);
+                    setQuizFinished(false);
+                }
+            }
+            else if (currentSlide > 0) setCurrentSlide(curr => curr - 1);
+          };
 
-          <div>
-            <div class="card highlight">
-              <div class="badge blue">🇩🇪 Professional Script</div>
-              <p style="font-size: clamp(18px, 1.8vw, 28px); font-style: italic; color: rgba(11,42,74,0.92); line-height: 1.35; margin-top: 12px;">
-                "Entschuldigung, Vorschrift ist Vorschrift. Ich warte kurz, bis Sie gescannt haben."
-              </p>
-              <hr style="border: none; border-top: 1px solid rgba(15,23,42,0.10); margin: 14px 0;">
-              <small>(Sorry, rules are rules. I'll wait until you scan.)</small>
-            </div>
-          </div>
-        </div>
+          const handleAnswer = (index) => {
+            if (feedback) return;
+            const isCorrect = index === quizQuestions[quizIndex].correct;
+            
+            if (isCorrect) {
+              setScore(s => s + 1);
+              setFeedback({ type: 'success', msg: 'Correct!' });
+            } else {
+              setFeedback({ type: 'error', msg: `Incorrect. Hint: ${quizQuestions[quizIndex].hint}` });
+            }
 
-        <aside class="notes">
-          (06:00–07:00) Overseas colleagues appreciate “polite firmness” scripts—keep it simple.
-        </aside>
-      </section>
+            setTimeout(() => {
+              setFeedback(null);
+              if (quizIndex < quizQuestions.length - 1) {
+                setQuizIndex(i => i + 1);
+              } else {
+                setQuizFinished(true);
+              }
+            }, 2500);
+          };
 
-      <!-- SLIDE 8: TRAP 3 (AIP) -->
-      <section>
-        <div class="timeline">
-          <span>Gate Check</span><span>Tailgate</span><span class="active">Data</span><span>Phishing</span><span>AI</span><span>Off-Site</span>
-        </div>
-        <h3>Trap #3: The Unlabeled File</h3>
-        <p>Data classification (AIP) is mandatory.</p>
+          // --- Slide Render Logic ---
+          const renderSlideContent = (slide) => {
+            switch(slide.type) {
+              case "title":
+                return (
+                  <div className="flex flex-col items-center justify-center h-full text-center animate-fadeIn p-4">
+                    <div className="mb-6 md:mb-8 animate-bounce">{slide.icon}</div>
+                    <h1 className="text-4xl md:text-7xl font-black text-white mb-4 tracking-tighter">{slide.title}</h1>
+                    <h2 className="text-xl md:text-2xl text-cyan-400 font-light">{slide.subtitle}</h2>
+                  </div>
+                );
+              case "content":
+                if (slide.layout === "split") {
+                  return (
+                    <div className="flex flex-col md:flex-row h-full w-full">
+                      <div className="w-full md:w-1/2 md:p-8 md:border-r border-b md:border-b-0 border-slate-700 min-h-[200px]">{slide.leftContent}</div>
+                      <div className="w-full md:w-1/2 md:p-8 min-h-[200px]">{slide.rightContent}</div>
+                    </div>
+                  );
+                }
+                if (slide.layout === "three-col") {
+                    return (
+                        <div className="flex flex-col md:flex-row justify-around items-center h-full gap-4 md:gap-0 py-8 md:py-0">
+                            {slide.items.map((item, idx) => (
+                                <div key={idx} className="flex flex-col items-center p-6 bg-slate-800 rounded-xl w-full md:w-1/4 h-auto md:h-64 justify-center border border-slate-700 hover:border-cyan-400 transition-all shadow-lg">
+                                    <div className={`${item.color} mb-4`}>{item.icon}</div>
+                                    <h3 className="text-xl font-bold text-white mb-2">{item.title}</h3>
+                                    <p className="text-center text-slate-400 text-sm">{item.desc}</p>
+                                </div>
+                            ))}
+                        </div>
+                    )
+                }
+                if (slide.layout === "quadrant") {
+                    return (
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 h-full p-4 md:p-12 overflow-y-auto">
+                             {slide.items.map((item, idx) => (
+                                <div key={idx} className="flex flex-col items-center justify-center bg-slate-800/50 rounded-lg border border-slate-700 p-6 md:p-0">
+                                     <div className="text-cyan-400 mb-2">{item.icon}</div>
+                                     <h3 className="text-xl md:text-2xl font-bold text-white">{item.title}</h3>
+                                     <p className="text-slate-400 text-center">{item.desc}</p>
+                                </div>
+                             ))}
+                        </div>
+                    )
+                }
+                if (slide.layout === "center-focus") {
+                    return (
+                        <div className="flex flex-col items-center justify-center h-full p-4 text-center">
+                            <div className="p-8 md:p-12 border-4 border-red-500 rounded-xl bg-red-500/10 w-full md:w-auto">
+                                <h1 className="text-3xl md:text-6xl font-black text-white mb-4 leading-tight">{slide.mainText}</h1>
+                            </div>
+                            <p className="mt-8 text-xl md:text-2xl text-slate-400">{slide.subText}</p>
+                        </div>
+                    )
+                }
+                return null;
+              case "diagram": 
+                return (
+                     <div className="flex flex-col md:flex-row items-center justify-between h-full px-4 md:px-12 relative gap-6 md:gap-0 py-8 md:py-0 overflow-y-auto">
+                        <div className="w-full md:w-1/4 p-4 md:p-6 bg-red-900/30 border border-red-700 rounded-lg text-center order-1">
+                            <h3 className="text-red-500 font-bold mb-1 md:mb-2">THREAT ACTOR</h3>
+                            <p className="text-xs text-slate-400">Fear, Urgency, Greed</p>
+                        </div>
+                        <div className="flex-1 flex flex-col items-center relative mx-4 order-2 w-full">
+                            <div className="hidden md:block h-2 w-full bg-slate-600 absolute top-1/2 -z-10"></div>
+                            <div className="block md:hidden w-2 h-16 bg-slate-600 mb-2"></div>
+                            <div className="p-4 bg-yellow-600/20 border border-yellow-500 rounded-full mb-4">
+                                <UserX className="w-12 h-12 text-yellow-500" />
+                            </div>
+                            <div className="text-center bg-slate-900 px-4 w-full">
+                                <h3 className="text-yellow-500 font-bold text-lg md:text-xl">YOU (THE BRIDGE)</h3>
+                                <div className="flex flex-wrap justify-center gap-2 mt-2 text-xs text-slate-300">
+                                    <span className="px-2 py-1 bg-slate-800 rounded">Target</span>
+                                    <span className="px-2 py-1 bg-slate-800 rounded">Carrier</span>
+                                    <span className="px-2 py-1 bg-slate-800 rounded">Amplifier</span>
+                                </div>
+                            </div>
+                            <div className="block md:hidden w-2 h-16 bg-slate-600 mt-2"></div>
+                        </div>
+                        <div className="w-full md:w-1/4 p-4 md:p-6 bg-green-900/30 border border-green-700 rounded-lg text-center order-3">
+                            <h3 className="text-green-500 font-bold mb-1 md:mb-2">SECURE CORE</h3>
+                            <p className="text-xs text-slate-400">IP, Data, Innovation</p>
+                        </div>
+                     </div>
+                );
+              case "alert":
+                return (
+                    <div className="flex flex-col items-center justify-center h-full p-4 overflow-y-auto">
+                        <div className="bg-red-500/20 p-6 md:p-8 rounded-full mb-6 md:mb-8 animate-pulse">
+                            {slide.icon}
+                        </div>
+                        <h2 className="text-2xl md:text-4xl font-bold text-white mb-6 md:mb-8 text-center">PROHIBITED ITEMS</h2>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full md:w-2/3">
+                            {slide.list.map((item, i) => (
+                                <div key={i} className="bg-slate-800 p-4 rounded text-center border-l-4 border-red-500 text-white font-mono text-sm md:text-base">
+                                    {item}
+                                </div>
+                            ))}
+                        </div>
+                        <div className="mt-8 text-red-400 font-bold text-lg md:text-xl uppercase tracking-widest text-center">
+                            {slide.warning}
+                        </div>
+                    </div>
+                )
+              case "pyramid":
+                return (
+                    <div className="flex flex-col items-center justify-center h-full p-4">
+                        <div className="flex flex-col w-full md:w-2/3 max-w-2xl gap-2">
+                            {slide.levels.map((lvl, i) => (
+                                <div key={i} className={`${lvl.color} p-3 md:p-4 text-center font-bold text-slate-900 rounded shadow-lg text-sm md:text-base`} style={{width: `${100 - (i * 10)}%`, alignSelf: 'center'}}>
+                                    {lvl.label}
+                                </div>
+                            ))}
+                        </div>
+                        <p className="mt-8 text-cyan-400 text-lg md:text-xl font-bold text-center">{slide.footer}</p>
+                    </div>
+                )
+              case "split-warning":
+                 return (
+                     <div className="flex flex-col md:flex-row h-full items-center justify-center gap-6 md:gap-12 p-4 overflow-y-auto">
+                         <div className="w-full md:w-1/3 bg-slate-800 p-6 md:p-8 rounded-xl border border-slate-600 opacity-50">
+                             <h3 className="text-lg md:text-xl text-slate-400 mb-2 md:mb-4">{slide.left.title}</h3>
+                             <p className="text-xl md:text-2xl text-white">{slide.left.text}</p>
+                         </div>
+                         <div className="text-4xl text-red-500 font-bold rotate-90 md:rotate-0">→</div>
+                         <div className="w-full md:w-1/3 bg-red-900/20 p-6 md:p-8 rounded-xl border border-red-500">
+                             <div className="flex items-center gap-4 mb-4">
+                                <Briefcase className="text-red-500" />
+                                <h3 className="text-lg md:text-xl text-red-400">{slide.right.title}</h3>
+                             </div>
+                             <p className="text-2xl md:text-3xl font-bold text-white">{slide.right.text}</p>
+                         </div>
+                     </div>
+                 )
+              case "steps":
+                  return (
+                      <div className="flex flex-col items-center justify-center h-full p-4 overflow-y-auto">
+                          <div className="flex flex-col md:flex-row gap-6 md:gap-8">
+                              {slide.steps.map((step, i) => (
+                                  <div key={i} className="w-32 h-32 md:w-64 md:h-64 rounded-full bg-slate-800 border-4 md:border-8 border-cyan-500 flex items-center justify-center text-2xl md:text-5xl font-black text-white shadow-[0_0_20px_rgba(6,182,212,0.4)]">
+                                      {step}
+                                  </div>
+                              ))}
+                          </div>
+                          <p className="mt-8 md:mt-12 text-2xl md:text-3xl text-slate-300 font-light text-center">{slide.desc}</p>
+                      </div>
+                  )
+              case "comparison":
+                  return (
+                      <div className="flex flex-col md:flex-row h-full w-full">
+                          <div className="w-full md:w-1/2 bg-red-900/10 flex flex-col items-center justify-center p-6 md:p-12 border-b md:border-b-0 md:border-r border-slate-700 relative overflow-hidden min-h-[250px]">
+                              <div className="absolute inset-0 bg-red-500/5 z-0"></div>
+                              <XCircle className="w-16 h-16 md:w-24 md:h-24 text-red-500 mb-4 md:mb-6 z-10" />
+                              <h3 className="text-2xl md:text-3xl font-bold text-white z-10 text-center">{slide.bad.title}</h3>
+                              <p className="text-red-300 mt-2 md:mt-4 z-10 text-center text-sm md:text-base">{slide.bad.desc}</p>
+                          </div>
+                          <div className="w-full md:w-1/2 bg-green-900/10 flex flex-col items-center justify-center p-6 md:p-12 relative overflow-hidden min-h-[250px]">
+                              <div className="absolute inset-0 bg-green-500/5 z-0"></div>
+                              <CheckCircle className="w-16 h-16 md:w-24 md:h-24 text-green-500 mb-4 md:mb-6 z-10" />
+                              <h3 className="text-2xl md:text-3xl font-bold text-white z-10 text-center">{slide.good.title}</h3>
+                              <p className="text-green-300 mt-2 md:mt-4 z-10 text-center text-sm md:text-base">{slide.good.desc}</p>
+                          </div>
+                      </div>
+                  )
+              case "image-text":
+                  return (
+                      <div className="flex flex-col items-center justify-center h-full text-center p-6">
+                          <div className="mb-6 md:mb-8">{slide.icon}</div>
+                          <h2 className="text-3xl md:text-5xl font-bold text-white mb-4 md:mb-6 max-w-4xl">{slide.text}</h2>
+                          <p className="text-xl md:text-2xl text-cyan-400">{slide.sub}</p>
+                      </div>
+                  )
+              case "resources":
+                  return (
+                      <div className="flex flex-col items-center justify-center h-full p-4 overflow-y-auto">
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 w-full md:w-2/3 mb-8 md:mb-12">
+                              {slide.items.map((item, i) => (
+                                  <div key={i} className="bg-slate-800 p-4 md:p-6 rounded-lg text-center text-lg md:text-xl font-bold text-white border border-slate-600 hover:bg-slate-700 transition-colors">
+                                      {item}
+                                  </div>
+                              ))}
+                          </div>
+                          <div className="bg-cyan-900/30 p-6 md:p-8 rounded-xl border border-cyan-500 w-full md:w-2/3 text-center">
+                              <h3 className="text-cyan-400 uppercase tracking-widest text-xs md:text-sm mb-4">The Pledge</h3>
+                              <p className="text-xl md:text-3xl font-serif italic text-white leading-relaxed">"{slide.pledge}"</p>
+                          </div>
+                      </div>
+                  )
+              default:
+                return <div>Slide Content</div>;
+            }
+          };
 
-        <div class="grid-2">
-          <div class="aip-stack">
-            <div class="aip-chip aip-nr">No Restrictions</div>
-            <div class="aip-chip aip-prop">TSMC Properties</div>
-            <div class="aip-chip aip-c">Security C</div>
-            <div class="aip-chip aip-b">Security B</div>
-            <div class="aip-chip aip-a">Security A/AA</div>
-          </div>
-
-          <div style="display:flex; flex-direction: column; gap: 12px;">
-            <div class="fragment card">
-              <h4 style="font-size: 1em; margin:0;"><i class="fas fa-envelope"></i> Email Guard</h4>
-              <small>System blocks sending high-classification data to external recipients.</small>
-            </div>
-            <div class="fragment card">
-              <h4 style="font-size: 1em; margin:0;"><i class="fas fa-print"></i> Printing Trace</h4>
-              <small>Mandatory watermarks &amp; traceability.<br><em>"If found outside, we can identify the print source."</em></small>
-            </div>
-          </div>
-        </div>
-
-        <aside class="notes">
-          (07:00–08:10) Legal-friendly framing: focus on “duty of care” and traceability, not surveillance.
-        </aside>
-      </section>
-
-      <!-- NEW SLIDE 8.5: Data Residue -->
-      <section>
-        <h2>Delete ≠ Disappear</h2>
-        <p class="measure">Information leaves traces even when you think it’s gone. This is why “clean handling” matters.</p>
-
-        <div class="grid-2" style="align-items:start; margin-top:18px;">
-          <div class="card">
-            <h4 style="margin:0 0 10px 0;"><i class="fas fa-footprints"></i> Hidden Residue Sources</h4>
-            <ul style="margin:0; padding-left:18px; color:rgba(15,23,42,.72); line-height:1.75;">
-              <li>Auto-save / version history</li>
-              <li>Clipboard / copy buffer</li>
-              <li>Browser cache / recent files</li>
-              <li>Cloud sync / personal account overlap</li>
-              <li>Meeting recordings &amp; AI summaries</li>
-            </ul>
-          </div>
-
-          <div class="card highlight">
-            <h4 style="margin:0 0 10px 0;"><i class="fas fa-shield"></i> Practical Habits (Low Effort)</h4>
-            <ul style="margin:0; padding-left:18px; color:rgba(15,23,42,.72); line-height:1.75;">
-              <li>Keep company &amp; personal accounts separated</li>
-              <li>Use approved storage only</li>
-              <li>Think before copy/paste across contexts</li>
-              <li>When unsure: <strong>ask first</strong></li>
-            </ul>
-            <div class="badge blue" style="margin-top:12px;">Data Lifecycle Awareness</div>
-          </div>
-        </div>
-
-        <aside class="notes">
-          (08:10–09:00) Position as “why policy exists”: modern tools keep histories.
-          (09:00–09:30) Give 2 quick examples: clipboard + meeting recording.
-          (09:30–10:00) Tie back to AIP: classification + handling go together.
-        </aside>
-      </section>
-
-      <!-- SLIDE 9: TRAP 4 (CONTAMINATION) -->
-      <section>
-        <div class="timeline">
-          <span>Gate Check</span><span>Tailgate</span><span class="active">Clean Start</span><span>Phishing</span><span>AI</span><span>Off-Site</span>
-        </div>
-        <div class="flex-center" style="height: 100%;">
-          <div class="icon-circle red" style="width: 120px; height: 120px; font-size: 4em;">
-            <i class="fas fa-biohazard"></i>
-          </div>
-          <h2 style="border: none; color: rgba(153,27,27,0.90);">DATA CONTAMINATION</h2>
-
-          <p class="measure" style="font-size: clamp(18px, 1.6vw, 26px); color: rgba(2,6,23,0.80);">
-            The Risk: Bringing IP, code, patents, or templates from your <strong>Former Employer</strong>.
-          </p>
-
-          <div class="fragment card danger pulse-warning measure" style="margin-top: 16px;">
-            <strong><i class="fas fa-exclamation-triangle"></i> DANGER</strong>
-            <p style="margin: 10px 0;">Using unowned IP exposes the company to lawsuits and reputational loss.</p>
-            <strong style="color: rgba(153,27,27,0.90);">Rule: Bring your experience, NEVER their data.</strong>
-          </div>
-        </div>
-
-        <aside class="notes">
-          (10:00–11:00) Keep it respectful: “We protect you from accidental violations.”
-        </aside>
-      </section>
-
-      <!-- SLIDE 10: TRAP 5 (PHISHING) -->
-      <section>
-        <div class="timeline">
-          <span>Gate Check</span><span>Tailgate</span><span>Clean Start</span><span class="active">Phishing</span><span>AI</span><span>Off-Site</span>
-        </div>
-        <h3>Trap #4: The Fake Welcome</h3>
-
-        <div class="grid-2">
-          <div class="card" style="font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; border-left: 6px solid rgba(239,68,68,0.50);">
-            <div style="color: rgba(153,27,27,0.88); font-weight: 900;">From: HR-Admin &lt;hr-support@gmaiI.com&gt;</div>
-            <div style="margin-bottom: 12px;">Subject: Action Required: Payroll Update</div>
-            <div style="font-size: 0.9em;">Dear Partner, please click here to update bank info...</div>
-          </div>
-
-          <div class="flex-center">
-            <h4 style="font-size: clamp(26px, 2.2vw, 42px); margin-bottom: 8px; color: rgba(153,27,27,0.88);">STOP. CHECK. CALL.</h4>
-            <p>New hires are a top target.</p>
-          </div>
-        </div>
-
-        <div class="fragment card" style="display:flex; gap: 16px; align-items:center; margin-top: 14px;">
-          <div style="font-size: 3em; opacity: 0.75; color: rgba(153,27,27,0.80);"><i class="fas fa-qrcode"></i></div>
-          <div>
-            <strong>Watch out for "Quishing"</strong><br>
-            <small>Fake QR stickers. Use official channels only.</small>
-          </div>
-        </div>
-
-        <aside class="notes">
-          (11:00–12:10) Keep examples culturally neutral and universal (QR scams exist everywhere).
-        </aside>
-      </section>
-
-      <!-- SLIDE 11: TRAP 6 (AI) -->
-      <section>
-        <div class="timeline">
-          <span>Gate Check</span><span>Tailgate</span><span>Clean Start</span><span>Phishing</span><span class="active">AI</span><span>Off-Site</span>
-        </div>
-        <h3>Trap #5: The AI Trap</h3>
-        <p>"Your Input = Their Training Data"</p>
-
-        <div class="grid-2">
-          <div class="card danger text-center fragment">
-            <div class="icon-circle red"><i class="fas fa-ban"></i></div>
-            <h4 style="color: rgba(153,27,27,0.88);">PROHIBITED</h4>
-            <ul style="text-align: left; font-size: 0.9em; list-style: none; padding: 0; margin: 0;">
-              <li><i class="fas fa-times"></i> Public ChatGPT / DeepL (for sensitive content)</li>
-              <li><i class="fas fa-times"></i> <strong>Shadow IT:</strong> Notion, Figma, Trello (unless reviewed)</li>
-            </ul>
-          </div>
-
-          <div class="card success text-center fragment">
-            <div class="icon-circle green"><i class="fas fa-check"></i></div>
-            <h4 style="color: rgba(6,95,70,0.88);">APPROVED</h4>
-            <ul style="text-align: left; font-size: 0.9em; list-style: none; padding: 0; margin: 0;">
-              <li><i class="fas fa-check"></i> <strong>tGenie</strong> (Internal LLM)</li>
-              <li><i class="fas fa-check"></i> Approved Software List</li>
-            </ul>
-          </div>
-        </div>
-
-        <aside class="notes">
-          (12:10–13:10) Avoid tool-bashing; focus on “right tool for right data class.”
-        </aside>
-      </section>
-
-      <!-- NEW SLIDE 11.5: Prompt as IP -->
-      <section>
-        <h2>Your Prompt Is Also IP</h2>
-        <p class="measure">Even without attaching files, prompts can reveal <strong>know-how</strong>: assumptions, logic, process parameters, and decision context.</p>
-
-        <div class="grid-2" style="align-items:start; margin-top:18px;">
-          <div class="card danger">
-            <h4 style="margin:0 0 10px 0;"><i class="fas fa-triangle-exclamation"></i> Risk Pattern</h4>
-            <p style="margin:0;color:rgba(2,6,23,.80);">
-              “I didn’t paste secret data — I only described the problem.”
-            </p>
-            <div style="margin-top:10px;">
-              <small>Problem description may still encode IP.</small>
-            </div>
-          </div>
-
-          <div class="card success">
-            <h4 style="margin:0 0 10px 0;"><i class="fas fa-check"></i> Safe Mental Model</h4>
-            <p style="margin:0;color:rgba(2,6,23,.80);font-weight:900;">
-              If you wouldn’t email it externally, don’t prompt it externally.
-            </p>
-            <div style="margin-top:10px;">
-              <small>Use internal/approved tools for sensitive context.</small>
-            </div>
-          </div>
-        </div>
-
-        <div class="card" style="margin-top:14px;">
-          <h4 style="margin:0 0 10px 0;"><i class="fas fa-wand-magic-sparkles"></i> Better Prompting Without Leaking</h4>
-          <ul style="margin:0; padding-left:18px; color:rgba(15,23,42,.72); line-height:1.75;">
-            <li>Abstract the problem (remove identifiers, specifics, proprietary steps)</li>
-            <li>Use placeholders (Component A / Process B / Dataset X)</li>
-            <li>Ask for frameworks, checklists, or generic examples</li>
-          </ul>
-        </div>
-
-        <aside class="notes">
-          (13:10–14:00) Prompts can disclose know-how.
-          (14:00–14:30) Give one example: “process optimization” prompt that reveals unique steps.
-          (14:30–15:00) Provide the safe alternative: abstract + placeholders + internal tools.
-        </aside>
-      </section>
-
-      <!-- NEW SLIDE 12.0: Visual Leakage -->
-      <section>
-        <h2>If It’s on Your Screen, It’s Already Exposed</h2>
-        <p class="measure">Hybrid work created a new leak surface: <strong>screens, shares, recordings, and AI meeting notes</strong>.</p>
-
-        <div class="grid-2" style="align-items:start; margin-top:18px;">
-          <div class="screen-leak">
-            <div class="bar">
-              <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-              <small style="margin-left:8px;">Screen Share: what others may see</small>
-            </div>
-            <code>Project_Name_SecurityA-AA_Final_v7.pptx</code>
-            <code>\\shared_drive\\partner\\roadmap\\pricing_strategy.xlsx</code>
-            <code>Pop-up: “Can you send the yield issue screenshot?”</code>
-            <small style="display:block;margin-top:10px;">Even filenames, paths, and pop-ups can disclose context.</small>
-          </div>
-
-          <div class="card highlight">
-            <h4 style="margin:0 0 10px 0;"><i class="fas fa-list-check"></i> 3-Second Habit Before Sharing</h4>
-            <ul style="margin:0; padding-left:18px; color:rgba(15,23,42,.72); line-height:1.75;">
-              <li>Close unrelated tabs/apps</li>
-              <li>Disable notifications</li>
-              <li>Use a “clean desktop” workspace</li>
-            </ul>
-            <div class="badge blue" style="margin-top:12px;">Pause → Check → Share</div>
-          </div>
-        </div>
-
-        <aside class="notes">
-          (15:00–15:40) Hybrid is universal; colleagues relate instantly.
-          (15:40–16:10) Mention recordings + AI summaries as “data objects”.
-          (16:10–16:40) Teach the 3-second habit. Simple and memorable.
-        </aside>
-      </section>
-
-      <!-- SLIDE 12: OFF SITE -->
-      <section>
-        <div class="timeline">
-          <span>Gate Check</span><span>Tailgate</span><span>Clean Start</span><span>Phishing</span><span>AI</span><span class="active">Off-Site</span>
-        </div>
-        <h3>Trap #6 &amp; #7: Off-Site</h3>
-
-        <div class="grid-2">
-          <div>
-            <ul style="font-size: 0.98em; line-height: 2;">
-              <li><strong>Trap #6 (Public Talk):</strong> No client names in public transport or restaurants.</li>
-              <li><strong>Trap #7 (Taking Data Home):</strong> <span class="badge red">Just Don’t.</span></li>
-            </ul>
-          </div>
-
-          <div class="card highlight text-center">
-            <div style="font-size: 3em; opacity: 0.70; margin-bottom: 12px;"><i class="fas fa-mug-hot"></i></div>
-            <h4>Work-Life Balance</h4>
-            <p style="font-size: 0.95em;">Data stays on-site. Disconnect to recharge.</p>
-            <div class="badge blue">Respect your Feierabend</div>
-          </div>
-        </div>
-
-        <aside class="notes">
-          (16:40–17:40) Keep “Feierabend” optional depending on site culture.
-        </aside>
-      </section>
-
-      <!-- NEW SLIDE 12.5: Ecosystem Leakage -->
-      <section>
-        <h2>Our Risk Extends Beyond Our Badge</h2>
-        <p class="measure">Modern leakage often happens through the ecosystem: partners, vendors, consultants, joint projects.</p>
-
-        <div class="grid-2" style="align-items:start; margin-top:18px;">
-          <div class="card">
-            <h4 style="margin:0 0 10px 0;"><i class="fas fa-handshake"></i> Common Grey Zones</h4>
-            <ul style="margin:0; padding-left:18px; color:rgba(15,23,42,.72); line-height:1.75;">
-              <li>“They have NDA, so it’s fine.”</li>
-              <li>Shared folders with mixed classifications</li>
-              <li>External meetings with screen shares</li>
-              <li>Sending “context” that’s more than necessary</li>
-            </ul>
-          </div>
-
-          <div class="card success">
-            <h4 style="margin:0 0 10px 0;"><i class="fas fa-shield-halved"></i> Minimum Disclosure Principle</h4>
-            <p style="margin:0;color:rgba(2,6,23,.80);font-weight:900;">
-              Share the minimum needed to achieve the purpose — nothing more.
-            </p>
-            <div style="margin-top:10px;">
-              <small>Trust is not transferable. NDA is not a blank check.</small>
-            </div>
-            <div class="badge blue" style="margin-top:12px;">Need-to-Know Applies Externally Too</div>
-          </div>
-        </div>
-
-        <aside class="notes">
-          (17:40–18:30) Ecosystem is part of boundary; minimum disclosure is the rule.
-        </aside>
-      </section>
-
-      <!-- SLIDE 13: DETERRENCE -->
-      <section>
-        <h2 style="border-bottom-color: rgba(2,6,23,0.9); color: rgba(153,27,27,0.90);">Reality Check</h2>
-        <p>The impact is greater than you expect.</p>
-
-        <div class="fragment card danger" style="margin-bottom: 14px;">
-          <div class="flex-row">
-            <div style="font-size: 1.6em; opacity: 0.75; color: rgba(153,27,27,0.85);"><i class="fas fa-file-contract"></i></div>
-            <div>
-              <strong>Case Study A:</strong> Engineer took a photo of an error code to work from home.<br>
-              <span class="badge red" style="margin-top: 8px; display:inline-block;">RESULT: Immediate Dismissal + Legal Action</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="fragment card danger">
-          <div class="flex-row">
-            <div style="font-size: 1.6em; opacity: 0.75; color: rgba(153,27,27,0.85);"><i class="fas fa-code-branch"></i></div>
-            <div>
-              <strong>Case Study B:</strong> Employee uploaded code to GitHub for "backup".<br>
-              <span class="badge red" style="margin-top: 8px; display:inline-block;">RESULT: Bonus Forfeited + Formal Warning</span>
-            </div>
-          </div>
-        </div>
-
-        <aside class="notes">
-          (18:30–19:20) Legal voice: stick to outcomes; avoid exaggerated numbers.
-        </aside>
-      </section>
-
-      <!-- SLIDE 14: TRAFFIC LIGHT RECAP -->
-      <section>
-        <h2>Traffic Light System</h2>
-        <div class="traffic-grid" style="margin-top: 22px;">
-          <div class="traffic-item red">
-            <div style="font-size: 2em; opacity: 0.75; margin-bottom: 10px; color: rgba(153,27,27,0.85);"><i class="fas fa-times-circle"></i></div>
-            <h4 style="color: rgba(153,27,27,0.88);">PROHIBITED</h4>
-            <small>USBs, Cameras, Recorders, Transmission Devices</small>
-          </div>
-          <div class="traffic-item yellow">
-            <div style="font-size: 2em; opacity: 0.75; margin-bottom: 10px; color: rgba(146,64,14,0.82);"><i class="fas fa-exclamation-triangle"></i></div>
-            <h4 style="color: rgba(146,64,14,0.86);">REGISTER</h4>
-            <small>Personal Laptops, Tablets (IT Scan Required)</small>
-          </div>
-          <div class="traffic-item green">
-            <div style="font-size: 2em; opacity: 0.75; margin-bottom: 10px; color: rgba(6,95,70,0.82);"><i class="fas fa-check-circle"></i></div>
-            <h4 style="color: rgba(6,95,70,0.88);">ALLOWED</h4>
-            <small>Water bottles, non-digital items</small>
-          </div>
-        </div>
-
-        <aside class="notes">
-          (19:20–20:00) “Traffic light is your memory shortcut.”
-        </aside>
-      </section>
-
-      <!-- SLIDE 15: RESOURCES -->
-      <section>
-        <h2>Resources &amp; Culture</h2>
-        <div class="grid-2" style="align-items: start;">
-          <div>
-            <h4 style="font-size: 1em;">Digital Toolbox</h4>
-            <div class="card" style="padding: 16px;">
-              <ul style="margin: 0; padding-left: 18px; font-size: 0.92em;">
-                <li><code>go/security</code> (Portal)</li>
-                <li>Policy Finder</li>
-                <li>Approved Device List</li>
-              </ul>
-            </div>
-
-            <h4 style="font-size: 1em; margin-top: 14px;">Human Network</h4>
-            <div class="card" style="padding: 16px;">
-              <ul style="margin: 0; padding-left: 18px; font-size: 0.92em;">
-                <li><strong>PIP Guardians</strong> (Dept. Seniors)</li>
-                <li><strong>DPO</strong> (Privacy)</li>
-              </ul>
-            </div>
-          </div>
-
-          <div>
-            <div class="fragment license-card">
-              <div class="badge red" style="position: absolute; top: 16px; right: 16px;">VALID: 3 MONTHS</div>
-              <div style="font-size: 4em; opacity: 0.68; color: rgba(11,42,74,0.90); margin-bottom: 10px;">
-                <i class="fas fa-id-badge"></i>
-              </div>
-              <h3 style="color: var(--corp-blue); margin: 0;">LICENSE TO ASK</h3>
-              <p style="font-style: italic; margin-top: 8px;">"There are no stupid questions."</p>
-            </div>
-          </div>
-        </div>
-
-        <aside class="notes">
-          (20:00–21:00) Invite questions explicitly; it reduces “silent mistakes.”
-        </aside>
-      </section>
-
-      <!-- SLIDE 16: SOP -->
-      <section>
-        <h2>Incident Reporting</h2>
-        <div class="badge blue" style="font-size: 0.9em; padding: 10px 16px;">
-          Golden Rule: Reporting = Amnesty. Hiding = Trouble.
-        </div>
-
-        <div class="card" style="margin-top:14px;">
-          <strong>Reporting = Protection.</strong>
-          <p style="margin:8px 0 0;">Silence amplifies risk. Early reporting lets the “immune system” respond fast.</p>
-        </div>
-
-        <div class="grid-3" style="text-align: center; margin-top: 18px;">
-          <div class="card">
-            <div style="font-size: 3em; font-weight: 900; color: rgba(148,163,184,0.55);">1</div>
-            <h4>Disconnect</h4>
-            <small>Unplug / Wi-Fi Off</small>
-          </div>
-          <div class="card">
-            <div style="font-size: 3em; font-weight: 900; color: rgba(148,163,184,0.55);">2</div>
-            <h4>Report</h4>
-            <small>Ext. 1234 / Button</small>
-          </div>
-          <div class="card">
-            <div style="font-size: 3em; font-weight: 900; color: rgba(148,163,184,0.55);">3</div>
-            <h4>Wait</h4>
-            <small>For IT Support</small>
-          </div>
-        </div>
-
-        <aside class="notes">
-          (21:00–22:00) Add: “We reward early reporting. We do not reward hiding.”
-        </aside>
-      </section>
-
-      <!-- SLIDE 17: VERDICT (CLOSING) -->
-      <section class="flex-center">
-        <div class="measure">
-          <h2>The Verdict</h2>
-
-          <div class="card" style="padding: 26px;">
-            <div class="grid-2" style="gap: 18px;">
-              <div style="text-align: left; border-right: 1px solid rgba(15,23,42,0.10); padding-right: 18px;">
-                <div style="font-size: 3em; opacity: 0.72; margin-bottom: 10px;"><i class="fas fa-question-circle"></i></div>
-                <p style="font-style: italic; font-size: 1.05em; color: rgba(2,6,23,0.82);">
-                  "Did you check your phone<br><strong>BEFORE</strong> the gate?"
-                </p>
-                <div style="margin-top: 10px;">
-                  <span class="badge green">GREEN ZONE (Life)</span>
-                  <span style="margin:0 8px; color: rgba(15,23,42,0.45); font-weight:900;">vs</span>
-                  <span class="badge red">RED ZONE (IP)</span>
+          // --- Quiz Render Logic ---
+          const renderQuiz = () => {
+            if (quizFinished) {
+              const passed = score === quizQuestions.length;
+              return (
+                <div className="flex flex-col items-center justify-center h-full text-center p-4 animate-fadeIn">
+                  {passed ? (
+                     <div className="bg-green-500/20 p-6 md:p-12 rounded-2xl border border-green-500 w-full max-w-2xl">
+                       <Shield className="w-24 h-24 md:w-32 md:h-32 text-green-500 mx-auto mb-6" />
+                       <h1 className="text-3xl md:text-5xl font-bold text-white mb-4">CERTIFIED</h1>
+                       <p className="text-lg md:text-xl text-green-300">You are now a Guardian of Innovation.</p>
+                       <div className="mt-8 text-5xl md:text-6xl font-black text-white">{score}/{quizQuestions.length}</div>
+                     </div>
+                  ) : (
+                    <div className="bg-red-500/20 p-6 md:p-12 rounded-2xl border border-red-500 w-full max-w-2xl">
+                      <AlertTriangle className="w-24 h-24 md:w-32 md:h-32 text-red-500 mx-auto mb-6" />
+                      <h1 className="text-3xl md:text-5xl font-bold text-white mb-4">ACCESS DENIED</h1>
+                      <p className="text-lg md:text-xl text-red-300">100% Score Required.</p>
+                      <div className="mt-8 text-5xl md:text-6xl font-black text-white">{score}/{quizQuestions.length}</div>
+                      <button onClick={() => window.location.reload()} className="mt-8 px-6 py-3 bg-red-600 text-white rounded hover:bg-red-700 w-full md:w-auto">Retry Training</button>
+                    </div>
+                  )}
                 </div>
-                <small style="display: block; margin-top: 8px;">Know the boundary.</small>
+              );
+            }
+
+            const q = quizQuestions[quizIndex];
+            return (
+              <div className="flex flex-col items-center justify-start h-full max-w-4xl mx-auto p-4 md:p-0 pt-8 overflow-y-auto">
+                <div className="w-full flex justify-between mb-4 md:mb-8 text-slate-500 font-mono text-sm">
+                    <span>ASSESSMENT MODE</span>
+                    <span>Q{quizIndex + 1}/{quizQuestions.length}</span>
+                </div>
+                
+                <h2 className="text-2xl md:text-4xl font-bold text-white mb-8 md:mb-12 text-center leading-snug">{q.q}</h2>
+                
+                <div className="grid grid-cols-1 gap-3 md:gap-4 w-full max-w-2xl">
+                  {q.options.map((opt, i) => (
+                    <button 
+                      key={i}
+                      onClick={() => handleAnswer(i)}
+                      className="p-4 md:p-6 bg-slate-800 hover:bg-cyan-900 border border-slate-600 hover:border-cyan-400 rounded-xl text-left text-lg md:text-xl text-white transition-all group flex justify-between items-center active:scale-95"
+                    >
+                      <span>{opt}</span>
+                      <ChevronRight className="opacity-100 md:opacity-0 md:group-hover:opacity-100 text-cyan-400" />
+                    </button>
+                  ))}
+                </div>
+
+                {feedback && (
+                  <div className={`mt-6 p-4 rounded-lg w-full max-w-2xl text-center font-bold text-lg animate-bounce ${feedback.type === 'success' ? 'bg-green-600 text-white' : 'bg-red-600 text-white'}`}>
+                    {feedback.msg}
+                  </div>
+                )}
+              </div>
+            );
+          };
+
+          // --- Grid View Logic ---
+          const renderGrid = () => {
+              return (
+                <div className="h-full w-full p-6 overflow-y-auto animate-fadeIn">
+                    <h2 className="text-2xl font-bold text-white mb-6 border-b border-slate-800 pb-2">Slide Overview</h2>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pb-20">
+                        {slides.map((slide, index) => (
+                            <button
+                                key={slide.id}
+                                onClick={() => {
+                                    setCurrentSlide(index);
+                                    setShowGrid(false);
+                                    setQuizMode(false);
+                                }}
+                                className={`flex flex-col items-center justify-center p-4 rounded-xl border border-slate-700 bg-slate-800/50 hover:bg-cyan-900/20 hover:border-cyan-500 transition-all group relative aspect-video ${currentSlide === index ? 'ring-2 ring-cyan-400 bg-cyan-900/20' : ''}`}
+                            >
+                                <div className="text-slate-500 group-hover:text-cyan-400 mb-2 scale-75">{slide.icon || <FileText />}</div>
+                                <h3 className="text-sm font-bold text-white text-center line-clamp-2">{slide.title}</h3>
+                                <span className="absolute top-2 left-2 text-xs font-mono text-slate-500 bg-slate-900 px-1 rounded">{index + 1}</span>
+                            </button>
+                        ))}
+                         <button
+                                onClick={() => {
+                                    setQuizMode(true);
+                                    setShowGrid(false);
+                                }}
+                                className={`flex flex-col items-center justify-center p-4 rounded-xl border border-slate-700 bg-slate-800/50 hover:bg-cyan-900/20 hover:border-cyan-500 transition-all group relative aspect-video ${quizMode ? 'ring-2 ring-cyan-400 bg-cyan-900/20' : ''}`}
+                            >
+                                <div className="text-slate-500 group-hover:text-cyan-400 mb-2 scale-75"><Shield /></div>
+                                <h3 className="text-sm font-bold text-white text-center">FINAL EXAM</h3>
+                                <span className="absolute top-2 left-2 text-xs font-mono text-slate-500 bg-slate-900 px-1 rounded">{slides.length + 1}</span>
+                        </button>
+                    </div>
+                </div>
+              );
+          };
+
+          return (
+            <div className="fixed inset-0 bg-slate-950 text-slate-200 overflow-hidden font-sans flex flex-col">
+              {/* Top Bar */}
+              <div className="h-14 border-b border-slate-800 flex justify-between items-center px-4 bg-slate-900 z-10 shrink-0">
+                <div className="flex items-center gap-2 text-cyan-400 font-bold tracking-widest text-sm md:text-base">
+                    <Shield size={18} />
+                    <span>PIP<span className="text-white">OS</span> v2.0</span>
+                </div>
+                
+                {/* Mobile Controls */}
+                <div className="md:hidden flex items-center gap-2">
+                    <button 
+                        onClick={() => setShowGrid(!showGrid)}
+                        className={`p-2 hover:text-white ${showGrid ? 'text-cyan-400' : 'text-slate-400'}`}
+                    >
+                        <LayoutGrid size={24} />
+                    </button>
+                    <button 
+                        onClick={toggleFullScreen}
+                        className="p-2 text-slate-400 hover:text-white"
+                    >
+                        {isFullscreen ? <Minimize size={24} /> : <Maximize size={24} />}
+                    </button>
+                    <button 
+                        onClick={() => setShowScript(!showScript)} 
+                        className="p-2 text-slate-400 hover:text-white"
+                    >
+                        <FileText size={24} className={showScript ? "text-cyan-400" : ""} />
+                    </button>
+                </div>
+
+                {/* Desktop Controls */}
+                <div className="hidden md:flex items-center gap-4">
+                     <button 
+                        onClick={() => setShowGrid(!showGrid)}
+                        className={`p-2 hover:text-white ${showGrid ? 'text-cyan-400' : 'text-slate-400'}`}
+                        title="Toggle Slide Overview"
+                    >
+                        <LayoutGrid size={20} />
+                    </button>
+                     <button 
+                       onClick={toggleFullScreen}
+                       className="p-2 text-slate-400 hover:text-white"
+                       title="Toggle Presentation Mode"
+                     >
+                       {isFullscreen ? <Minimize size={20} /> : <Maximize size={20} />}
+                     </button>
+                     <button 
+                       onClick={() => setShowScript(!showScript)}
+                       className={`px-3 py-1 rounded text-sm font-mono border ${showScript ? 'bg-cyan-900 border-cyan-500 text-white' : 'border-slate-600 text-slate-500'}`}
+                     >
+                       {showScript ? 'HIDE SCRIPT' : 'SHOW SCRIPT'}
+                     </button>
+                     <div className="text-slate-500 font-mono text-sm">
+                         {quizMode ? 'EXAM' : `SLIDE ${currentSlide + 1}/${slides.length}`}
+                     </div>
+                </div>
               </div>
 
-              <div class="flex-center">
-                <h4 style="margin-bottom: 10px;">MISSION #1</h4>
-                <div style="font-size: 6em; opacity: 0.6;"><i class="fas fa-qrcode"></i></div>
-                <p style="margin: 10px 0 0;"><strong>Action: Scan &amp; Save</strong></p>
-                <div class="badge blue" style="font-size: 0.95em;">"PIP SOS"</div>
+              {/* Main Stage */}
+              <div className="flex-1 relative flex overflow-hidden">
+                <div 
+                    ref={contentRef}
+                    className={`flex-1 relative transition-all duration-300 overflow-y-auto overflow-x-hidden ${showScript && !quizMode && !showGrid ? 'md:w-3/4' : 'w-full'}`}
+                >
+                   {showGrid ? renderGrid() : (quizMode ? renderQuiz() : (
+                       <div className="min-h-full w-full animate-fadeIn pb-20 md:pb-0">
+                           {slides[currentSlide].type !== 'title' && (
+                               <div className="p-4 md:px-8 md:pt-8 md:pb-2 border-b border-slate-800/50">
+                                   <h2 className="text-2xl md:text-3xl font-bold text-white truncate">{slides[currentSlide].title}</h2>
+                               </div>
+                           )}
+                           <div className="p-0 md:px-8 md:pb-8">
+                               {renderSlideContent(slides[currentSlide])}
+                           </div>
+                       </div>
+                   ))}
+                   
+                   {!quizMode && !showGrid && (
+                       <>
+                        <button onClick={prevSlide} disabled={currentSlide === 0} className="hidden md:block absolute left-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-slate-800 text-slate-400 hover:bg-cyan-600 hover:text-white disabled:opacity-30 transition-all z-20">
+                            <ChevronLeft size={32} />
+                        </button>
+                        <button onClick={nextSlide} className="hidden md:block absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-slate-800 text-slate-400 hover:bg-cyan-600 hover:text-white transition-all z-20">
+                            <ChevronRight size={32} />
+                        </button>
+                       </>
+                   )}
+                </div>
+
+                {showScript && !quizMode && !showGrid && (
+                    <div className="hidden md:block w-1/4 bg-slate-900 border-l border-slate-800 p-6 overflow-y-auto shadow-2xl h-full">
+                        <h3 className="text-slate-500 font-bold text-xs uppercase tracking-widest mb-4">Speaker Notes</h3>
+                        <p className="text-lg leading-relaxed text-slate-300 font-serif">
+                            {slides[currentSlide].script}
+                        </p>
+                        <div className="mt-8 p-4 bg-slate-800 rounded border border-slate-700">
+                            <h4 className="text-cyan-400 text-sm font-bold mb-2">Key Emphasis</h4>
+                            <ul className="list-disc list-inside text-sm text-slate-400 space-y-2">
+                                <li>Maintain eye contact.</li>
+                                <li>Pause for emphasis on bold words.</li>
+                                <li>Check audience engagement.</li>
+                            </ul>
+                        </div>
+                    </div>
+                )}
+              </div>
+              
+              {showScript && !quizMode && !showGrid && (
+                <div className="md:hidden absolute inset-0 bg-black/60 z-30 flex items-end">
+                     <div className="bg-slate-900 w-full max-h-[60%] rounded-t-2xl p-6 overflow-y-auto border-t border-cyan-500 animate-slideUp">
+                        <div className="flex justify-between items-center mb-4">
+                            <h3 className="text-cyan-400 font-bold text-xs uppercase tracking-widest">Speaker Notes</h3>
+                            <button onClick={() => setShowScript(false)}><X className="text-slate-400" /></button>
+                        </div>
+                        <p className="text-lg leading-relaxed text-slate-200 font-serif">
+                            {slides[currentSlide].script}
+                        </p>
+                     </div>
+                </div>
+              )}
+
+              {!quizMode && !showGrid && (
+                  <div className="md:hidden h-16 bg-slate-900 border-t border-slate-800 flex items-center justify-between px-6 z-20 shrink-0">
+                     <button 
+                        onClick={prevSlide} 
+                        disabled={currentSlide === 0}
+                        className="flex items-center gap-2 text-slate-400 disabled:opacity-30 active:text-white"
+                     >
+                        <ChevronLeft /> <span className="font-bold">PREV</span>
+                     </button>
+                     
+                     <span className="text-slate-600 font-mono text-xs">
+                        {currentSlide + 1} / {slides.length}
+                     </span>
+
+                     <button 
+                        onClick={nextSlide} 
+                        className="flex items-center gap-2 text-cyan-400 active:text-white"
+                     >
+                        <span className="font-bold">NEXT</span> <ChevronRight />
+                     </button>
+                  </div>
+              )}
+
+              <div className="hidden md:flex h-8 bg-slate-900 border-t border-slate-800 justify-between items-center px-4 text-xs font-mono text-slate-600 shrink-0">
+                  <div>SECURE CONNECTION ESTABLISHED</div>
+                  <div>CONFIDENTIAL // INTERNAL USE ONLY</div>
               </div>
             </div>
-          </div>
+          );
+        }
 
-          <div style="margin-top: 18px; display:flex; align-items:center; gap: 12px;">
-            <img src="assets/rockie.jpg" alt="Rockie"
-                 onerror="this.style.display='none';"
-                 style="width:52px;height:52px;border-radius:14px;object-fit:cover;border:1px solid rgba(15,23,42,0.10);box-shadow:0 10px 20px rgba(2,6,23,0.10);">
-            <div style="text-align:left;">
-              <strong>Your Partner: Rockie</strong><br>
-              <small>Welcome to the team.</small>
-            </div>
-          </div>
-        </div>
-
-        <aside class="notes">
-          (22:00–23:00) Close with confidence: “You now know what ‘good’ looks like.”
-        </aside>
-      </section>
-
-      <!-- SLIDE 18: APPENDIX -->
-      <section>
-        <h2>Appendix: Legal Defense</h2>
-        <div class="card success" style="margin-bottom: 14px;">
-          <strong>Universal Defense: Duty of Care</strong>
-          <p style="margin: 8px 0 0;">"We monitor and control to prevent negligence and protect stakeholders."</p>
-        </div>
-
-        <div class="grid-2">
-          <div class="card">
-            <strong>GDPR Recital 49</strong>
-            <p>Ensuring network / information security can be a "legitimate interest".</p>
-          </div>
-          <div class="card">
-            <strong>Forensics ≠ Surveillance</strong>
-            <p>Logs are for <strong>traceability</strong> (incidents), not “watching people.”</p>
-          </div>
-        </div>
-
-        <aside class="notes">
-          (Optional) Only cover if asked; keep it short to avoid losing the room.
-        </aside>
-      </section>
-
-    </div><!-- /.slides -->
-  </div><!-- /.reveal -->
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/notes/notes.min.js"></script>
-
-  <script>
-    // Reveal config tuned for 2025 devices
-    Reveal.initialize({
-      hash: true,
-      controls: true,
-      progress: true,
-      slideNumber: 'c/t',
-      transition: 'slide',
-      center: true,
-
-      width: 1366,
-      height: 768,
-      margin: 0.04,
-      minScale: 0.18,
-      maxScale: 2.0,
-
-      plugins: [ RevealNotes ]
-    });
-
-    // Preview button (Reveal overview)
-    const previewBtn = document.getElementById('previewBtn');
-    previewBtn.addEventListener('click', () => Reveal.toggleOverview());
-    document.addEventListener('keydown', (e) => {
-      const k = (e.key || '').toLowerCase();
-      if (k === 'p') Reveal.toggleOverview();
-    });
-
-    // Mobile tap improvement: prevent double-tap zoom on the preview button
-    previewBtn.addEventListener('touchend', (e) => { e.preventDefault(); Reveal.toggleOverview(); }, { passive: false });
-  </script>
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
 </body>
 </html>
+
+

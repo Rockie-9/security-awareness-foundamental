@@ -1,131 +1,1418 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PIP Training Deck: Securing Our Future</title>
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- React & ReactDOM -->
-    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
-    
-    <!-- Babel for JSX -->
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;900&family=JetBrains+Mono:wght@400;700&display=swap');
-        
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #020617; /* slate-950 */
-            color: #e2e8f0; /* slate-200 */
-        }
-        
-        .font-mono {
-            font-family: 'JetBrains Mono', monospace;
-        }
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>PIP Training // Proprietary Information Protection</title>
 
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes slideUp {
-            from { transform: translateY(100%); }
-            to { transform: translateY(0); }
-        }
-        .animate-fadeIn {
-            animation: fadeIn 0.5s ease-out forwards;
-        }
-        .animate-slideUp {
-            animation: slideUp 0.3s ease-out forwards;
-        }
-        
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0f172a; 
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #334155; 
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #475569; 
-        }
-    </style>
+  <!-- Reveal.js Core CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/dist/reveal.css"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/dist/theme/black.css"/>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    /* TYPOGRAPHY */
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap');
+
+    :root {
+      /* Palette - Precision Engineered */
+      --tech-blue: #00f3ff;
+      --tech-alert: #ff2a6d;
+      --tech-warn: #f59e0b;
+      --tech-safe: #00ff9d;
+      --bg-deep: #05080f;
+      --bg-panel: rgba(13, 18, 30, 0.90); /* Increased opacity for readability */
+    }
+
+    body, html {
+      height: 100%;
+      margin: 0;
+      background: var(--bg-deep);
+      font-family: 'Inter', sans-serif;
+      overflow: hidden;
+      color: #e2e8f0; /* Default lighter text color */
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* --- Cyberpunk Grid Background --- */
+    .bg-grid {
+      background-image:
+        linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+    }
+
+    h1, h2, h3, .mono {
+      font-family: 'JetBrains Mono', monospace;
+      letter-spacing: -0.02em; /* Slightly looser tracking for readability */
+    }
+
+    /* --- Premium Glass Panels (High Contrast Version) --- */
+    .glass-panel {
+      background: var(--bg-panel);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-top: 1px solid rgba(255, 255, 255, 0.2); 
+      border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      transition: all 0.3s ease;
+      border-radius: 16px;
+    }
+    
+    .hover-card:hover {
+      background: rgba(25, 35, 55, 0.95);
+      border-color: rgba(0, 243, 255, 0.4);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    /* --- Custom UI Controls --- */
+    .custom-controls {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 100;
+      display: flex;
+      gap: 12px;
+    }
+    .nav-btn {
+      background: rgba(15, 20, 30, 0.9);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: var(--tech-blue);
+      width: 52px;
+      height: 52px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      backdrop-filter: blur(4px);
+    }
+    .nav-btn:hover, .nav-btn.active {
+      background: var(--tech-blue);
+      color: #000;
+      box-shadow: 0 0 20px var(--tech-blue);
+      border-color: var(--tech-blue);
+    }
+    .nav-btn:active { transform: scale(0.95); }
+
+    /* --- Script HUD Panel (Enhanced Readability) --- */
+    #script-hud {
+      position: fixed;
+      bottom: 90px;
+      right: 24px;
+      width: 450px; /* Wider for easier reading */
+      max-width: 90vw;
+      background: rgba(5, 8, 15, 0.98); /* Near opaque for contrast */
+      border: 1px solid var(--tech-blue);
+      border-radius: 12px;
+      z-index: 90;
+      color: #fff;
+      font-family: 'Inter', sans-serif; /* Switch to Inter for body text readability */
+      font-size: 16px; /* Larger font */
+      line-height: 1.7; /* Increased leading */
+      box-shadow: 0 10px 50px rgba(0,0,0,0.9);
+      transform: translateY(20px);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+    }
+    #script-hud.visible {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .script-header {
+      padding: 16px 20px;
+      background: rgba(0, 243, 255, 0.1);
+      border-bottom: 1px solid var(--tech-blue);
+      border-radius: 12px 12px 0 0;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: bold;
+      color: var(--tech-blue);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      letter-spacing: 0.05em;
+    }
+    .script-content {
+      padding: 24px;
+      max-height: 400px;
+      overflow-y: auto;
+      color: #e2e8f0;
+    }
+    /* Scrollbar for script */
+    .script-content::-webkit-scrollbar { width: 8px; }
+    .script-content::-webkit-scrollbar-thumb { background: #475569; border-radius: 4px; }
+    .script-content::-webkit-scrollbar-track { background: #1e293b; }
+
+    /* --- Mobile Scroll Fix --- */
+    .mobile-scroll {
+      max-height: 70vh;
+      overflow-y: auto;
+      padding-right: 14px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--tech-blue) rgba(0,0,0,0.3);
+      touch-action: pan-y;
+    }
+
+    /* --- Quiz Styles (Larger Touch Targets) --- */
+    .quiz-card {
+        background: rgba(13, 18, 30, 0.8);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 12px;
+        padding: 24px;
+        margin-bottom: 24px;
+        transition: all 0.3s ease;
+    }
+    
+    .quiz-option {
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.03);
+      border-radius: 10px;
+      padding: 16px 20px; /* Larger padding */
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.1rem; /* Larger Text */
+      margin-bottom: 12px;
+    }
+    .quiz-option:hover { 
+        background: rgba(255,255,255,0.08); 
+        border-color: rgba(255,255,255,0.5);
+    }
+    .quiz-option.correct { 
+      background: rgba(0, 255, 157, 0.2); 
+      border-color: var(--tech-safe);
+      color: white;
+      font-weight: 600;
+    }
+    .quiz-option.incorrect { 
+      background: rgba(255, 42, 109, 0.2); 
+      border-color: var(--tech-alert);
+      animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+    }
+    
+    @keyframes shake {
+      10%, 90% { transform: translate3d(-1px, 0, 0); }
+      20%, 80% { transform: translate3d(2px, 0, 0); }
+      30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+      40%, 60% { transform: translate3d(4px, 0, 0); }
+    }
+
+    /* --- Glitch Text --- */
+    .glitch-text { position: relative; }
+    .glitch-text::before, .glitch-text::after {
+      content: attr(data-text);
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: var(--bg-deep);
+    }
+    .glitch-text::before {
+      left: 2px; text-shadow: -1px 0 var(--tech-alert);
+      clip: rect(24px, 550px, 90px, 0);
+      animation: glitch-anim-2 3s infinite linear alternate-reverse;
+    }
+    .glitch-text::after {
+      left: -2px; text-shadow: -1px 0 var(--tech-blue);
+      clip: rect(85px, 550px, 140px, 0);
+      animation: glitch-anim 2.5s infinite linear alternate-reverse;
+    }
+    @keyframes glitch-anim-2 { 0% { clip: rect(65px, 9999px, 100px, 0); } 100% { clip: rect(20px, 9999px, 80px, 0); } }
+
+    /* Pyramid */
+    .pyramid-level {
+      clip-path: polygon(2% 0, 98% 0, 100% 100%, 0% 100%);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 4px; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.05em;
+    }
+  </style>
 </head>
+
 <body>
-    <div id="root"></div>
 
-    <script type="text/babel">
-        const { useState, useRef, useEffect } = React;
+<div class="bg-grid"></div>
 
-        // --- INTERNAL ICON COMPONENTS (No External Dependency) ---
-        const IconBase = ({ d, className = "", size = 24, fill = "none" }) => (
-            <svg 
-                xmlns="http://www.w3.org/2000/svg" 
-                width={size} 
-                height={size} 
-                viewBox="0 0 24 24" 
-                fill={fill} 
-                stroke="currentColor" 
-                strokeWidth="2" 
-                strokeLinecap="round" 
-                strokeLinejoin="round" 
-                className={className}
-            >
-                <path d={d} />
-            </svg>
-        );
+<!-- Focus Overlay -->
+<div id="focus-overlay" class="fixed inset-0 bg-[#05080f] z-[999] flex items-center justify-center cursor-pointer transition-opacity duration-500">
+  <div class="text-center group px-6">
+    <div class="w-24 h-24 mx-auto mb-8 rounded-full border border-[var(--tech-blue)] flex items-center justify-center relative overflow-hidden bg-[var(--tech-blue)]/5">
+       <div class="absolute inset-0 bg-[var(--tech-blue)]/20 animate-pulse"></div>
+       <i data-lucide="power" class="w-10 h-10 text-[var(--tech-blue)] relative z-10"></i>
+    </div>
+    <h1 class="text-3xl font-mono text-white tracking-[0.2em] font-light">INITIALIZE <span class="font-bold text-[var(--tech-blue)]">PIP</span></h1>
+    <p class="text-slate-400 text-sm mt-4 font-mono tracking-widest uppercase">Proprietary Information Protection Protocol</p>
+  </div>
+</div>
 
-        const Shield = (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>;
-        const Lock = (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>;
-        const Smartphone = (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>;
-        const UserX = (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="18" y1="8" x2="23" y2="13"></line><line x1="23" y1="8" x2="18" y2="13"></line></svg>;
-        const AlertTriangle = (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>;
-        const Eye = (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>;
-        const Ear = (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 8.5a6.5 6.5 0 1 1 13 0c0 6-6 6-6 10a6 6 0 1 1-12 0v-5.5"></path></svg>;
-        const Mic = (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>;
-        const Share2 = (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>;
-        const Briefcase = (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>;
-        const Coffee = (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>;
-        const ChevronRight = (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>;
-        const ChevronLeft = (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>;
-        const CheckCircle = (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>;
-        const XCircle = (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>;
-        const Server = (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>;
-        const FileText = (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>;
-        const X = (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>;
-        const Maximize = (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>;
-        const Minimize = (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"></path></svg>;
-        const LayoutGrid = (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>;
+<!-- Script HUD Panel -->
+<div id="script-hud">
+  <div class="script-header">
+    <span><i data-lucide="mic" class="w-4 h-4 inline mr-2"></i>SPEAKER SCRIPT</span>
+    <button onclick="toggleScriptHUD()" class="hover:text-white"><i data-lucide="x" class="w-4 h-4"></i></button>
+  </div>
+  <div class="script-content" id="script-text">
+    Loading script data...
+  </div>
+</div>
 
+<!-- Custom Navigation -->
+<div class="custom-controls">
+  <div class="nav-btn" onclick="toggleFullScreen()" title="Full Screen">
+    <i data-lucide="maximize" class="w-6 h-6"></i>
+  </div>
+  <div class="nav-btn" id="btn-script" onclick="toggleScriptHUD()" title="Toggle Script">
+    <i data-lucide="file-text" class="w-6 h-6"></i>
+  </div>
+  <div class="h-8 w-px bg-slate-700 self-center mx-1"></div>
+  <div class="nav-btn" onclick="Reveal.prev()" aria-label="Previous Slide">
+    <i data-lucide="chevron-left" class="w-6 h-6"></i>
+  </div>
+  <div class="nav-btn" onclick="Reveal.next()" aria-label="Next Slide">
+    <i data-lucide="chevron-right" class="w-6 h-6"></i>
+  </div>
+</div>
 
-        // --- Data Structure for Slides ---
-        const slides = [
-          {
-            id: 1,
-            title: "PIP IS LIFE",
-            subtitle: "Professional Information Protection: A 24/7 Mindset",
-            type: "title",
-            icon: <Shield className="w-16 h-16 md:w-24 md:h-24 text-cyan-400" />,
-            script: "Welcome. Today, we aren't just talking about rules. We are talking about a mindset. We call it PIP: Professional Information Protection. You might think security is about firewalls. It’s not. It’s about Life. It protects Our life as a company and Your life—your career and reputation. Let’s begin."
-          },
-          {
-            id: 2,
-            title: "The 24/7 Mindset",
-            type: "content",
-            layout: "split",
-            leftContent: (
-              <div className="flex flex-col items-center justify-center h-full opacity-50 grayscale py-8 md:py-0">
-                <div className="text-5xl md:text-6xl font-bold line-through decoration-red-500 text-slate-400">9-to-5</div>
-                <p className="mt-4 text-lg md:text-xl text-slate-500">The Old Way</p>
+<!-- Header -->
+<header class="px-6 py-4 flex justify-between items-center text-[10px] md:text-xs tracking-widest text-slate-300 uppercase font-mono bg-[#05080f]/90 backdrop-blur-md border-b border-white/5 fixed top-0 w-full z-50">
+  <div class="flex items-center gap-3">
+    <div class="p-1 border border-[var(--tech-blue)] rounded">
+      <i data-lucide="shield-check" class="text-[var(--tech-blue)] w-4 h-4"></i>
+    </div>
+    <span class="font-bold text-white text-sm">Global Security</span>
+    <span class="text-slate-500">//</span>
+    <span class="text-sm">PIP Training</span>
+  </div>
+  <div class="flex items-center gap-2">
+    <div class="w-2 h-2 rounded-full bg-[var(--tech-alert)] animate-pulse"></div>
+    <span class="text-[var(--tech-alert)] font-bold tracking-wider">CONFIDENTIAL</span>
+  </div>
+</header>
+
+<div class="reveal">
+  <div class="slides">
+
+    <!-- SLIDE 1: TITLE -->
+    <section data-auto-animate>
+      <div class="flex h-full w-full items-center justify-center p-6">
+        <div class="glass-panel p-8 md:p-16 border-t border-[var(--tech-blue)] max-w-6xl w-full text-center relative overflow-hidden flex flex-col justify-center min-h-[60vh]">
+          <!-- Ambient Glow -->
+          <div class="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-1 bg-[var(--tech-blue)] shadow-[0_0_80px_30px_var(--tech-blue)] opacity-20"></div>
+          
+          <div class="flex justify-center mb-8">
+             <div class="p-6 bg-gradient-to-b from-[var(--tech-blue)]/10 to-transparent rounded-2xl border border-[var(--tech-blue)]/20">
+               <i data-lucide="shield" class="w-20 h-20 text-[var(--tech-blue)]"></i>
+             </div>
+          </div>
+
+          <h1 class="text-6xl md:text-9xl font-bold mb-4 text-white leading-none tracking-tight glitch-text" data-text="PIP IS LIFE">
+            PIP IS <span class="text-transparent bg-clip-text bg-gradient-to-r from-[var(--tech-blue)] to-white">LIFE</span>
+          </h1>
+          
+          <div class="flex flex-col items-center gap-4 mt-8">
+            <h2 class="text-base md:text-2xl text-slate-300 font-medium tracking-[0.15em] uppercase">
+              Proprietary Information Protection
+            </h2>
+            <div class="h-px w-24 bg-[var(--tech-blue)] opacity-50"></div>
+            <p class="text-sm md:text-base text-slate-400 font-mono tracking-widest">MINDSET • MECHANICS • MASTERY</p>
+          </div>
+        </div>
+      </div>
+      <aside class="notes">
+        "Welcome. Today, we aren't just talking about rules. We are talking about a mindset.
+        We call it PIP: Proprietary Information Protection.
+        You might think security is about firewalls or badges. It’s not. It’s about Life.
+        It protects Our life as a company—our secrets are our survival.
+        And it protects Your life—your career, your reputation, and your peace of mind.
+        Let’s begin."
+      </aside>
+    </section>
+
+    <!-- SLIDE 2: THE CORE MINDSET -->
+    <section>
+      <div class="max-w-7xl mx-auto w-full p-6">
+        <h1 class="text-4xl md:text-6xl font-bold mb-10 md:mb-14 text-center text-white tracking-tight">THE 24/7 MINDSET</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+           <!-- Myth Side -->
+           <div class="glass-panel p-10 md:p-14 flex flex-col items-center justify-center relative opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
+              <i data-lucide="clock" class="w-20 h-20 mb-6 text-slate-400"></i>
+              <div class="text-3xl font-mono text-slate-300 line-through decoration-[var(--tech-alert)] decoration-4">9-to-5 Job</div>
+              <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                 <div class="text-[var(--tech-alert)] text-[15rem] leading-none opacity-10 font-black select-none">×</div>
               </div>
-            ),
-            rightContent: (
+              <p class="mt-6 text-sm text-slate-400 uppercase tracking-widest font-bold border-t border-slate-600 pt-2">The Myth</p>
+           </div>
+           <!-- Reality Side -->
+           <div class="glass-panel p-10 md:p-14 flex flex-col items-center justify-center border border-[var(--tech-blue)]/40 bg-[var(--tech-blue)]/5 relative overflow-hidden group">
+              <div class="absolute inset-0 bg-[var(--tech-blue)]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <i data-lucide="infinity" class="w-24 h-24 mb-6 text-[var(--tech-blue)] drop-shadow-[0_0_20px_rgba(0,243,255,0.6)]"></i>
+              <div class="text-4xl font-mono text-white font-bold tracking-tight">LIFESTYLE</div>
+              <div class="flex gap-4 mt-6 text-sm font-mono text-[var(--tech-blue)] font-medium">
+                  <span>CAFE</span> • <span>HOME</span> • <span>TRAVEL</span>
+              </div>
+              <div class="mt-10 px-8 py-3 border border-[var(--tech-blue)] text-white text-sm font-bold rounded-full uppercase tracking-widest bg-[var(--tech-blue)]/10">You Are The Perimeter</div>
+           </div>
+        </div>
+      </div>
+      <aside class="notes">
+        "The biggest mistake new hires make is thinking security is a '9-to-5' job.
+        The reality is: PIP is a 24/7 Mindset.
+        When you leave this building, you don't leave the secret behind. You carry it in your head.
+        Whether you are at a coffee shop, at the dinner table, or on vacation, you are the perimeter.
+        If you relax your guard because you are 'off the clock,' that is exactly when the leak happens."
+      </aside>
+    </section>
+
+    <!-- SLIDE 3: DEFINING PIP -->
+    <section>
+      <div class="max-w-6xl mx-auto w-full p-6">
+        <h1 class="text-4xl md:text-6xl font-bold mb-12 text-center text-white tracking-tight uppercase">It's Not Just Documents</h1>
+        <div class="glass-panel p-12 relative overflow-hidden flex flex-col items-center">
+           <!-- Iceberg Visualization -->
+           <div class="relative w-full max-w-xl flex flex-col items-center group">
+              <!-- Top (Visible) -->
+              <div class="bg-slate-200 w-40 md:w-56 h-24 rounded-t-xl flex flex-col items-center justify-center relative z-10 shadow-xl mb-0.5 transition-transform group-hover:-translate-y-2">
+                 <i data-lucide="file-text" class="w-8 h-8 text-slate-800 mb-2"></i>
+                 <span class="text-sm font-black text-slate-900 tracking-wider">VISIBLE</span>
+              </div>
+              
+              <!-- Water Line -->
+              <div class="w-full h-1 bg-[var(--tech-blue)] shadow-[0_0_20px_4px_var(--tech-blue)] z-20 relative my-1">
+                  <div class="absolute right-0 -top-8 text-[var(--tech-blue)] text-sm font-mono font-bold bg-black/50 px-2 py-1 rounded">SURFACE LEVEL</div>
+              </div>
+              
+              <!-- Bottom (Invisible) -->
+              <div class="bg-gradient-to-b from-slate-800/95 to-slate-900/95 w-64 md:w-96 p-10 rounded-b-3xl backdrop-blur-md border border-slate-600 border-t-0 -mt-0.5 transition-transform group-hover:translate-y-2">
+                 <span class="text-sm font-bold text-[var(--tech-blue)] block text-center mb-6 tracking-[0.2em] border-b border-slate-600 pb-3">INVISIBLE DATA</span>
+                 <ul class="text-lg text-slate-200 space-y-4 text-center font-medium">
+                    <li class="hover:text-white transition-colors cursor-default">Elevator Conversations</li>
+                    <li class="hover:text-white transition-colors cursor-default">Whiteboard Sketches</li>
+                    <li class="hover:text-white transition-colors cursor-default">Strategic Intent</li>
+                 </ul>
+              </div>
+           </div>
+           
+           <div class="mt-12 flex items-center gap-6">
+               <div class="h-px w-16 bg-slate-600"></div>
+               <p class="text-[var(--tech-safe)] font-mono text-base md:text-lg uppercase tracking-widest font-bold">Rule: If it creates value, it is PIP.</p>
+               <div class="h-px w-16 bg-slate-600"></div>
+           </div>
+        </div>
+      </div>
+      <aside class="notes">
+        "What exactly are we protecting?
+        Most people think of documents—PDFs, Excel sheets, code. That is just the tip of the iceberg.
+        PIP covers the Invisible Data.
+        It’s the conversation you have in the elevator. It’s the diagram you scribbled on a whiteboard. It is simply knowing what we are working on.
+        If a competitor knows our 'Intent,' they know our strategy.
+        The Rule is simple: If it creates value for us, it must be protected."
+      </aside>
+    </section>
+
+    <!-- SLIDE 4: BUSINESS REALITY -->
+    <section>
+      <div class="max-w-7xl mx-auto w-full p-6">
+        <h1 class="text-4xl md:text-6xl font-bold mb-16 text-center text-white tracking-tight">SECRETS = CURRENCY</h1>
+        
+        <div class="flex flex-col md:flex-row gap-8 items-stretch justify-center mobile-scroll pb-4">
+            <!-- Step 1 -->
+            <div class="glass-panel hover-card p-8 w-full text-center flex flex-col items-center justify-center gap-4">
+                <div class="w-16 h-16 bg-yellow-500/10 rounded-full flex items-center justify-center mb-2 border border-yellow-500/20">
+                    <i data-lucide="lightbulb" class="w-8 h-8 text-yellow-400"></i>
+                </div>
+                <div class="font-bold text-white text-2xl">Trade Secrets</div>
+                <div class="h-px w-12 bg-slate-600"></div>
+                <div class="text-sm text-slate-400 font-mono tracking-wider">THE SPARK</div>
+            </div>
+            
+            <i data-lucide="arrow-right" class="text-slate-500 self-center hidden md:block w-10 h-10"></i>
+            <i data-lucide="arrow-down" class="text-slate-500 self-center md:hidden w-10 h-10"></i>
+            
+            <!-- Step 2 -->
+            <div class="glass-panel hover-card p-8 w-full text-center flex flex-col items-center justify-center gap-4 border border-[var(--tech-blue)]/50 bg-[var(--tech-blue)]/5">
+                <div class="w-16 h-16 bg-[var(--tech-blue)]/20 rounded-full flex items-center justify-center mb-2 border border-[var(--tech-blue)]/30">
+                    <i data-lucide="rocket" class="w-8 h-8 text-[var(--tech-blue)]"></i>
+                </div>
+                <div class="font-bold text-white text-2xl">Innovation</div>
+                <div class="h-px w-12 bg-[var(--tech-blue)]/50"></div>
+                <div class="text-sm text-[var(--tech-blue)] font-mono tracking-wider">THE PRODUCT</div>
+            </div>
+            
+            <i data-lucide="arrow-right" class="text-slate-500 self-center hidden md:block w-10 h-10"></i>
+            <i data-lucide="arrow-down" class="text-slate-500 self-center md:hidden w-10 h-10"></i>
+            
+            <!-- Step 3 -->
+            <div class="glass-panel hover-card p-8 w-full text-center flex flex-col items-center justify-center gap-4 bg-[var(--tech-safe)]/5 border border-[var(--tech-safe)]/40">
+                <div class="w-16 h-16 bg-[var(--tech-safe)]/20 rounded-full flex items-center justify-center mb-2 border border-[var(--tech-safe)]/30">
+                    <i data-lucide="briefcase" class="w-8 h-8 text-[var(--tech-safe)]"></i>
+                </div>
+                <div class="font-bold text-white text-2xl">Your Job</div>
+                <div class="h-px w-12 bg-[var(--tech-safe)]/50"></div>
+                <div class="text-sm text-[var(--tech-safe)] font-mono tracking-wider">THE REWARD</div>
+            </div>
+        </div>
+      </div>
+      <aside class="notes">
+        "Some of you might think security is just red tape. But let’s look at the reality. Our company doesn't just sell products; we sell innovation.
+        That innovation is built on our Trade Secrets and Intellectual Property.
+        Here is the chain: Our Trade Secrets unleash our Innovation. That Innovation makes us the Market Leader. Being the Leader brings Business Success, which pays our salaries and funds our growth.
+        If we lose the IP, we break the chain at the very start."
+      </aside>
+    </section>
+
+    <!-- SLIDE 5: THE HUMAN BRIDGE -->
+    <section>
+      <div class="max-w-7xl mx-auto w-full p-6">
+        <div class="flex flex-col items-center mb-12">
+            <h1 class="text-4xl md:text-6xl font-bold text-[var(--tech-alert)] mb-4 tracking-tight">THE HUMAN BRIDGE</h1>
+            <p class="text-slate-300 font-mono text-sm md:text-base uppercase tracking-widest border-b border-slate-600 pb-2">Threat Vector Analysis</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mobile-scroll">
+            <!-- Target -->
+            <div class="glass-panel hover-card p-10 text-center border-t-4 border-red-500">
+                <div class="bg-red-500/10 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-8">
+                    <i data-lucide="crosshair" class="w-10 h-10 text-red-500"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-4">The Target</h3>
+                <p class="text-base text-slate-300 mb-6 leading-relaxed">Manipulated directly by social engineers.</p>
+                <span class="inline-block px-3 py-1 bg-red-500/20 text-red-300 text-xs font-mono rounded border border-red-500/30">EX: PHISHING</span>
+            </div>
+            
+            <!-- Carrier -->
+            <div class="glass-panel hover-card p-10 text-center border-t-4 border-orange-500">
+                <div class="bg-orange-500/10 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-8">
+                    <i data-lucide="users" class="w-10 h-10 text-orange-500"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-4">The Carrier</h3>
+                <p class="text-base text-slate-300 mb-6 leading-relaxed">Unknowingly brings physical threats inside.</p>
+                <span class="inline-block px-3 py-1 bg-orange-500/20 text-orange-300 text-xs font-mono rounded border border-orange-500/30">EX: TAILGATING</span>
+            </div>
+            
+            <!-- Amplifier -->
+            <div class="glass-panel hover-card p-10 text-center border-t-4 border-purple-500">
+                <div class="bg-purple-500/10 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-8">
+                    <i data-lucide="share-2" class="w-10 h-10 text-purple-500"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-4">The Amplifier</h3>
+                <p class="text-base text-slate-300 mb-6 leading-relaxed">Spreads malware through trusted channels.</p>
+                <span class="inline-block px-3 py-1 bg-purple-500/20 text-purple-300 text-xs font-mono rounded border border-purple-500/30">EX: FORWARDING</span>
+            </div>
+        </div>
+      </div>
+      <aside class="notes">
+        "In security, we talk about the 'Human Vector,' but let's use a simpler term: The Bridge.
+        Our firewalls are high. Our locks are strong. Threats usually can't jump over them. They need a bridge to cross. You are that bridge.
+        You can be the Target (they trick you). You can be the Carrier (you accidentally bring a threat inside). Or you can be the Amplifier (you use your trusted status to spread a threat to colleagues).
+        Our goal today is to pull up the drawbridge. Don't let them cross."
+      </aside>
+    </section>
+
+    <!-- SLIDE 6: THE GOLDEN RULE -->
+    <section>
+      <div class="max-w-6xl mx-auto w-full text-center p-6">
+        <h1 class="text-4xl md:text-6xl font-bold mb-12 text-white tracking-tight">THE GOLDEN RULE</h1>
+        
+        <div class="glass-panel p-10 md:p-16 relative flex flex-col md:flex-row items-center justify-center gap-16">
+           <div class="hidden md:flex absolute inset-0 items-center justify-center opacity-5 pointer-events-none">
+              <i data-lucide="shield" class="w-96 h-96"></i>
+           </div>
+           
+           <!-- Action Grid -->
+           <div class="grid grid-cols-2 gap-6 w-full md:w-auto z-10">
+              <div class="bg-white/5 p-6 rounded-xl border border-white/10 hover:bg-white/10 transition-colors">
+                 <div class="text-[var(--tech-blue)] text-xs font-mono mb-2 tracking-widest">EYES</div>
+                 <div class="font-bold text-white text-xl md:text-2xl mb-1">SEE</div>
+                 <div class="text-sm text-slate-300">Only required data</div>
+              </div>
+              <div class="bg-white/5 p-6 rounded-xl border border-white/10 hover:bg-white/10 transition-colors">
+                 <div class="text-[var(--tech-blue)] text-xs font-mono mb-2 tracking-widest">EARS</div>
+                 <div class="font-bold text-white text-xl md:text-2xl mb-1">HEAR</div>
+                 <div class="text-sm text-slate-300">Don't linger</div>
+              </div>
+              <div class="bg-white/5 p-6 rounded-xl border border-white/10 hover:bg-white/10 transition-colors">
+                 <div class="text-[var(--tech-blue)] text-xs font-mono mb-2 tracking-widest">VOICE</div>
+                 <div class="font-bold text-white text-xl md:text-2xl mb-1">SPEAK</div>
+                 <div class="text-sm text-slate-300">Secure zones only</div>
+              </div>
+              <div class="bg-white/5 p-6 rounded-xl border border-white/10 hover:bg-white/10 transition-colors">
+                 <div class="text-[var(--tech-blue)] text-xs font-mono mb-2 tracking-widest">DATA</div>
+                 <div class="font-bold text-white text-xl md:text-2xl mb-1">SHARE</div>
+                 <div class="text-sm text-slate-300">Verify need</div>
+              </div>
+           </div>
+
+           <!-- Central Equation -->
+           <div class="z-10 bg-[#0d1321] border border-[var(--tech-safe)] rounded-2xl md:rounded-full w-full md:w-72 p-8 md:h-72 flex flex-col items-center justify-center gap-3 shadow-[0_0_50px_rgba(0,255,157,0.15)]">
+              <div class="text-xs text-slate-400 font-mono tracking-widest mb-2 border-b border-slate-700 pb-1">ACCESS FORMULA</div>
+              <div class="font-bold text-white text-2xl md:text-3xl">AUTHORIZATION</div>
+              <div class="text-lg text-slate-500 font-mono font-bold">+</div>
+              <div class="font-bold text-white text-2xl md:text-3xl">NECESSITY</div>
+              <div class="h-px w-16 bg-[var(--tech-safe)] my-3"></div>
+              <div class="font-black text-[var(--tech-safe)] text-3xl md:text-4xl tracking-widest">ACCESS</div>
+           </div>
+        </div>
+      </div>
+      <aside class="notes">
+        "How do we stop ourselves from being that 'Bridge'? We follow the Golden Rule: Need to Know.
+        Just because you can access something doesn't mean you should. True access requires Authorization PLUS Necessity. Curiosity is not necessity.
+        SEE: Keep your eyes on your own screen.
+        HEAR: If a conversation doesn't concern you, walk away.
+        SPEAK: Don't talk shop in the elevator.
+        SHARE: Ask yourself: 'Does this person strictly need this?' If the answer is No, stop."
+      </aside>
+    </section>
+
+    <!-- SLIDE 7: TRAP 1 - DEVICES -->
+    <section>
+      <div class="max-w-6xl mx-auto w-full p-6">
+        <div class="mb-4 font-mono text-[var(--tech-alert)] text-center text-sm tracking-[0.2em] uppercase font-bold">Trap #01</div>
+        <h1 class="text-4xl md:text-6xl font-bold mb-12 text-center text-white tracking-tight">THE "SMART" DEVICE</h1>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-stretch mobile-scroll">
+           <!-- Prohibited List -->
+           <div class="glass-panel p-10 text-center border-l-4 border-red-500 flex flex-col justify-center bg-red-900/10">
+              <div class="text-red-500 font-black mb-8 text-2xl tracking-[0.2em] border-b border-red-500/20 pb-4">PROHIBITED ITEMS</div>
+              <ul class="space-y-6 text-left inline-block mx-auto text-lg text-slate-200">
+                 <li class="flex items-center gap-5"><i data-lucide="smartphone" class="text-red-500 w-6 h-6"></i> Personal Phones</li>
+                 <li class="flex items-center gap-5"><i data-lucide="watch" class="text-red-500 w-6 h-6"></i> Smart Watches</li>
+                 <li class="flex items-center gap-5"><i data-lucide="glasses" class="text-red-500 w-6 h-6"></i> Smart Glasses</li>
+              </ul>
+           </div>
+           
+           <!-- The Why -->
+           <div class="glass-panel p-10 flex flex-col items-center justify-center">
+              <h3 class="text-2xl font-bold text-white mb-8">The Triple Threat</h3>
+              <div class="grid grid-cols-3 gap-6 w-full mb-10">
+                 <div class="flex flex-col items-center gap-3">
+                    <div class="bg-slate-800 p-4 rounded-full border border-slate-600"><i data-lucide="mic" class="w-8 h-8 text-slate-200"></i></div>
+                    <span class="text-sm text-slate-400 uppercase font-bold tracking-wider">Record</span>
+                 </div>
+                 <div class="flex flex-col items-center gap-3">
+                    <div class="bg-slate-800 p-4 rounded-full border border-slate-600"><i data-lucide="save" class="w-8 h-8 text-slate-200"></i></div>
+                    <span class="text-sm text-slate-400 uppercase font-bold tracking-wider">Store</span>
+                 </div>
+                 <div class="flex flex-col items-center gap-3">
+                    <div class="bg-slate-800 p-4 rounded-full border border-slate-600"><i data-lucide="wifi" class="w-8 h-8 text-slate-200"></i></div>
+                    <span class="text-sm text-slate-400 uppercase font-bold tracking-wider">Transmit</span>
+                 </div>
+              </div>
+              <div class="bg-[#05080f] px-8 py-5 rounded-lg w-full text-center border border-[var(--tech-blue)] shadow-lg">
+                 <div class="text-[var(--tech-blue)] text-sm font-mono mb-2 tracking-widest">PROTOCOL</div>
+                 <span class="font-bold text-white text-2xl">SELF-CHECK</span>
+                 <p class="text-sm text-slate-400 mt-2">Verify pockets before entry.</p>
+              </div>
+           </div>
+        </div>
+      </div>
+      <aside class="notes">
+        "Trap #1 is Personal Devices.
+        The rule is strict: Personal Smart Phones, Smart Watches, Smart Glasses, and Docking Stations are prohibited.
+        Why? It's not about the brand; it's about the functionality. New devices are equipped with Recording, Storage, and Transmitting capabilities.
+        We strongly recommend a 'Self-Check' habit.
+        Before you walk through that security gate, pat your pockets. Check your wrist. Catch it yourself before the sensors do."
+      </aside>
+    </section>
+
+    <!-- SLIDE 8: TRAP 2 - TAILGATING -->
+    <section>
+      <div class="max-w-5xl mx-auto w-full text-center p-6">
+        <div class="mb-4 font-mono text-[var(--tech-alert)] text-sm tracking-[0.2em] uppercase font-bold">Trap #02</div>
+        <h1 class="text-4xl md:text-6xl font-bold mb-12 text-white tracking-tight">THE "POLITENESS" GAP</h1>
+        
+        <div class="glass-panel p-10 md:p-16 border-l-8 border-[var(--tech-alert)] flex flex-col md:flex-row items-center gap-10 md:gap-16 relative overflow-hidden">
+           <!-- Subtle warning strip -->
+           <div class="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-red-500/10 to-transparent pointer-events-none"></div>
+           
+           <div class="bg-[#05080f] p-8 md:p-10 rounded-full border border-slate-600 shrink-0 shadow-2xl">
+              <i data-lucide="door-open" class="w-20 h-20 md:w-24 md:h-24 text-[var(--tech-alert)]"></i>
+           </div>
+           
+           <div class="text-center md:text-left w-full z-10">
+              <h3 class="text-3xl md:text-4xl font-bold text-white mb-6 leading-tight">Every door is a shield.</h3>
+              <p class="text-lg md:text-xl text-slate-300 mb-10 leading-relaxed font-light">Swiping for a stranger unlocks risk for the entire team.</p>
+              
+              <div class="flex flex-wrap gap-4 justify-center md:justify-start font-mono text-sm md:text-base">
+                 <div class="bg-[var(--tech-blue)]/10 px-5 py-3 rounded border border-[var(--tech-blue)] text-[var(--tech-blue)] font-bold">ONE BADGE</div>
+                 <div class="bg-[var(--tech-blue)]/10 px-5 py-3 rounded border border-[var(--tech-blue)] text-[var(--tech-blue)] font-bold">ONE PERSON</div>
+                 <div class="bg-[var(--tech-alert)]/10 px-5 py-3 rounded border border-[var(--tech-alert)] text-[var(--tech-alert)] font-bold">NO EXCEPTIONS</div>
+              </div>
+           </div>
+        </div>
+      </div>
+      <aside class="notes">
+        "Trap #2 is Tailgating.
+        We often hold doors to be polite. But inside that room, colleagues are working on sensitive projects. That door is their shield.
+        When you let someone 'piggyback' in, you are unlocking their safety for a stranger. You act as the 'insider threat' by bypassing the lock designed to protect them.
+        Don't be the person who exposes the team.
+        The rule is One Badge, One Person. If they belong inside, their badge will work."
+      </aside>
+    </section>
+
+    <!-- SLIDE 9: TRAP 3 - LABELING -->
+    <section>
+      <div class="max-w-6xl mx-auto w-full p-6">
+        <div class="mb-4 font-mono text-[var(--tech-alert)] text-center text-sm tracking-[0.2em] uppercase font-bold">Trap #03</div>
+        <h1 class="text-4xl md:text-6xl font-bold mb-12 text-center text-white tracking-tight">THE MYSTERY BOX</h1>
+        
+        <div class="flex flex-col items-center">
+           <!-- Pyramid -->
+           <div class="w-full max-w-2xl flex flex-col gap-1.5">
+              <div class="pyramid-level bg-red-600 text-white w-[30%] mx-auto h-12 md:h-14 border-b border-red-800 shadow-lg">AA / A</div>
+              <div class="pyramid-level bg-orange-500 text-black w-[50%] mx-auto h-12 md:h-14 border-b border-orange-700 shadow-lg">B (Confidential)</div>
+              <div class="pyramid-level bg-yellow-400 text-black w-[70%] mx-auto h-12 md:h-14 border-b border-yellow-600 shadow-lg">C (Internal)</div>
+              <div class="pyramid-level bg-blue-400 text-black w-[90%] mx-auto h-12 md:h-14 border-b border-blue-600 shadow-lg">Property</div>
+              <div class="pyramid-level bg-green-400 text-black w-full mx-auto h-12 md:h-14 shadow-lg">No Restriction</div>
+           </div>
+           
+           <div class="mt-10 glass-panel p-8 text-center border-t-2 border-[var(--tech-warn)] w-full max-w-3xl bg-gradient-to-b from-[var(--tech-warn)]/10 to-transparent">
+              <div class="text-[var(--tech-warn)] font-bold mb-3 text-sm tracking-widest uppercase">FAIL-SAFE RULE</div>
+              <p class="text-white text-xl md:text-2xl font-medium leading-relaxed">"If you are unsure, choose the <span class="text-[var(--tech-alert)] font-bold border-b-2 border-[var(--tech-alert)]">HIGHEST</span> level."</p>
+           </div>
+        </div>
+      </div>
+      <aside class="notes">
+        "Trap #3 is the 'Mystery Box'—Unlabeled Data.
+        Our systems rely on labels. You need to know the hierarchy: AA/A (Crown Jewels), B (Confidential), C (Internal), Property, and No Restriction.
+        Crucial Reminder: Labels are not static. A project might be 'AA' today but 'No Restriction' next year. Always check the Operation Instructions (OI).
+        And the Golden Rule: If you are unsure, mark it AA. It is much better to over-protect a file than to accidentally leak a secret."
+      </aside>
+    </section>
+
+    <!-- SLIDE 10: TRAP 4 - DOUBLE DEVICE -->
+    <section>
+      <div class="max-w-6xl mx-auto w-full text-center p-6">
+        <div class="mb-4 font-mono text-[var(--tech-alert)] text-sm tracking-[0.2em] uppercase font-bold">Trap #04</div>
+        <h1 class="text-4xl md:text-6xl font-bold mb-12 text-white tracking-tight">DOUBLE DEVICE RISK</h1>
+        
+        <div class="glass-panel p-10 md:p-16 flex flex-col md:flex-row items-center gap-12 md:gap-20">
+           <div class="relative shrink-0 group">
+              <div class="absolute inset-0 bg-red-500/20 rounded-full blur-2xl group-hover:bg-red-500/30 transition-all"></div>
+              <i data-lucide="smartphone" class="w-40 h-40 md:w-48 md:h-48 text-slate-500 relative z-10"></i>
+              <div class="absolute inset-0 flex items-center justify-center z-20">
+                 <div class="bg-black/90 p-4 rounded-full border-2 border-red-500 shadow-xl">
+                    <i data-lucide="gavel" class="w-16 h-16 md:w-20 md:h-20 text-[var(--tech-alert)]"></i>
+                 </div>
+              </div>
+           </div>
+           
+           <div class="text-left w-full">
+              <h3 class="text-3xl md:text-4xl font-bold text-white mb-8">The Legal Reality</h3>
+              <ul class="space-y-6 text-slate-200 text-base md:text-xl">
+                 <li class="flex items-start gap-5">
+                    <div class="bg-slate-800 p-2 rounded-lg"><i data-lucide="alert-triangle" class="text-[var(--tech-warn)] w-6 h-6"></i></div>
+                    <div>
+                        <strong class="text-white block mb-2 font-bold">Seizure Authority</strong>
+                        <span class="text-slate-300">In a lawsuit, authorities can seize BOTH devices to trace logs.</span>
+                    </div>
+                 </li>
+                 <li class="flex items-start gap-5">
+                    <div class="bg-slate-800 p-2 rounded-lg"><i data-lucide="x-circle" class="text-red-500 w-6 h-6"></i></div>
+                    <div>
+                        <strong class="text-white block mb-2 font-bold">Privacy Lost</strong>
+                        <span class="text-slate-300">Your personal photos and messages become evidence.</span>
+                    </div>
+                 </li>
+              </ul>
+              <div class="mt-10 p-5 bg-red-500/10 border-l-4 border-red-500 text-red-200 text-sm md:text-base font-mono leading-relaxed">
+                 RECOMMENDATION: DO NOT INSTALL WORK APPS ON PERSONAL DEVICES.
+              </div>
+           </div>
+        </div>
+      </div>
+      <aside class="notes">
+        "Trap #4 is the 'Double Device' Risk.
+        We strongly recommend that you do not install work applications on your personal phone.
+        Here is the harsh truth: If a legal investigation occurs, Authorities have the right to seize your devices.
+        They won't just ask for the company phone. If they see you've been doing work on your personal phone, they will take that too.
+        Don't put yourself in that position. Segregation is Safety. Keep work apps off your personal phone."
+      </aside>
+    </section>
+
+    <!-- SLIDE 11: TRAP 5 - CLEAN START -->
+    <section>
+      <div class="max-w-5xl mx-auto w-full text-center p-6">
+        <div class="mb-4 font-mono text-[var(--tech-alert)] text-sm tracking-[0.2em] uppercase font-bold">Trap #05</div>
+        <h1 class="text-4xl md:text-6xl font-bold mb-12 text-white tracking-tight">THE TOXIC SHORTCUT</h1>
+        
+        <div class="glass-panel p-12 md:p-20 relative overflow-hidden">
+           <div class="flex items-center justify-center gap-10 md:gap-20 mb-12">
+              <div class="text-center opacity-40 grayscale">
+                 <i data-lucide="briefcase" class="w-20 h-20 md:w-24 md:h-24 mx-auto mb-4 text-slate-400"></i>
+                 <span class="text-base font-mono line-through decoration-red-500 decoration-2">Old Data</span>
+              </div>
+              
+              <div class="flex flex-col items-center text-slate-500">
+                  <i data-lucide="arrow-right" class="w-12 h-12"></i>
+              </div>
+
+              <div class="text-center">
+                 <div class="relative">
+                     <div class="absolute inset-0 bg-[var(--tech-blue)]/30 blur-2xl"></div>
+                     <i data-lucide="brain" class="w-20 h-20 md:w-24 md:h-24 mx-auto mb-4 text-[var(--tech-blue)] relative z-10"></i>
+                 </div>
+                 <span class="text-base font-mono font-bold text-white uppercase tracking-wider">Your Experience</span>
+              </div>
+           </div>
+           
+           <h2 class="text-2xl md:text-4xl font-bold text-white mb-6 leading-tight">We hired you for your Brain,<br>not your Files.</h2>
+           <p class="text-slate-300 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">Bringing code or templates from a previous employer is <span class="text-[var(--tech-alert)] font-bold border-b-2 border-[var(--tech-alert)]">IP Contamination</span>.</p>
+           
+           <div class="mt-12 border-t border-slate-700 pt-8 inline-block">
+               <p class="text-sm font-mono text-slate-400 uppercase tracking-[0.2em]">Start Fresh. Leave their data behind.</p>
+           </div>
+        </div>
+      </div>
+      <aside class="notes">
+        "Trap #5 is using old work.
+        You might think reusing a spreadsheet from your old job saves time. Don't do it.
+        In the legal world, this is 'IP Contamination.' If you bring data from a previous employer, you are literally bringing a lawsuit into our building.
+        We hired you for your intelligence, not your old hard drive.
+        Bring your experience. Leave their data behind. Start fresh."
+      </aside>
+    </section>
+
+    <!-- SLIDE 12: TRAP 6 - PHISHING -->
+    <section>
+      <div class="max-w-5xl mx-auto w-full p-6">
+         <div class="mb-4 font-mono text-[var(--tech-alert)] text-center text-sm tracking-[0.2em] uppercase font-bold">Trap #06</div>
+         <h1 class="text-4xl md:text-6xl font-bold mb-12 text-center text-white tracking-tight">THE "URGENT" REQUEST</h1>
+         
+         <!-- Fake Email UI - Premium -->
+         <div class="bg-[#1a1a1a] text-slate-200 rounded-xl overflow-hidden max-w-2xl mx-auto shadow-2xl mb-12 text-left border border-slate-600">
+            <!-- Header -->
+            <div class="bg-[#2a2a2a] p-4 border-b border-slate-600 flex justify-between items-center">
+               <div class="font-bold text-sm text-slate-400">Outlook • Inbox</div>
+               <div class="text-xs text-red-400 font-mono bg-red-900/30 px-2 py-1 rounded">External Sender</div>
+            </div>
+            
+            <div class="p-8">
+               <div class="flex items-center gap-4 mb-8">
+                  <div class="w-12 h-12 bg-red-900/50 rounded-full flex items-center justify-center text-red-400 font-bold shrink-0 text-sm border border-red-800">IT</div>
+                  <div class="overflow-hidden">
+                     <div class="font-bold text-base text-white">IT Support Service</div>
+                     <div class="text-sm text-slate-400 font-mono truncate">support@typo-domain.com</div>
+                  </div>
+               </div>
+               
+               <div class="font-bold text-xl mb-4 text-red-400">ACTION REQUIRED: Password Expiry</div>
+               <p class="text-base mb-8 text-slate-300 leading-relaxed">Your account access will be suspended in <span class="text-white font-bold">10 minutes</span> unless you verify credentials.</p>
+               
+               <button class="bg-blue-600 hover:bg-blue-700 text-white w-full py-4 rounded-lg text-base font-bold shadow-lg transition-colors cursor-not-allowed opacity-80 border border-blue-500">
+                   Verify Credentials Now
+               </button>
+            </div>
+         </div>
+
+         <div class="grid grid-cols-3 gap-6 text-center max-w-3xl mx-auto">
+            <div class="glass-panel p-6 border-t-2 border-red-500 hover:bg-red-500/10 transition-colors">
+               <h3 class="font-black text-red-500 text-2xl md:text-3xl mb-2">STOP</h3>
+               <p class="text-xs md:text-sm text-slate-300 uppercase tracking-wide">Don't click</p>
+            </div>
+            <div class="glass-panel p-6 border-t-2 border-yellow-500 hover:bg-yellow-500/10 transition-colors">
+               <h3 class="font-black text-yellow-500 text-2xl md:text-3xl mb-2">CHECK</h3>
+               <p class="text-xs md:text-sm text-slate-300 uppercase tracking-wide">Verify sender</p>
+            </div>
+            <div class="glass-panel p-6 border-t-2 border-green-500 hover:bg-green-500/10 transition-colors">
+               <h3 class="font-black text-green-500 text-2xl md:text-3xl mb-2">CALL</h3>
+               <p class="text-xs md:text-sm text-slate-300 uppercase tracking-wide">Verify via phone</p>
+            </div>
+         </div>
+      </div>
+      <aside class="notes">
+        "Trap #6 is Phishing.
+        Attackers hack your emotions (Fear/Urgency).
+        Look at the demo: The sender is fake. The subject screams 'URGENT.' That panic you feel? That is the hack.
+        STOP clicking.
+        CHECK the URL.
+        CALL the person directly. Don't let them hack you."
+      </aside>
+    </section>
+
+    <!-- SLIDE 13: TRAP 7 - AI RISKS -->
+    <section>
+      <div class="max-w-6xl mx-auto w-full p-6">
+        <div class="mb-4 font-mono text-[var(--tech-alert)] text-center text-sm tracking-[0.2em] uppercase font-bold">Trap #07</div>
+        <h1 class="text-4xl md:text-6xl font-bold mb-12 text-center text-white tracking-tight">AI & REGULATION</h1>
+        
+        <div class="flex flex-col md:flex-row items-center justify-center gap-10 md:gap-20 mb-14 mobile-scroll">
+           <!-- Public AI -->
+           <div class="text-center opacity-50 hover:opacity-100 transition-opacity duration-300">
+              <div class="bg-slate-800 p-8 rounded-3xl mb-6 border border-slate-700 shadow-inner">
+                 <i data-lucide="bot" class="w-16 h-16 md:w-20 md:h-20 mx-auto text-slate-500"></i>
+              </div>
+              <h3 class="text-white font-bold text-2xl mb-2">Public AI</h3>
+              <p class="text-sm text-red-400 font-mono uppercase tracking-wider">Black Box Data</p>
+           </div>
+           
+           <!-- Divider / Scale -->
+           <div class="flex flex-col items-center justify-center h-24 md:h-auto md:w-48 relative">
+               <div class="h-full w-1 md:w-full md:h-1 bg-slate-600"></div>
+               <div class="absolute bg-[#05080f] px-6 py-3 border border-slate-500 rounded-lg text-slate-200 text-sm font-bold shadow-2xl z-10 whitespace-nowrap">
+                  EU AI ACT COMPLIANCE
+               </div>
+           </div>
+
+           <!-- Private AI -->
+           <div class="text-center transform scale-110">
+              <div class="bg-[var(--tech-blue)]/10 p-8 rounded-3xl border-2 border-[var(--tech-blue)] mb-6 shadow-[0_0_40px_rgba(0,243,255,0.15)]">
+                 <i data-lucide="sparkles" class="w-16 h-16 md:w-20 md:h-20 mx-auto text-[var(--tech-blue)]"></i>
+              </div>
+              <h3 class="text-white font-bold text-2xl mb-2">tGenie</h3>
+              <p class="text-sm text-[var(--tech-safe)] font-mono uppercase tracking-wider">Internal & Private</p>
+           </div>
+        </div>
+
+        <div class="text-center">
+           <span class="inline-block border border-[var(--tech-safe)] text-[var(--tech-safe)] bg-[var(--tech-safe)]/10 font-mono font-bold px-8 py-4 rounded-xl text-sm md:text-lg tracking-wide shadow-lg">
+               RULE: Sensitive Work  →  tGenie Only
+           </span>
+        </div>
+      </div>
+      <aside class="notes">
+        "Trap #7 is AI.
+        The EU AI Act has set global standards. We must know exactly where our data goes.
+        When you use public tools like ChatGPT, you put us in a regulatory minefield. Your input becomes their training data.
+        This is why we built tGenie. It is our Compliant, Private internal LLM.
+        For any work tasks, the rule is simple: Use tGenie. Keep us safe, and keep us legal."
+      </aside>
+    </section>
+
+    <!-- SLIDE 14: WORK-LIFE BALANCE -->
+    <section>
+      <div class="max-w-4xl mx-auto w-full text-center p-6">
+        <h1 class="text-4xl md:text-6xl font-bold mb-12 text-white tracking-tight">THE ULTIMATE FEATURE</h1>
+        <div class="glass-panel p-10 md:p-20">
+           <div class="flex justify-center items-center gap-12 mb-12">
+              <i data-lucide="briefcase" class="w-16 h-16 md:w-24 md:h-24 text-slate-500"></i>
+              <div class="h-16 md:h-24 w-px bg-slate-600"></div>
+              <i data-lucide="palmtree" class="w-16 h-16 md:w-24 md:h-24 text-[var(--tech-safe)]"></i>
+           </div>
+           
+           <h2 class="text-2xl md:text-4xl font-bold text-white mb-10 leading-tight">Security comes from Separation.</h2>
+           
+           <div class="grid gap-6 max-w-lg mx-auto text-left">
+              <div class="flex items-center gap-6 p-4 rounded-xl hover:bg-white/5 transition-colors border border-transparent hover:border-white/10">
+                  <div class="bg-[var(--tech-safe)]/20 p-3 rounded-full"><i data-lucide="check" class="text-[var(--tech-safe)] w-6 h-6"></i></div>
+                  <span class="text-slate-200 text-lg font-medium">Leave work at work.</span>
+              </div>
+              <div class="flex items-center gap-6 p-4 rounded-xl hover:bg-white/5 transition-colors border border-transparent hover:border-white/10">
+                  <div class="bg-[var(--tech-safe)]/20 p-3 rounded-full"><i data-lucide="check" class="text-[var(--tech-safe)] w-6 h-6"></i></div>
+                  <span class="text-slate-200 text-lg font-medium">Talk hobbies, not projects.</span>
+              </div>
+              <div class="flex items-center gap-6 p-4 rounded-xl hover:bg-white/5 transition-colors border border-transparent hover:border-white/10">
+                  <div class="bg-[var(--tech-safe)]/20 p-3 rounded-full"><i data-lucide="check" class="text-[var(--tech-safe)] w-6 h-6"></i></div>
+                  <span class="text-slate-200 text-lg font-medium">Disconnect to protect peace.</span>
+              </div>
+           </div>
+        </div>
+      </div>
+      <aside class="notes">
+        "Trap #7 is failing to disconnect.
+        The best defense is Work-Life Balance.
+        When you are with friends, don't talk about deadlines. Share your hobbies.
+        By keeping your work life and your personal life strictly separate, you protect the company's secrets, and you protect your own peace of mind.
+        Put the phone away. Enjoy your time off."
+      </aside>
+    </section>
+
+    <!-- SLIDE 15: CONSEQUENCES -->
+    <section>
+      <div class="max-w-5xl mx-auto w-full text-center p-6">
+        <h1 class="text-4xl md:text-6xl font-bold mb-12 text-[var(--tech-alert)] tracking-tight">THE COST OF ERROR</h1>
+        <div class="glass-panel p-10 md:p-16 border-t border-[var(--tech-alert)]">
+           <h3 class="text-xl md:text-3xl text-white mb-12 font-medium italic">"I didn't mean to" is not a defense.</h3>
+           
+           <div class="grid grid-cols-1 md:grid-cols-2 gap-10 text-left">
+              <div class="bg-black/40 p-8 rounded-2xl border border-slate-700">
+                 <h4 class="text-[var(--tech-alert)] font-bold mb-6 text-sm uppercase tracking-widest border-b border-red-900/50 pb-2">Immediate</h4>
+                 <ul class="text-slate-300 text-base md:text-lg space-y-4">
+                    <li class="flex items-center gap-3"><div class="w-1.5 h-1.5 bg-red-500 rounded-full"></div> Disciplinary Action</li>
+                    <li class="flex items-center gap-3"><div class="w-1.5 h-1.5 bg-red-500 rounded-full"></div> Termination</li>
+                    <li class="flex items-center gap-3"><div class="w-1.5 h-1.5 bg-red-500 rounded-full"></div> Legal Action</li>
+                 </ul>
+              </div>
+              <div class="bg-black/40 p-8 rounded-2xl border border-slate-700">
+                 <h4 class="text-orange-400 font-bold mb-6 text-sm uppercase tracking-widest border-b border-orange-900/50 pb-2">Unseen Impact</h4>
+                 <ul class="text-slate-300 text-base md:text-lg space-y-4">
+                    <li class="flex items-center gap-3"><div class="w-1.5 h-1.5 bg-orange-500 rounded-full"></div> Failed Reference Checks</li>
+                    <li class="flex items-center gap-3"><div class="w-1.5 h-1.5 bg-orange-500 rounded-full"></div> Permanent Reputation Damage</li>
+                    <li class="flex items-center gap-3"><div class="w-1.5 h-1.5 bg-orange-500 rounded-full"></div> Industry is small</li>
+                 </ul>
+              </div>
+           </div>
+        </div>
+      </div>
+      <aside class="notes">
+        "Finally, the Consequences.
+        Intent does not change the outcome. An accidental leak destroys value just like a malicious one.
+        If you violate these rules, you face termination. But the Unseen Impact is worse: Your Future Career.
+        When you apply for your next job, a Reference Check showing IP negligence is a massive red flag.
+        Don't let a moment of carelessness today become a permanent roadblock tomorrow."
+      </aside>
+    </section>
+
+    <!-- SLIDE 16: RESOURCES & PLEDGE -->
+    <section>
+      <div class="max-w-5xl mx-auto w-full text-center p-6">
+        <h1 class="text-4xl md:text-6xl font-bold mb-12 text-white tracking-tight">YOU ARE NOT ALONE</h1>
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
+           <div class="glass-panel p-8 flex flex-col items-center hover:bg-white/5 transition-colors cursor-pointer group">
+              <i data-lucide="user-check" class="w-10 h-10 mb-4 text-blue-400 group-hover:text-white transition-colors"></i>
+              <span class="text-sm font-bold text-slate-300 uppercase tracking-wide">Manager</span>
+           </div>
+           <div class="glass-panel p-8 flex flex-col items-center hover:bg-white/5 transition-colors cursor-pointer group">
+              <i data-lucide="shield" class="w-10 h-10 mb-4 text-blue-400 group-hover:text-white transition-colors"></i>
+              <span class="text-sm font-bold text-slate-300 uppercase tracking-wide">Info Guardian</span>
+           </div>
+           <div class="glass-panel p-8 flex flex-col items-center hover:bg-white/5 transition-colors cursor-pointer group">
+              <i data-lucide="mail" class="w-10 h-10 mb-4 text-blue-400 group-hover:text-white transition-colors"></i>
+              <span class="text-sm font-bold text-slate-300 uppercase tracking-wide">Portal</span>
+           </div>
+           <div class="glass-panel p-8 flex flex-col items-center hover:bg-white/5 transition-colors cursor-pointer group">
+              <i data-lucide="bot" class="w-10 h-10 mb-4 text-blue-400 group-hover:text-white transition-colors"></i>
+              <span class="text-sm font-bold text-slate-300 uppercase tracking-wide">Digi Asst.</span>
+           </div>
+        </div>
+        
+        <div class="glass-panel p-10 md:p-14 border border-[var(--tech-blue)]/50 bg-[var(--tech-blue)]/5">
+           <h2 class="text-sm font-mono text-[var(--tech-blue)] mb-6 tracking-[0.3em] uppercase font-bold">The Pledge</h2>
+           <p class="text-2xl md:text-3xl text-white font-serif italic mb-10 leading-relaxed">"I protect the innovation that builds our future."</p>
+           
+           <div class="flex flex-col md:flex-row justify-center gap-6">
+              <button class="text-sm bg-slate-800 hover:bg-slate-700 px-8 py-4 rounded-lg text-slate-300 transition-colors border border-slate-600 font-bold">STEP 1: Sign NDA</button>
+              <button class="text-sm bg-[var(--tech-safe)] hover:bg-green-400 px-8 py-4 rounded-lg text-black font-bold transition-all shadow-[0_0_20px_rgba(0,255,157,0.3)] transform hover:scale-105">STEP 2: Begin Assessment</button>
+           </div>
+        </div>
+      </div>
+      <aside class="notes">
+        "You are not alone.
+        If you are unsure, ask for help. Ask your Supervisor or your Info Guardian.
+        Security isn't about knowing everything; it's about knowing who to ask.
+        Your signature today is your promise. Thank you."
+      </aside>
+    </section>
+
+    <!-- SLIDE 17: ASSESSMENT (Improved Readability) -->
+    <section id="assessment-slide">
+      <div class="max-w-4xl mx-auto w-full h-full flex flex-col justify-center p-6">
+        <!-- Sticky Header with Progress -->
+        <div class="bg-[#05080f]/95 backdrop-blur-md sticky top-0 z-20 pb-6 border-b border-slate-700">
+            <div class="flex justify-between items-end mb-3">
+                <div>
+                    <h1 class="text-2xl md:text-4xl font-bold text-[var(--tech-blue)] tracking-tight">KNOWLEDGE ASSESSMENT</h1>
+                    <p class="text-sm text-slate-400 mt-2 font-mono">100% Pass Rate Required</p>
+                </div>
+                <div class="text-right">
+                     <div class="text-4xl font-mono font-bold text-[var(--tech-safe)]" id="score-display">0/10</div>
+                </div>
+            </div>
+            <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
+                <div id="progress-bar" class="h-full bg-[var(--tech-blue)] transition-all duration-300 w-0 shadow-[0_0_10px_var(--tech-blue)]"></div>
+            </div>
+        </div>
+        
+        <!-- Scrollable Questions Container -->
+        <div class="mobile-scroll space-y-8 md:space-y-10 pr-4 relative mt-6 pb-24" data-prevent-swipe>
+            
+            <!-- Question 1 -->
+            <div class="quiz-card group" id="q1">
+                <div class="flex justify-between items-start mb-6">
+                    <span class="text-[var(--tech-blue)] font-mono text-sm font-bold opacity-70">01 // SCENARIO</span>
+                </div>
+                <p class="text-lg md:text-xl font-medium text-white mb-6 leading-relaxed">A friend asks what you are working on. You trust them implicitly.</p>
+                <div class="space-y-3">
+                    <div class="quiz-option w-full" data-correct="false">A) Tell them vaguely.</div>
+                    <div class="quiz-option w-full" data-correct="true">B) Say nothing. "PIP is Life."</div>
+                </div>
+                <div class="feedback-msg hidden mt-4 text-sm font-mono text-[var(--tech-safe)] bg-[var(--tech-safe)]/10 p-4 rounded border-l-4 border-[var(--tech-safe)] animate-pulse">
+                    <i data-lucide="check-circle" class="w-4 h-4 inline mr-2"></i> SYSTEM_LOG: Trust is not a security clearance.
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="quiz-card group" id="q2">
+                <div class="flex justify-between items-start mb-6">
+                    <span class="text-[var(--tech-blue)] font-mono text-sm font-bold opacity-70">02 // DEVICE PROTOCOL</span>
+                </div>
+                <p class="text-lg md:text-xl font-medium text-white mb-6">You have Smart Glasses that look normal. Can you bring them in?</p>
+                <div class="space-y-3">
+                    <div class="quiz-option w-full" data-correct="false">A) Yes, if turned off.</div>
+                    <div class="quiz-option w-full" data-correct="true">B) No.</div>
+                </div>
+                <div class="feedback-msg hidden mt-4 text-sm font-mono text-[var(--tech-safe)] bg-[var(--tech-safe)]/10 p-4 rounded border-l-4 border-[var(--tech-safe)] animate-pulse">
+                    <i data-lucide="check-circle" class="w-4 h-4 inline mr-2"></i> SYSTEM_LOG: If it can Record, Store, or Transmit, it stays out.
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="quiz-card group" id="q3">
+                <div class="flex justify-between items-start mb-6">
+                    <span class="text-[var(--tech-blue)] font-mono text-sm font-bold opacity-70">03 // PHYSICAL SECURITY</span>
+                </div>
+                <p class="text-lg md:text-xl font-medium text-white mb-6">A colleague with coffee asks you to hold the secure door.</p>
+                <div class="space-y-3">
+                    <div class="quiz-option w-full" data-correct="false">A) Hold it.</div>
+                    <div class="quiz-option w-full" data-correct="true">B) Ask them to swipe. "One Badge, One Person."</div>
+                </div>
+                <div class="feedback-msg hidden mt-4 text-sm font-mono text-[var(--tech-safe)] bg-[var(--tech-safe)]/10 p-4 rounded border-l-4 border-[var(--tech-safe)] animate-pulse">
+                    <i data-lucide="check-circle" class="w-4 h-4 inline mr-2"></i> SYSTEM_LOG: Politeness is a bridge for threats.
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="quiz-card group" id="q4">
+                <div class="flex justify-between items-start mb-6">
+                    <span class="text-[var(--tech-blue)] font-mono text-sm font-bold opacity-70">04 // CLASSIFICATION</span>
+                </div>
+                <p class="text-lg md:text-xl font-medium text-white mb-6">You are unsure how to label a file.</p>
+                <div class="space-y-3">
+                    <div class="quiz-option w-full" data-correct="false">A) Leave blank.</div>
+                    <div class="quiz-option w-full" data-correct="true">B) Mark it "AA" (Highest Level).</div>
+                </div>
+                <div class="feedback-msg hidden mt-4 text-sm font-mono text-[var(--tech-safe)] bg-[var(--tech-safe)]/10 p-4 rounded border-l-4 border-[var(--tech-safe)] animate-pulse">
+                    <i data-lucide="check-circle" class="w-4 h-4 inline mr-2"></i> SYSTEM_LOG: Always over-protect.
+                </div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="quiz-card group" id="q5">
+                <div class="flex justify-between items-start mb-6">
+                    <span class="text-[var(--tech-blue)] font-mono text-sm font-bold opacity-70">05 // PHISHING</span>
+                </div>
+                <p class="text-lg md:text-xl font-medium text-white mb-6">You get an URGENT email to reset your password.</p>
+                <div class="space-y-3">
+                    <div class="quiz-option w-full" data-correct="false">A) Click immediately.</div>
+                    <div class="quiz-option w-full" data-correct="true">B) STOP - CHECK - CALL.</div>
+                </div>
+                <div class="feedback-msg hidden mt-4 text-sm font-mono text-[var(--tech-safe)] bg-[var(--tech-safe)]/10 p-4 rounded border-l-4 border-[var(--tech-safe)] animate-pulse">
+                    <i data-lucide="check-circle" class="w-4 h-4 inline mr-2"></i> SYSTEM_LOG: Panic is the hack.
+                </div>
+            </div>
+
+            <!-- Question 6 -->
+            <div class="quiz-card group" id="q6">
+                <div class="flex justify-between items-start mb-6">
+                    <span class="text-[var(--tech-blue)] font-mono text-sm font-bold opacity-70">06 // AI USAGE</span>
+                </div>
+                <p class="text-lg md:text-xl font-medium text-white mb-6">You need AI to debug code.</p>
+                <div class="space-y-3">
+                    <div class="quiz-option w-full" data-correct="false">A) Use ChatGPT.</div>
+                    <div class="quiz-option w-full" data-correct="true">B) Use tGenie.</div>
+                </div>
+                <div class="feedback-msg hidden mt-4 text-sm font-mono text-[var(--tech-safe)] bg-[var(--tech-safe)]/10 p-4 rounded border-l-4 border-[var(--tech-safe)] animate-pulse">
+                    <i data-lucide="check-circle" class="w-4 h-4 inline mr-2"></i> SYSTEM_LOG: Public AI trains on your data. tGenie is private.
+                </div>
+            </div>
+
+            <!-- Question 7 -->
+            <div class="quiz-card group" id="q7">
+                <div class="flex justify-between items-start mb-6">
+                    <span class="text-[var(--tech-blue)] font-mono text-sm font-bold opacity-70">07 // IP CONTAMINATION</span>
+                </div>
+                <p class="text-lg md:text-xl font-medium text-white mb-6">You have a template from your old job.</p>
+                <div class="space-y-3">
+                    <div class="quiz-option w-full" data-correct="false">A) Use it to save time.</div>
+                    <div class="quiz-option w-full" data-correct="true">B) Start fresh.</div>
+                </div>
+                <div class="feedback-msg hidden mt-4 text-sm font-mono text-[var(--tech-safe)] bg-[var(--tech-safe)]/10 p-4 rounded border-l-4 border-[var(--tech-safe)] animate-pulse">
+                    <i data-lucide="check-circle" class="w-4 h-4 inline mr-2"></i> SYSTEM_LOG: IP Contamination is theft.
+                </div>
+            </div>
+
+            <!-- Question 8 -->
+            <div class="quiz-card group" id="q8">
+                <div class="flex justify-between items-start mb-6">
+                    <span class="text-[var(--tech-blue)] font-mono text-sm font-bold opacity-70">08 // DEVICES</span>
+                </div>
+                <p class="text-lg md:text-xl font-medium text-white mb-6">An investigation starts. You use your personal phone for work.</p>
+                <div class="space-y-3">
+                    <div class="quiz-option w-full" data-correct="false">A) Your phone is safe.</div>
+                    <div class="quiz-option w-full" data-correct="true">B) Authorities can seize your phone.</div>
+                </div>
+                <div class="feedback-msg hidden mt-4 text-sm font-mono text-[var(--tech-safe)] bg-[var(--tech-safe)]/10 p-4 rounded border-l-4 border-[var(--tech-safe)] animate-pulse">
+                    <i data-lucide="check-circle" class="w-4 h-4 inline mr-2"></i> SYSTEM_LOG: Double Device = Double Risk.
+                </div>
+            </div>
+
+             <!-- Question 9 -->
+            <div class="quiz-card group" id="q9">
+                <div class="flex justify-between items-start mb-6">
+                    <span class="text-[var(--tech-blue)] font-mono text-sm font-bold opacity-70">09 // RESOURCES</span>
+                </div>
+                <p class="text-lg md:text-xl font-medium text-white mb-6">Who is your specific department expert for classification questions?</p>
+                <div class="space-y-3">
+                    <div class="quiz-option w-full" data-correct="false">A) IT.</div>
+                    <div class="quiz-option w-full" data-correct="true">B) Info Guardian.</div>
+                </div>
+                <div class="feedback-msg hidden mt-4 text-sm font-mono text-[var(--tech-safe)] bg-[var(--tech-safe)]/10 p-4 rounded border-l-4 border-[var(--tech-safe)] animate-pulse">
+                    <i data-lucide="check-circle" class="w-4 h-4 inline mr-2"></i> SYSTEM_LOG: The Guardian knows the specific rules.
+                </div>
+            </div>
+
+             <!-- Question 10 -->
+            <div class="quiz-card group" id="q10">
+                <div class="flex justify-between items-start mb-6">
+                    <span class="text-[var(--tech-blue)] font-mono text-sm font-bold opacity-70">10 // CONSEQUENCES</span>
+                </div>
+                <p class="text-lg md:text-xl font-medium text-white mb-6">What is the long-term risk of a security termination?</p>
+                <div class="space-y-3">
+                    <div class="quiz-option w-full" data-correct="false">A) None.</div>
+                    <div class="quiz-option w-full" data-correct="true">B) Failed Reference Checks / Career Damage.</div>
+                </div>
+                <div class="feedback-msg hidden mt-4 text-sm font-mono text-[var(--tech-safe)] bg-[var(--tech-safe)]/10 p-4 rounded border-l-4 border-[var(--tech-safe)] animate-pulse">
+                    <i data-lucide="check-circle" class="w-4 h-4 inline mr-2"></i> SYSTEM_LOG: The industry is small.
+                </div>
+            </div>
+
+            <!-- SUCCESS Results Card -->
+            <div id="results-card" class="hidden absolute inset-0 bg-[#05080f]/98 flex flex-col items-center justify-center text-center p-6 z-50 backdrop-blur-xl rounded-xl">
+                 <div class="mb-8 bg-[var(--tech-safe)]/10 p-8 rounded-full border border-[var(--tech-safe)] animate-bounce shadow-[0_0_30px_rgba(0,255,157,0.2)]">
+                     <i data-lucide="award" class="w-24 h-24 text-[var(--tech-safe)]"></i>
+                 </div>
+                 <h2 class="text-5xl font-bold text-white mb-4 tracking-tight">ASSESSMENT COMPLETE</h2>
+                 <p class="text-slate-300 mb-10 max-w-lg text-lg">You have demonstrated the PIP Mindset and are cleared for operation.</p>
+                 
+                 <div class="bg-slate-900 p-8 rounded-xl border border-slate-700 w-full max-w-md mb-10">
+                     <div class="flex justify-between items-center text-lg mb-4">
+                         <span class="text-slate-400">Final Score</span>
+                         <span class="text-[var(--tech-safe)] font-mono font-bold text-xl">100%</span>
+                     </div>
+                     <div class="flex justify-between items-center text-lg border-t border-slate-700 pt-4">
+                         <span class="text-slate-400">Status</span>
+                         <span class="text-[var(--tech-safe)] font-mono font-bold tracking-widest text-xl">CERTIFIED</span>
+                     </div>
+                 </div>
+                 
+                 <button onclick="location.reload()" class="px-10 py-4 bg-[var(--tech-blue)] text-black font-bold rounded-xl hover:bg-cyan-300 transition-all shadow-[0_0_20px_rgba(0,243,255,0.3)] uppercase tracking-wider text-base">Close Module</button>
+            </div>
+
+            <!-- FAILURE Results Card -->
+            <div id="fail-card" class="hidden absolute inset-0 bg-[#05080f]/98 flex flex-col items-center justify-center text-center p-6 z-50 backdrop-blur-xl rounded-xl">
+                 <div class="mb-8 bg-[var(--tech-alert)]/10 p-8 rounded-full border border-[var(--tech-alert)] animate-pulse shadow-[0_0_30px_rgba(255,42,109,0.2)]">
+                     <i data-lucide="alert-triangle" class="w-24 h-24 text-[var(--tech-alert)]"></i>
+                 </div>
+                 <h2 class="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">SECURITY ALERT</h2>
+                 <p class="text-slate-300 mb-10 max-w-lg text-lg">Certification requires 100% accuracy. Please review the material and try again.</p>
+                 
+                 <button onclick="InteractionManager.resetQuiz()" class="px-10 py-4 bg-[var(--tech-alert)] text-white font-bold rounded-xl hover:bg-red-400 transition-all shadow-[0_0_20px_rgba(255,42,109,0.3)] uppercase tracking-wider text-base">Retake Assessment</button>
+            </div>
+
+        </div>
+      </div>
+      <aside class="notes">
+        "Take your time with the assessment. Passing is required for certification."
+      </aside>
+    </section>
+
+  </div>
+</div>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/plugin/notes/notes.js"></script>
+
+<script>
+  // --- Script HUD Logic ---
+  function toggleScriptHUD() {
+    const hud = document.getElementById('script-hud');
+    const btn = document.getElementById('btn-script');
+    hud.classList.toggle('visible');
+    btn.classList.toggle('active');
+    updateScriptContent(); 
+  }
+
+  function updateScriptContent() {
+    const currentSlide = Reveal.getCurrentSlide();
+    const notesElement = currentSlide.querySelector('aside.notes');
+    const scriptTextContainer = document.getElementById('script-text');
+    
+    if (notesElement) {
+      const rawText = notesElement.innerHTML;
+      const cleanText = rawText.replace(/^\s+|\s+$/g, '').replace(/\n\s+/g, '\n');
+      scriptTextContainer.innerText = cleanText;
+    } else {
+      scriptTextContainer.innerText = "No script available for this slide.";
+    }
+  }
+
+  // --- Full Screen Logic ---
+  function toggleFullScreen() {
+    if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(err => {
+            console.log(`Error attempting to enable full-screen mode: ${err.message}`);
+        });
+    } else {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        }
+    }
+  }
+
+  // --- Interaction Manager ---
+  const InteractionManager = {
+    score: 0,
+    totalQuestions: 10,
+    answeredQuestions: new Set(),
+
+    init() {
+        lucide.createIcons();
+        this.initReveal();
+        this.bindEvents();
+    },
+
+    initReveal() {
+        Reveal.initialize({
+            hash: false, 
+            history: false,
+            slideNumber: 'c/t',
+            controls: false, 
+            progress: true,
+            center: true,
+            transition: 'fade',
+            backgroundTransition: 'fade',
+            display: 'flex',
+            width: 1400,
+            height: 900,
+            margin: 0.08,
+            minScale: 0.2,
+            maxScale: 2.0,
+            plugins: [ RevealNotes ]
+        });
+
+        Reveal.on('slidechanged', () => {
+            lucide.createIcons();
+            updateScriptContent(); 
+        });
+    },
+
+    bindEvents() {
+        const overlay = document.getElementById('focus-overlay');
+        overlay.addEventListener('click', () => {
+            overlay.classList.add('hidden');
+            document.body.focus();
+            Reveal.layout();
+        });
+
+        // Quiz Logic
+        document.addEventListener('click', (e) => {
+            const option = e.target.closest('.quiz-option');
+            if (!option) return;
+            
+            const container = option.closest('.quiz-card');
+            const questionId = container.id;
+            
+            if (this.answeredQuestions.has(questionId)) return;
+
+            const isCorrect = option.dataset.correct === "true";
+            const feedback = container.querySelector('.feedback-msg');
+            
+            if (isCorrect) {
+                option.classList.add('correct');
+                this.score++;
+                this.updateProgress();
+            } else {
+                option.classList.add('incorrect');
+                const correctOption = container.querySelector('[data-correct="true"]');
+                if (correctOption) correctOption.classList.add('correct');
+            }
+
+            container.classList.add('answered');
+            const siblings = container.querySelectorAll('.quiz-option');
+            siblings.forEach(btn => {
+                btn.style.pointerEvents = 'none';
+                if (!btn.classList.contains('correct') && !btn.classList.contains('incorrect')) {
+                    btn.style.opacity = '0.4';
+                }
+            });
+
+            if(feedback) feedback.classList.remove('hidden');
+
+            this.answeredQuestions.add(questionId);
+            this.checkCompletion();
+        });
+    },
+
+    updateProgress() {
+        const scoreDisplay = document.getElementById('score-display');
+        const progressBar = document.getElementById('progress-bar');
+        
+        if (scoreDisplay) scoreDisplay.textContent = `${this.score}/${this.totalQuestions}`;
+        
+        if (progressBar) {
+            const percentage = (this.score / this.totalQuestions) * 100;
+            progressBar.style.width = `${percentage}%`;
+            
+            if (percentage < 50) progressBar.style.backgroundColor = 'var(--tech-alert)';
+            else if (percentage < 100) progressBar.style.backgroundColor = 'var(--tech-warn)';
+            else progressBar.style.backgroundColor = 'var(--tech-safe)';
+        }
+    },
+
+    checkCompletion() {
+        if (this.answeredQuestions.size === this.totalQuestions) {
+            if (this.score === this.totalQuestions) {
+                setTimeout(() => {
+                    const resultCard = document.getElementById('results-card');
+                    resultCard.classList.remove('hidden');
+                }, 1000);
+            } else {
+                setTimeout(() => {
+                    const failCard = document.getElementById('fail-card');
+                    failCard.classList.remove('hidden');
+                }, 1000);
+            }
+        }
+    },
+
+    resetQuiz() {
+        this.score = 0;
+        this.answeredQuestions.clear();
+        this.updateProgress();
+        
+        // Hide overlay cards
+        document.getElementById('fail-card').classList.add('hidden');
+        document.getElementById('results-card').classList.add('hidden');
+
+        // Reset all UI elements
+        const containers = document.querySelectorAll('.quiz-card');
+        containers.forEach(container => {
+            container.classList.remove('answered');
+            const feedback = container.querySelector('.feedback-msg');
+            if (feedback) feedback.classList.add('hidden');
+            
+            const options = container.querySelectorAll('.quiz-option');
+            options.forEach(opt => {
+                opt.classList.remove('correct', 'incorrect');
+                opt.style.opacity = '1';
+                opt.style.pointerEvents = 'auto';
+            });
+        });
+    }
+  };
+
+  document.addEventListener('DOMContentLoaded', () => InteractionManager.init());
+</script>
+
+</body>
+</html>
+
+
